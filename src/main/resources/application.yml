@@ -1,0 +1,57 @@
+booking:
+  version: "1.0.0"
+  title: "BlogSearch"
+
+spring:
+  profiles:
+    active:
+      - local
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+        format_sql: true
+        hbm2ddl:
+          auto: create
+          charset_name: UTF-8
+        jdbc:
+          # timezone 설정
+          time_zone: Asia/Seoul
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+        format_sql: true
+        hbm2ddl:
+          auto: create
+          charset_name: UTF-8
+        jdbc:
+          # timezone 설정
+          time_zone: Asia/Seoul
