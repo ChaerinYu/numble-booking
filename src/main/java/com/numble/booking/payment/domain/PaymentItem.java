@@ -52,4 +52,16 @@ public class PaymentItem extends CreatedAndModifiedBase {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paymentItemInfoId")
     private PaymentItemInfo paymentItemInfo;
+
+    /**
+     * 생성
+     */
+    public static PaymentItem create(Payment payment, PerformanceSeat seat, PerformanceCoupon coupon, PaymentItemInfo info) {
+        PaymentItem entity = new PaymentItem();
+        entity.payment = payment;
+        entity.performanceSeat = seat;
+        entity.performanceCoupon = coupon;
+        entity.paymentItemInfo = info;
+        return entity;
+    }
 }

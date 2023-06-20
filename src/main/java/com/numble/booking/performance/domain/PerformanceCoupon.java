@@ -38,7 +38,7 @@ public class PerformanceCoupon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "performanceId", nullable = false)
     private Performance performance;
-    
+
     // 쿠폰
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "couponId", nullable = false)

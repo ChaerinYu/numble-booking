@@ -41,4 +41,14 @@ public class PaymentItemInfo {
 
     // 쿠폰 할인
     private Integer usedCouponPrice;
+
+    /**
+     * 생성
+     */
+    public static PaymentItemInfo create(Integer orgPrice, Integer usedCouponPrice) {
+        PaymentItemInfo entity = new PaymentItemInfo();
+        entity.orgPrice = orgPrice;
+        entity.usedCouponPrice = usedCouponPrice != null ? usedCouponPrice : 0;
+        return entity;
+    }
 }

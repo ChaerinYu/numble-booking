@@ -3,10 +3,13 @@ package com.numble.booking.book.service;
 import com.numble.booking.book.value.BookingFirstDto;
 import com.numble.booking.book.value.BookingSecondDto;
 import com.numble.booking.payment.domain.Delivery;
+import com.numble.booking.payment.domain.Payment;
 import com.numble.booking.payment.domain.PaymentInfo;
+import com.numble.booking.payment.domain.PaymentItem;
 import com.numble.booking.payment.exception.BadRequestPaymentException;
 import com.numble.booking.payment.repository.DeliveryRepository;
 import com.numble.booking.payment.repository.PaymentInfoRepository;
+import com.numble.booking.payment.repository.PaymentRepository;
 import com.numble.booking.payment.type.PaymentMethod;
 import com.numble.booking.payment.value.PaymentByCardDto;
 import com.numble.booking.payment.value.PaymentByEWalletDto;
@@ -58,6 +61,7 @@ public class BookingService {
     private final PerformanceRepository performanceRepository;
     private final PerformanceSeatRepository performanceSeatRepository;
     private final PerformanceSeatQuerydslRepository performanceSeatQuerydslRepository;
+    private final PaymentRepository paymentRepository;
     private final PaymentInfoRepository paymentInfoRepository;
     private final DeliveryRepository deliveryRepository;
     private final UserRepository userRepository;
@@ -124,17 +128,27 @@ public class BookingService {
         Delivery delivery = MapperUtil.map(dto.getDeliveryDto(), Delivery.class);
         deliveryRepository.save(delivery);
 
+        // 결제 저장
+        Payment payment = Payment.create(paymentInfo, delivery, user);
+        paymentRepository.save(payment);
+        
         // 공연과 사용자 정보로 PENDING 인 좌석 조회하기
         List<PerformanceSeat> pendingSeats = performanceSeatRepository.findByPerformanceAndUser(performance.getId(), user.getId())
                 .stream()
                 .filter(ps -> SeatStatus.PENDING.equals(ps.getStatus()))
                 .collect(Collectors.toList());
-
+        // PerformanceSeat 저장
         for (PerformanceSeat pendingSeat : pendingSeats) {
-            //
+            pendingSeat.modifyStatus(SeatStatus.OCCUPIED, user);
         }
+        performanceSeatRepository.saveAll(pendingSeats);
+        
+        // TODO PaymentItem, PaymentItemInfo 저장
+        List<PaymentItem> items = new ArrayList<>();
 
-        // 티켓 생성
+//        PaymentItem.create(payment, )
+
+        // 티켓 생성 Ticket
         final int ticketKeySize = 10;
         String ticketKey = TicketService.getRandomStr(ticketKeySize);
         Ticket.create(ticketKey, null, user, ReceivingMethod.POSTAL_MAIL);

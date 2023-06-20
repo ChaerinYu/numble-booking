@@ -9,7 +9,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.security.core.parameters.P;
 
 import javax.persistence.*;
 import java.util.List;
@@ -66,7 +65,7 @@ public class PerformanceSeat extends CreatedAndModifiedBase {
     
     // 좌석 예약한 사람
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "userId")
     private User user;
 
     /**

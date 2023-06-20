@@ -1,6 +1,7 @@
 package com.numble.booking.payment.domain;
 
 import com.numble.booking.common.base.CreatedAndModifiedBase;
+import com.numble.booking.payment.exception.BadRequestPaymentException;
 import com.numble.booking.user.domian.User;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -53,4 +54,30 @@ public class Payment extends CreatedAndModifiedBase {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
+
+    /**
+     * 생성
+     */
+    public static Payment create(PaymentInfo info, Delivery delivery, User user) {
+        Payment entity = new Payment();
+        entity.paymentInfo = info;
+        entity.delivery = delivery;
+        entity.user = user;
+        return entity;
+    }
+
+    /**
+     * 결제 항목 추가
+     */
+    public void addItems(List<PaymentItem> items) {
+        items.forEach(this::addItem);
+    }
+
+    public void addItem(PaymentItem item) {
+        boolean duplicated = this.paymentItems.stream().anyMatch(i -> i.getId().equals(item.getId()));
+        if (duplicated) {
+            throw new BadRequestPaymentException("중복된 항목이 존재합니다.");
+        }
+        this.paymentItems.add(item);
+    }
 }
