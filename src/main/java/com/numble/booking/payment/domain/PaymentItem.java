@@ -49,7 +49,7 @@ public class PaymentItem extends CreatedAndModifiedBase {
     private PerformanceCoupon performanceCoupon;
 
     // 결제 항목 정보
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "paymentItemInfoId")
     private PaymentItemInfo paymentItemInfo;
 

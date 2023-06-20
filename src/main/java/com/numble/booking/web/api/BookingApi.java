@@ -3,7 +3,9 @@ package com.numble.booking.web.api;
 import com.numble.booking.book.service.BookingService;
 import com.numble.booking.book.value.BookingFirstDto;
 import com.numble.booking.book.value.BookingSecondDto;
+import com.numble.booking.common.base.MessageVo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,8 +39,9 @@ public class BookingApi {
      * 첫 단계 : 공연과 좌석을 선택한다.
      */
     @PostMapping("/1")
-    public Long bookingFirstStep(@Valid @RequestBody BookingFirstDto dto) {
-        return bookingService.bookingFirstStep(dto);
+    public MessageVo bookingFirstStep(@Valid @RequestBody BookingFirstDto dto) {
+        Long performanceId = bookingService.bookingFirstStep(dto);
+        return new MessageVo(HttpStatus.OK, performanceId);
     }
 
     /**
@@ -46,7 +49,8 @@ public class BookingApi {
      * 두 번째 단계 : 선택된 공연 좌석 결제를 진행한다.
      */
     @PostMapping("/2")
-    public Long bookingSecondStep(@Valid @RequestBody BookingSecondDto dto) {
-        return bookingService.bookingSecondStep(dto);
+    public MessageVo bookingSecondStep(@Valid @RequestBody BookingSecondDto dto) {
+        bookingService.bookingSecondStep(dto);
+        return new MessageVo(HttpStatus.OK, "결제되었습니다.");
     }
 }

@@ -2,13 +2,11 @@ package com.numble.booking.book.service;
 
 import com.numble.booking.book.value.BookingFirstDto;
 import com.numble.booking.book.value.BookingSecondDto;
-import com.numble.booking.payment.domain.Delivery;
-import com.numble.booking.payment.domain.Payment;
-import com.numble.booking.payment.domain.PaymentInfo;
-import com.numble.booking.payment.domain.PaymentItem;
+import com.numble.booking.payment.domain.*;
 import com.numble.booking.payment.exception.BadRequestPaymentException;
 import com.numble.booking.payment.repository.DeliveryRepository;
 import com.numble.booking.payment.repository.PaymentInfoRepository;
+import com.numble.booking.payment.repository.PaymentItemRepository;
 import com.numble.booking.payment.repository.PaymentRepository;
 import com.numble.booking.payment.type.PaymentMethod;
 import com.numble.booking.payment.value.PaymentByCardDto;
@@ -20,10 +18,12 @@ import com.numble.booking.performance.exception.NotFoundPerformanceSeatException
 import com.numble.booking.performance.repository.PerformanceRepository;
 import com.numble.booking.performance.repository.PerformanceSeatQuerydslRepository;
 import com.numble.booking.performance.repository.PerformanceSeatRepository;
+import com.numble.booking.price.domain.PricePolicy;
 import com.numble.booking.seat.type.SeatStatus;
 import com.numble.booking.seat.value.SeatBookingDto;
 import com.numble.booking.seat.value.SeatListVo;
 import com.numble.booking.ticket.domain.Ticket;
+import com.numble.booking.ticket.repository.TicketRepository;
 import com.numble.booking.ticket.service.TicketService;
 import com.numble.booking.ticket.type.ReceivingMethod;
 import com.numble.booking.user.domian.User;
@@ -63,8 +63,10 @@ public class BookingService {
     private final PerformanceSeatQuerydslRepository performanceSeatQuerydslRepository;
     private final PaymentRepository paymentRepository;
     private final PaymentInfoRepository paymentInfoRepository;
+    private final PaymentItemRepository paymentItemRepository;
     private final DeliveryRepository deliveryRepository;
     private final UserRepository userRepository;
+    private final TicketRepository ticketRepository;
 
     @Transactional
     public Long bookingFirstStep(BookingFirstDto dto) {
@@ -100,7 +102,7 @@ public class BookingService {
     }
 
     @Transactional
-    public Long bookingSecondStep(BookingSecondDto dto) {
+    public void bookingSecondStep(BookingSecondDto dto) {
         Performance performance = performanceRepository.findById(dto.getPerformanceId())
                 .orElseThrow(NotFoundPerformanceException::new);
         User user = userRepository.findById(dto.getUserId())
@@ -143,17 +145,26 @@ public class BookingService {
         }
         performanceSeatRepository.saveAll(pendingSeats);
         
-        // TODO PaymentItem, PaymentItemInfo 저장
-        List<PaymentItem> items = new ArrayList<>();
-
-//        PaymentItem.create(payment, )
-
-        // 티켓 생성 Ticket
+        // PaymentItem, PaymentItemInfo 저장, Ticket 생성
+        // coupon 기능은 아직 적용 안 함. null로 설정
         final int ticketKeySize = 10;
-        String ticketKey = TicketService.getRandomStr(ticketKeySize);
-        Ticket.create(ticketKey, null, user, ReceivingMethod.POSTAL_MAIL);
-        
-        return null;
+        List<PaymentItem> items = new ArrayList<>();
+        List<Ticket> tickets = new ArrayList<>();
+        for (PerformanceSeat pendingSeat : pendingSeats) {
+            Integer orgPrice = performance.getPricePolicies().stream()
+                    .filter(p -> pendingSeat.getSeatType().equals(p.getType()))
+                    .map(PricePolicy::getPrice)
+                    .findAny()
+                    .orElseThrow(() -> new BadRequestPaymentException("존재하지 않는 좌석 유형입니다."));
+            PaymentItem paymentItem = PaymentItem.create(payment, pendingSeat, null, PaymentItemInfo.create(orgPrice, null));
+            items.add(paymentItem);
+
+            // 티켓 생성 Ticket
+            String ticketKey = TicketService.getRandomStr(ticketKeySize);
+            Ticket.create(ticketKey, paymentItem, user, ReceivingMethod.POSTAL_MAIL);
+        }
+        paymentItemRepository.saveAll(items);
+        ticketRepository.saveAll(tickets);
     }
 
     /**
