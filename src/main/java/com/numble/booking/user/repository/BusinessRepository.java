@@ -1,26 +1,24 @@
 package com.numble.booking.user.repository;
 
-import java.util.Optional;
-
-import com.numble.booking.user.domian.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.numble.booking.user.domian.Business;
+
 /**
  * <pre>
- * Class Name : UserRepository
+ * Class Name : BusinessRepository
  * Description :
  *
  * Modification Information
  * Modify Date      Modifier    Comment
  * -------------------------------------------------------------
- * 2023-06-18	    user	New
+ * 2023-06-21 	    chaerin 	New
  * </pre>
  *
- * @author user
- * @since 2023-06-18
+ * @author chaerin
+ * @since 2023-06-21
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByLoginId(String loginId);
+public interface BusinessRepository extends JpaRepository<Business, Long> {
 }

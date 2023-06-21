@@ -2,6 +2,7 @@ package com.numble.booking.user.domian;
 
 import com.numble.booking.common.base.CreatedAndModifiedBase;
 import com.numble.booking.user.type.UserStatus;
+import com.numble.booking.user.value.UserCreateDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,36 +37,57 @@ public class User extends CreatedAndModifiedBase {
     @Column(name = "userId", nullable = false)
     @GeneratedValue(generator = "userSeqGenerator")
     @GenericGenerator(name = "userSeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
-    private Long id;
+    protected Long id;
+
+    @Column(name = "loginId", length = 12, nullable = false, unique = true)
+    protected String loginId;
 
     // 이름
     @Column(nullable = false, length = 50)
-    private String name;
+    protected String name;
 
     // 비밀번호
     @Column(nullable = false)
-    private String password;
+    protected String password;
 
     // 이메일
     @Column(nullable = false)
-    private String email;
+    protected String email;
 
     // 유저 상태
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private UserStatus status;
+    protected UserStatus status;
 
     // 마지막 비밀번호 수정일시
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
-    private LocalDateTime lastPasswordModifyDate = LocalDateTime.now();
+    protected LocalDateTime lastPasswordModifyDate = LocalDateTime.now();
 
     // 마지막 로그인 일시
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column
-    private LocalDateTime lastLoginDate;
+    protected LocalDateTime lastLoginDate;
 
     // 사용자가 갖고 있는 쿠폰
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserCoupon> userCoupons = new ArrayList<>();
+
+    /**
+     * 생성
+     */
+    public static User create(UserCreateDto dto) {
+        LocalDateTime now = LocalDateTime.now();
+
+        User entity = new User();
+        entity.password = dto.getPassword();
+        entity.loginId = dto.getLoginId().toUpperCase();
+        entity.name = dto.getName();
+        entity.email = dto.getEmail();
+        entity.status = UserStatus.ACTIVE;
+        entity.lastPasswordModifyDate = now;
+        // TODO 첫 가입 쿠폰
+
+        return entity;
+    }
 }

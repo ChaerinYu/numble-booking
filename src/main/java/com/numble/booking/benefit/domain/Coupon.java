@@ -43,4 +43,6 @@ public class Coupon {
     // 쿠폰을 갖고 있는 사용자
     @OneToMany(mappedBy = "coupon", fetch = FetchType.LAZY)
     private List<UserCoupon> userCoupons = new ArrayList<>();
+    
+    // TODO 쿠폰 유효 기간
 }
