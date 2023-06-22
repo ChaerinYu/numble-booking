@@ -54,6 +54,9 @@ public class QBusiness extends EntityPathBase<Business> {
     public final DateTimePath<java.time.LocalDateTime> lastPasswordModifyDate = _super.lastPasswordModifyDate;
 
     //inherited
+    public final StringPath loginId = _super.loginId;
+
+    //inherited
     public final StringPath name = _super.name;
 
     //inherited

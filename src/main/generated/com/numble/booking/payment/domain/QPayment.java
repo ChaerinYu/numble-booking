@@ -70,7 +70,7 @@ public class QPayment extends EntityPathBase<Payment> {
 
     public QPayment(Class<? extends Payment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.delivery = inits.isInitialized("delivery") ? new QDelivery(forProperty("delivery"), inits.get("delivery")) : null;
+        this.delivery = inits.isInitialized("delivery") ? new QDelivery(forProperty("delivery")) : null;
         this.paymentInfo = inits.isInitialized("paymentInfo") ? new QPaymentInfo(forProperty("paymentInfo")) : null;
         this.user = inits.isInitialized("user") ? new com.numble.booking.user.domian.QUser(forProperty("user")) : null;
     }

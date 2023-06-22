@@ -48,7 +48,9 @@ public class QPaymentItem extends EntityPathBase<PaymentItem> {
 
     public final QPaymentItemInfo paymentItemInfo;
 
-    public final com.numble.booking.performance.domain.QPerformance performance;
+    public final com.numble.booking.performance.domain.QPerformanceCoupon performanceCoupon;
+
+    public final com.numble.booking.performance.domain.QPerformanceSeat performanceSeat;
 
     public QPaymentItem(String variable) {
         this(PaymentItem.class, forVariable(variable), INITS);
@@ -70,7 +72,8 @@ public class QPaymentItem extends EntityPathBase<PaymentItem> {
         super(type, metadata, inits);
         this.payment = inits.isInitialized("payment") ? new QPayment(forProperty("payment"), inits.get("payment")) : null;
         this.paymentItemInfo = inits.isInitialized("paymentItemInfo") ? new QPaymentItemInfo(forProperty("paymentItemInfo")) : null;
-        this.performance = inits.isInitialized("performance") ? new com.numble.booking.performance.domain.QPerformance(forProperty("performance"), inits.get("performance")) : null;
+        this.performanceCoupon = inits.isInitialized("performanceCoupon") ? new com.numble.booking.performance.domain.QPerformanceCoupon(forProperty("performanceCoupon"), inits.get("performanceCoupon")) : null;
+        this.performanceSeat = inits.isInitialized("performanceSeat") ? new com.numble.booking.performance.domain.QPerformanceSeat(forProperty("performanceSeat"), inits.get("performanceSeat")) : null;
     }
 
 }

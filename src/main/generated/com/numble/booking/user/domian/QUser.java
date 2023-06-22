@@ -48,6 +48,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final DateTimePath<java.time.LocalDateTime> lastPasswordModifyDate = createDateTime("lastPasswordModifyDate", java.time.LocalDateTime.class);
 
+    public final StringPath loginId = createString("loginId");
+
     public final StringPath name = createString("name");
 
     public final StringPath password = createString("password");

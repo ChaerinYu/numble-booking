@@ -29,6 +29,8 @@ public class QPaymentInfo extends EntityPathBase<PaymentInfo> {
 
     public final NumberPath<Integer> deliveryPrice = createNumber("deliveryPrice", Integer.class);
 
+    public final EnumPath<com.numble.booking.payment.type.EWallet> eWallet = createEnum("eWallet", com.numble.booking.payment.type.EWallet.class);
+
     public final EnumPath<com.numble.booking.common.type.YN> eWalletYn = createEnum("eWalletYn", com.numble.booking.common.type.YN.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);

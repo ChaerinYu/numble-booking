@@ -16,6 +16,8 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+  main:
+    allow-bean-definition-overriding: true
   jpa:
     open-in-view: false
     hibernate:
@@ -41,6 +43,8 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+  main:
+    allow-bean-definition-overriding: true
   jpa:
     open-in-view: false
     hibernate:

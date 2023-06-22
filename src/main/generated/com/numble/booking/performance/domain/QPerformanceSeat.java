@@ -54,6 +54,8 @@ public class QPerformanceSeat extends EntityPathBase<PerformanceSeat> {
 
     public final EnumPath<com.numble.booking.seat.type.SeatStatus> status = createEnum("status", com.numble.booking.seat.type.SeatStatus.class);
 
+    public final com.numble.booking.user.domian.QUser user;
+
     public QPerformanceSeat(String variable) {
         this(PerformanceSeat.class, forVariable(variable), INITS);
     }
@@ -74,6 +76,7 @@ public class QPerformanceSeat extends EntityPathBase<PerformanceSeat> {
         super(type, metadata, inits);
         this.performance = inits.isInitialized("performance") ? new QPerformance(forProperty("performance"), inits.get("performance")) : null;
         this.seat = inits.isInitialized("seat") ? new com.numble.booking.seat.domain.QSeat(forProperty("seat"), inits.get("seat")) : null;
+        this.user = inits.isInitialized("user") ? new com.numble.booking.user.domian.QUser(forProperty("user")) : null;
     }
 
 }
