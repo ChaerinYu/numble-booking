@@ -2,6 +2,12 @@ booking:
   version: "1.0.0"
   title: "BlogSearch"
 
+# Disable p6spy
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: false
+
 spring:
   profiles:
     active:

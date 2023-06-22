@@ -31,6 +31,8 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
 @Table(name = "users")
 public class User extends CreatedAndModifiedBase {
     @Id

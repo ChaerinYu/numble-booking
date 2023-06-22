@@ -8,6 +8,7 @@ import com.numble.booking.user.type.BusinessType;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * <pre>
@@ -24,6 +25,7 @@ import lombok.NoArgsConstructor;
  * @since 2023-06-21
  */
 @Getter
+@Setter
 @NoArgsConstructor
 public class BusinessSignUpDto extends UserSignUpDto {
     @NotBlank(message = "사업자 번호를 입력해 주세요.")

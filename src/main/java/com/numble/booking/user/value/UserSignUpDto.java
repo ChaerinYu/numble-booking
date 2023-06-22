@@ -3,6 +3,7 @@ package com.numble.booking.user.value;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.numble.booking.user.exception.UserSignUpBadRequestException;
@@ -26,6 +27,7 @@ import org.hibernate.validator.constraints.Length;
  * @since 2023-06-21
  */
 @Getter
+@Setter
 @NoArgsConstructor
 public class UserSignUpDto implements UserCreate {
     @NotBlank(message = "비밀번호를 입력해 주세요.")
