@@ -22,7 +22,7 @@ import spock.lang.Specification
  * @since 2023-06-22
  */
 @SpringBootTest
-class UserServiceTest extends Specification {
+class UserServiceTestV2 extends Specification {
 
     @Autowired
     private UserService userService;
@@ -47,12 +47,12 @@ class UserServiceTest extends Specification {
 
     def "Create"() {
         given:
-        UserSignUpDto dto = new UserSignUpDto()
-        dto.setLoginId("TESTER")
-        dto.setPassword("test1234!")
-        dto.setPasswordCheck("test1234!")
-        dto.setName("테스터")
-        dto.setEmail("TEST@TEST.COM")
+        def dto = new UserSignUpDto()
+        dto.loginId = "TESTER"
+        dto.password = "test1234!"
+        dto.passwordCheck = "test1234!"
+        dto.name = "테스터"
+        dto.email = "TEST@TEST.COM"
 
         when:
         def id = userService.create(dto)
@@ -61,7 +61,6 @@ class UserServiceTest extends Specification {
         1 == 1
 //        id != null
 //        def user = userRepository.findById(id)
-//        user.isPresent()
-//        user.get().getName() == "TESTER"
+//        user != null
     }
 }

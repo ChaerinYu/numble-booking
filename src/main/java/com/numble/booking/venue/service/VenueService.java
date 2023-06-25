@@ -64,12 +64,12 @@ public class VenueService {
     @Transactional
     public Long create(VenueCreateDto dto) {
         Venue venue = Venue.create(dto);
-        venueRepository.save(venue);
         List<Seat> seats = new ArrayList<>();
         for (VenueSeatDto seat : dto.getSeats()) {
             seats.add(Seat.create(seat.getSeatNumber(), seat.getSeatType(), venue));
         }
         venue.setSeats(seats);
+        venueRepository.save(venue);
 
         return venue.getId();
     }

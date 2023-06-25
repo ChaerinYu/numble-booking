@@ -5,6 +5,7 @@ import com.numble.booking.seat.value.VenueSeatDto;
 import com.numble.booking.venue.type.VenuesType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
@@ -29,6 +30,7 @@ import java.util.List;
  * @since 2023-06-18
  */
 @Getter
+@Setter
 @NoArgsConstructor
 public class VenueCreateDto {
 

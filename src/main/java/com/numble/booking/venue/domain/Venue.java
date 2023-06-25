@@ -54,7 +54,8 @@ public class Venue extends CreatedAndModifiedBase {
     private VenuesType type;
 
     // 좌석
-    @OneToMany(mappedBy = "venue", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "venue", fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST}, orphanRemoval = true)
     private List<Seat> seats = new ArrayList<>();
 
     /**

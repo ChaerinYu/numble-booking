@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 /**
  * <pre>
  * Class Name : BookingService
- * Description :
+ * Description : 예약 서비스
  *
  * Modification Information
  * Modify Date      Modifier    Comment

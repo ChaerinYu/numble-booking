@@ -3,6 +3,7 @@ package com.numble.booking.price.repository;
 import com.numble.booking.price.domain.PricePolicy;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,9 +26,9 @@ import java.util.List;
 public interface PricePolicyRepository extends JpaRepository<PricePolicy, Long> {
 
     @Query("SELECT pp FROM PricePolicy pp INNER JOIN FETCH pp.performance p WHERE p.id = :performanceId")
-    List<PricePolicy> findByPerformance(Long performanceId);
+    List<PricePolicy> findByPerformance(@Param("performanceId") Long performanceId);
 
     @Query("SELECT pp FROM PricePolicy pp INNER JOIN FETCH pp.performance p WHERE p.id IN (:performanceIds)")
-    List<PricePolicy> findByPerformanceIn(List<Long> performanceIds);
+    List<PricePolicy> findByPerformanceIn(@Param("performanceIds") List<Long> performanceIds);
 
 }
