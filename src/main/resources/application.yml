@@ -1,6 +1,6 @@
 booking:
   version: "1.0.0"
-  title: "BlogSearch"
+  title: "Booking"
 
 # Disable p6spy
 decorator:
@@ -12,56 +12,90 @@ spring:
   profiles:
     active:
       - local
+  main:
+    allow-bean-definition-overriding: true
 ---
 spring:
+#  profiles: test
   config:
     activate:
       on-profile: test
   datasource:
-    url: jdbc:h2:mem:test
-    username: sa
+    url: jdbc:mysql://localhost:3306/numble-booking?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: root
     password:
-    driver-class-name: org.h2.Driver
-  main:
-    allow-bean-definition-overriding: true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#      jdbc-url: jdbc:h2:mem:test;Mode=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=FALSE
+#      username: sa
+#      password:
+#      driver-class-name: org.h2.Driver
+    pool-name: hikari-cp
+    minimum-idle: 10
+    maximum-pool-size: 10
+    connection-timeout: 30000
+    idle-timeout: 600000
+    max-lifetime: 480000
   jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
-    hibernate:
-      ddl-auto: create
     properties:
       hibernate:
         physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
-        format_sql: true
-        hbm2ddl:
-          auto: create
-          charset_name: UTF-8
         jdbc:
           # timezone 설정
           time_zone: Asia/Seoul
+        default_batch_fetch_size: 100
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#        format_sql: false
+#        use_sql_comments: false
+        format_sql: true
+        hbm2ddl:
+          auto: create
+          # SQL 파일 여러줄 모드 허용
+          import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+          # 테스트 SQL 파일 로딩
+          import_files: sql/init-import.sql
+          charset_name: UTF-8
 
 ---
 spring:
+#  profiles: local
   config:
     activate:
       on-profile: local
   datasource:
-    url: jdbc:h2:mem:test
-    username: sa
+    url: jdbc:mysql://localhost:3306/numble-booking?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: root
     password:
-    driver-class-name: org.h2.Driver
-  main:
-    allow-bean-definition-overriding: true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#      jdbc-url: jdbc:h2:mem:test;Mode=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=FALSE
+#      username: sa
+#      password:
+#      driver-class-name: org.h2.Driver
+    pool-name: hikari-cp
+    minimum-idle: 10
+    maximum-pool-size: 10
+    connection-timeout: 30000
+    idle-timeout: 600000
+    max-lifetime: 480000
   jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
-    hibernate:
-      ddl-auto: create
     properties:
       hibernate:
         physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
-        format_sql: true
-        hbm2ddl:
-          auto: create
-          charset_name: UTF-8
         jdbc:
           # timezone 설정
           time_zone: Asia/Seoul
+        default_batch_fetch_size: 100
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        show_sql: true
+        hbm2ddl:
+          auto: update
+          charset_name: UTF-8
+        format_sql: true
+        query:
+          plan_cache_max_size: 384
+          plan_parameter_metadata_max_size: 24
+          in_clause_parameter_padding: true
+        use_sql_comments: true

@@ -1,8 +1,10 @@
 package com.numble.booking.performance.value;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.numble.booking.performance.domain.Performance;
 import com.numble.booking.performance.type.Genre;
 import com.numble.booking.price.value.PricePolicyVo;
+import com.numble.booking.util.MapperUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,8 +38,8 @@ public class PerformanceDetailVo {
     // 공연장 ID
     private Long venueId;
 
-    // 공연장 ID
-    private Long venueName;
+    // 공연장 이름
+    private String venueName;
 
     // 공연 이름
     private String name;
@@ -62,4 +64,13 @@ public class PerformanceDetailVo {
 
     // 공연 좌석별 금액
     private List<PricePolicyVo> prices;
+
+    public static PerformanceDetailVo of(Performance performance, List<PricePolicyVo> pricePolicies) {
+        PerformanceDetailVo vo = MapperUtil.map(performance, PerformanceDetailVo.class);
+        vo.setPerformanceId(performance.getId());
+        vo.setVenueId(performance.getVenue().getId());
+        vo.setVenueName(performance.getVenue().getName());
+        vo.setPrices(pricePolicies);
+        return vo;
+    }
 }
