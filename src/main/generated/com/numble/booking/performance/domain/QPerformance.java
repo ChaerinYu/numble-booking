@@ -58,6 +58,8 @@ public class QPerformance extends EntityPathBase<Performance> {
 
     public final ListPath<PerformanceCoupon, QPerformanceCoupon> performanceCoupons = this.<PerformanceCoupon, QPerformanceCoupon>createList("performanceCoupons", PerformanceCoupon.class, QPerformanceCoupon.class, PathInits.DIRECT2);
 
+    public final ListPath<PerformanceSeat, QPerformanceSeat> performanceSeats = this.<PerformanceSeat, QPerformanceSeat>createList("performanceSeats", PerformanceSeat.class, QPerformanceSeat.class, PathInits.DIRECT2);
+
     public final ListPath<com.numble.booking.price.domain.PricePolicy, com.numble.booking.price.domain.QPricePolicy> pricePolicies = this.<com.numble.booking.price.domain.PricePolicy, com.numble.booking.price.domain.QPricePolicy>createList("pricePolicies", com.numble.booking.price.domain.PricePolicy.class, com.numble.booking.price.domain.QPricePolicy.class, PathInits.DIRECT2);
 
     public final TimePath<java.time.LocalTime> startTime = createTime("startTime", java.time.LocalTime.class);

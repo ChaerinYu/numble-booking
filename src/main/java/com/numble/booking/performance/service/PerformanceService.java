@@ -2,6 +2,7 @@ package com.numble.booking.performance.service;
 
 import com.numble.booking.performance.domain.Performance;
 import com.numble.booking.performance.domain.PerformanceSeat;
+import com.numble.booking.performance.exception.NotFoundPerformanceException;
 import com.numble.booking.performance.repository.PerformanceQuerydslRepository;
 import com.numble.booking.performance.repository.PerformanceRepository;
 import com.numble.booking.performance.repository.PerformanceSeatRepository;
@@ -61,14 +62,13 @@ public class PerformanceService {
 
     @Transactional(readOnly = true)
     public PerformanceDetailVo find(Long performanceId) {
-        PerformanceDetailVo detailVo = performanceQuerydslRepository.find(performanceId);
+        Performance performance = performanceRepository.findById(performanceId).orElseThrow(NotFoundPerformanceException::new);
         // 공연 좌석별 금액 조회
         List<PricePolicyVo> pricePolicies = pricePolicyRepository.findByPerformance(performanceId)
                 .stream()
                 .map(pp -> MapperUtil.map(pp, PricePolicyVo.class))
                 .collect(Collectors.toList());
-        detailVo.setPrices(pricePolicies);
-        return detailVo;
+        return PerformanceDetailVo.of(performance, pricePolicies);
     }
 
     @Transactional
@@ -83,7 +83,7 @@ public class PerformanceService {
         for (PricePolicyDto ticketPrice : dto.getTicketPrices()) {
             prices.add(PricePolicy.create(performance, ticketPrice.getType(), ticketPrice.getPrice()));
         }
-        pricePolicyRepository.saveAll(prices);
+        performance.setPricePolicies(prices);
 
         // 공연 좌석 이용가능 update
         List<Seat> seats = seatRepository.findByVenue(venue.getId());
@@ -91,7 +91,7 @@ public class PerformanceService {
         for (Seat seat : seats) {
             performanceSeats.add(PerformanceSeat.create(performance, seat));
         }
-        performanceSeatRepository.saveAll(performanceSeats);
+        performance.setPerformanceSeats(performanceSeats);
 
         return performance.getId();
     }

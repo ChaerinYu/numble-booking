@@ -8,6 +8,7 @@ import com.numble.booking.venue.domain.Venue;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -72,12 +73,19 @@ public class Performance extends CreatedAndModifiedBase {
     private LocalTime endTime;
     
     // 공연 가격
-    @OneToMany(mappedBy = "performance", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Setter
+    @OneToMany(mappedBy = "performance", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<PricePolicy> pricePolicies = new ArrayList<>();
     
     // 적용 가능한 쿠폰
-    @OneToMany(mappedBy = "performance", fetch = FetchType.LAZY)
+    @Setter
+    @OneToMany(mappedBy = "performance", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<PerformanceCoupon> performanceCoupons = new ArrayList<>();
+
+    // 공연 좌석
+    @Setter
+    @OneToMany(mappedBy = "performance", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<PerformanceSeat> performanceSeats = new ArrayList<>();
 
     /**
      * 생성
