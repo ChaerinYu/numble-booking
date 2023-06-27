@@ -1,4 +1,4 @@
-ALTER SEQUENCE hibernate_sequence RESTART WITH 10000;
+-- ALTER SEQUENCE hibernate_sequence RESTART WITH 10000;
 
 -- VENUE
 INSERT INTO `venue`
