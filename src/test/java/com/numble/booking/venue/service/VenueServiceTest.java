@@ -9,9 +9,14 @@ import com.numble.booking.venue.exception.NotFoundVenueException;
 import com.numble.booking.venue.repository.VenueRepository;
 import com.numble.booking.venue.type.VenuesType;
 import com.numble.booking.venue.value.VenueCreateDto;
+import com.numble.booking.venue.value.VenueDetailVo;
+import com.numble.booking.venue.value.VenueFindDto;
+import com.numble.booking.venue.value.VenueListVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -44,6 +49,29 @@ class VenueServiceTest {
 
     @Autowired
     private SeatRepository seatRepository;
+
+    @Test
+    void findAll() {
+        // given when
+        PageRequest pageable = PageRequest.of(0, 10);
+        VenueFindDto dto = new VenueFindDto();
+        Page<VenueListVo> all = venueService.findAll(pageable, dto);
+
+        // then
+        assertNotNull(all.getContent());
+    }
+
+    @Test
+    void find() {
+        // given
+        Long venueId = 100001L;
+
+        // when
+        VenueDetailVo vo = venueService.find(venueId);
+
+        // then
+        assertEquals(vo.getName(), "공연장A");
+    }
     
     @Test
     void create() {
