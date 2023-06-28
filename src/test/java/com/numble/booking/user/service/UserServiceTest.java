@@ -12,6 +12,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import javax.transaction.Transactional;
+
 /**
  * <pre>
  * Class Name : UserServiceTest
@@ -27,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @since 2023-06-25
  */
 @SpringBootTest
+@Transactional
 class UserServiceTest {
 
     @Autowired
@@ -53,5 +56,17 @@ class UserServiceTest {
 
         Optional<User> optionalUser = userRepository.findById(userId);
         assertTrue(optionalUser.isPresent());
+    }
+
+    @Test
+    void haveDuplicatedId() {
+        // given
+        String loginId = "USER1";
+
+        // when
+        boolean duplicated = userService.haveDuplicatedId(loginId);
+
+        // then
+        assertTrue(duplicated);
     }
 }

@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -30,6 +31,7 @@ import javax.persistence.Enumerated;
  */
 @Entity
 @Getter
+@DiscriminatorValue("BUSINESS")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Business extends User {
 

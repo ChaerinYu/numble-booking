@@ -78,7 +78,7 @@ public class BookingService {
         List<Long> seatIds = new ArrayList<>();
         for (SeatBookingDto seat : dto.getSeats()) {
             SeatListVo vo = availableSeats.stream()
-                    .filter(as -> as.getSeatId().equals(seat.getSeatId()))
+                    .filter(as -> !as.getSeatId().equals(seat.getSeatId()))
                     .findAny()
                     .orElseThrow(() -> new NotFoundPerformanceSeatException("이미 선택된 좌석입니다."));
             seatIds.add(vo.getSeatId());

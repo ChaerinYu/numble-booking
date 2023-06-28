@@ -45,7 +45,7 @@ public class PerformanceSeat extends CreatedAndModifiedBase {
 
     // 공연 좌석
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seat")
+    @JoinColumn(name = "seatId")
     private Seat seat;
 
     // 공연별로 좌석 번호가 다를 수도 있음 (현재는 동일)

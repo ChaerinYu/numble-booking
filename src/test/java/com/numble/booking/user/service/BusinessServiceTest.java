@@ -13,6 +13,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import javax.transaction.Transactional;
+
 /**
  * <pre>
  * Class Name : BusinessServiceTest
@@ -28,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @since 2023-06-23
  */
 @SpringBootTest
+@Transactional
 class BusinessServiceTest {
 
     @Autowired

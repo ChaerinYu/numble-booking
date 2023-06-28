@@ -33,6 +33,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn
+@DiscriminatorValue("USER")
 @Table(name = "users")
 public class User extends CreatedAndModifiedBase {
     @Id

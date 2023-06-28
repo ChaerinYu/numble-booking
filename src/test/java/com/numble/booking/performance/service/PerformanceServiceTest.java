@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * @author chaerin
  * @since 2023-06-26
  */
+@Transactional
 @SpringBootTest
 class PerformanceServiceTest {
     @Autowired

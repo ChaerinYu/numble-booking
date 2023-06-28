@@ -24,6 +24,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import javax.transaction.Transactional;
+
 /**
  * <pre>
  * Class Name : VenueServiceTest
@@ -39,6 +41,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @since 2023-06-25
  */
 @SpringBootTest
+@Transactional
 class VenueServiceTest {
 
     @Autowired
