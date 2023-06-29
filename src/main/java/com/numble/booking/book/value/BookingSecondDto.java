@@ -5,8 +5,10 @@ import com.numble.booking.payment.value.DeliveryCreateDto;
 import com.numble.booking.payment.value.PaymentByCardDto;
 import com.numble.booking.payment.value.PaymentByEWalletDto;
 import com.numble.booking.performance.value.PerformanceCouponDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ import java.util.List;
  * @since 2023-06-18
  */
 @Getter
+@Setter
+@Builder
 @NoArgsConstructor
 public class BookingSecondDto {
 
@@ -49,4 +53,17 @@ public class BookingSecondDto {
     private List<PerformanceCouponDto> coupons = new ArrayList<>();
 
     private Long userId;
+
+    @Builder
+    public BookingSecondDto(Long performanceId, PaymentMethod method, PaymentByCardDto cardDto,
+                            PaymentByEWalletDto eWalletDto, DeliveryCreateDto deliveryDto,
+                            List<PerformanceCouponDto> coupons, Long userId) {
+        this.performanceId = performanceId;
+        this.paymentMethod = method;
+        this.cardDto = cardDto;
+        this.eWalletDto = eWalletDto;
+        this.deliveryDto = deliveryDto;
+        this.coupons = coupons;
+        this.userId = userId;
+    }
 }

@@ -4,6 +4,7 @@ import com.numble.booking.common.type.YN;
 import com.numble.booking.payment.type.EWallet;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * <pre>
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
  * @since 2023-06-18
  */
 @Getter
+@Setter
 @NoArgsConstructor
 public class PaymentByEWalletDto {
 

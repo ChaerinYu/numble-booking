@@ -1,7 +1,11 @@
 package com.numble.booking.ticket.repository;
 
+import java.util.List;
+
 import com.numble.booking.ticket.domain.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,4 +24,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
+
+    @Query("SELECT t FROM Ticket t INNER JOIN t.user u " +
+            "WHERE u.id = :userId")
+    List<Ticket> findByUser(@Param("userId") Long userId);
 }

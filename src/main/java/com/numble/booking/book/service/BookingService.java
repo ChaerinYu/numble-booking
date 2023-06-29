@@ -78,22 +78,22 @@ public class BookingService {
         List<Long> seatIds = new ArrayList<>();
         for (SeatBookingDto seat : dto.getSeats()) {
             SeatListVo vo = availableSeats.stream()
-                    .filter(as -> !as.getSeatId().equals(seat.getSeatId()))
+                    .filter(as -> as.getSeatId().equals(seat.getSeatId()))
                     .findAny()
                     .orElseThrow(() -> new NotFoundPerformanceSeatException("이미 선택된 좌석입니다."));
             seatIds.add(vo.getSeatId());
         }
 
         // 좌석 대기 걸기
-        pendingSeats(dto, performance, seatIds);
+        pendingSeats(dto.getUserId(), performance, seatIds);
 
         return performance.getId();
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, noRollbackFor = Exception.class)
-    public void pendingSeats(BookingFirstDto dto, Performance performance, List<Long> seatIds) {
+    public void pendingSeats(Long userId, Performance performance, List<Long> seatIds) {
         List<PerformanceSeat> performanceSeats = performanceSeatRepository.findByPerformanceAndBySeats(performance.getId(), seatIds);
-        User user = userRepository.findById(dto.getUserId())
+        User user = userRepository.findById(userId)
                 .orElseThrow(NotFoundUserException::new);
         for (PerformanceSeat performanceSeat : performanceSeats) {
             performanceSeat.modifyStatus(SeatStatus.PENDING, user);
@@ -110,7 +110,7 @@ public class BookingService {
         
         // 결제 정보 저장
         PaymentMethod paymentMethod = dto.getPaymentMethod();
-        PaymentInfo paymentInfo;
+        PaymentInfo paymentInfo = null;
         if (PaymentMethod.CREDIT_CARD.equals(paymentMethod) || PaymentMethod.DEBIT_CARD.equals(paymentMethod)) {
             // 신용카드 || 직불카드
             validateByCard(dto.getCardDto());

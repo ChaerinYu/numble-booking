@@ -3,6 +3,7 @@ package com.numble.booking.payment.value;
 import com.numble.booking.payment.type.Bank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
@@ -22,6 +23,7 @@ import javax.validation.constraints.Size;
  * @since 2023-06-18
  */
 @Getter
+@Setter
 @NoArgsConstructor
 public class PaymentByCardDto {
 
