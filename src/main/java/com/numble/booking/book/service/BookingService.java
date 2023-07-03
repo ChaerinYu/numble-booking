@@ -127,7 +127,7 @@ public class BookingService {
         }
 
         // 배송지 저장
-        Delivery delivery = MapperUtil.map(dto.getDeliveryDto(), Delivery.class);
+        Delivery delivery = Delivery.of(dto.getDeliveryDto());
         deliveryRepository.save(delivery);
 
         // 결제 저장
@@ -161,7 +161,7 @@ public class BookingService {
 
             // 티켓 생성 Ticket
             String ticketKey = TicketService.getRandomStr(ticketKeySize);
-            Ticket.create(ticketKey, paymentItem, user, ReceivingMethod.POSTAL_MAIL);
+            tickets.add(Ticket.create(ticketKey, paymentItem, user, ReceivingMethod.POSTAL_MAIL));
         }
         paymentItemRepository.saveAll(items);
         ticketRepository.saveAll(tickets);

@@ -89,9 +89,9 @@ VALUES
   , (100008,  'A8',    'PREMIUM', 'AVAILABLE', 100001, 100008, null)
   , (100009,  'A9',    'PREMIUM', 'AVAILABLE', 100001, 100009, null)
   , (100010, 'A10',    'PREMIUM', 'AVAILABLE', 100001, 100010, null)
-  , (100101,  'B1',        'VIP',   'PENDING', 100001, 100101, null)
-  , (100102,  'B2',        'VIP',   'PENDING', 100001, 100102, null)
-  , (100103,  'B3',        'VIP',   'PENDING', 100001, 100103, null)
+  , (100101,  'B1',        'VIP',   'PENDING', 100001, 100101, 100002)
+  , (100102,  'B2',        'VIP',   'PENDING', 100001, 100102, 100002)
+  , (100103,  'B3',        'VIP',   'PENDING', 100001, 100103, 100002)
   , (100104,  'B4',        'VIP', 'AVAILABLE', 100001, 100104, null)
   , (100105,  'B5',        'VIP', 'AVAILABLE', 100001, 100105, null)
   , (100106,  'B6',        'VIP', 'AVAILABLE', 100001, 100106, null)
@@ -109,4 +109,14 @@ VALUES
   , (110008,  'C8',    'REGULAR', 'AVAILABLE', 100001, 110008, null)
   , (110009,  'C9',    'REGULAR', 'AVAILABLE', 100001, 110009, null)
   , (110010, 'C10',    'REGULAR', 'AVAILABLE', 100001, 110010, null)
+;
+
+-- PRICE POLICY
+INSERT INTO `price_policy`
+    (price_policy_id, performance_id, `type`, price)
+VALUES
+    (100001, 100001, 'PREMIUM'   , 200000)
+  , (100002, 100001, 'VIP'       , 160000)
+  , (100003, 100001, 'REGULAR'   , 100000)
+  , (100004, 100001, 'ACCESSIBLE',  80000)
 ;

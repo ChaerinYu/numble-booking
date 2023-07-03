@@ -7,11 +7,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
+import com.numble.booking.annotation.ServiceTest;
 import com.numble.booking.book.value.BookingFirstDto;
 import com.numble.booking.book.value.BookingSecondDto;
 import com.numble.booking.payment.repository.DeliveryRepository;
@@ -45,8 +44,7 @@ import org.junit.jupiter.api.Test;
  * @author chaerin
  * @since 2023-06-27
  */
-@SpringBootTest
-@Transactional
+@ServiceTest
 class BookingServiceTest {
 
     @Autowired

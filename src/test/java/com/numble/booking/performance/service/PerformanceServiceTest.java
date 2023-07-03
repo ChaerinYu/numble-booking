@@ -8,13 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import com.numble.booking.annotation.ServiceTest;
 import com.numble.booking.performance.domain.Performance;
 import com.numble.booking.performance.type.Genre;
 import com.numble.booking.performance.value.PerformanceCreateDto;
@@ -39,8 +38,7 @@ import org.junit.jupiter.api.Test;
  * @author chaerin
  * @since 2023-06-26
  */
-@Transactional
-@SpringBootTest
+@ServiceTest
 class PerformanceServiceTest {
     @Autowired
     private EntityManager em;

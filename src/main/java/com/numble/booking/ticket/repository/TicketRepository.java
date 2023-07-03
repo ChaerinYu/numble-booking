@@ -25,7 +25,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
-    @Query("SELECT t FROM Ticket t INNER JOIN t.user u " +
+    @Query("SELECT t FROM Ticket t INNER JOIN FETCH t.user u " +
             "WHERE u.id = :userId")
     List<Ticket> findByUser(@Param("userId") Long userId);
 }

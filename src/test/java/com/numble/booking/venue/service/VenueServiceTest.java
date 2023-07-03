@@ -1,5 +1,6 @@
 package com.numble.booking.venue.service;
 
+import com.numble.booking.annotation.ServiceTest;
 import com.numble.booking.seat.domain.Seat;
 import com.numble.booking.seat.repository.SeatRepository;
 import com.numble.booking.seat.type.SeatType;
@@ -14,7 +15,6 @@ import com.numble.booking.venue.value.VenueFindDto;
 import com.numble.booking.venue.value.VenueListVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import javax.transaction.Transactional;
 
 /**
  * <pre>
@@ -40,8 +38,7 @@ import javax.transaction.Transactional;
  * @author user
  * @since 2023-06-25
  */
-@SpringBootTest
-@Transactional
+@ServiceTest
 class VenueServiceTest {
 
     @Autowired

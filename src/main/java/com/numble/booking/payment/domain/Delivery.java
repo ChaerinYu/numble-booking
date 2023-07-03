@@ -1,6 +1,7 @@
 package com.numble.booking.payment.domain;
 
 import com.numble.booking.common.base.CreatedAndModifiedBase;
+import com.numble.booking.payment.value.DeliveryCreateDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,4 +54,15 @@ public class Delivery extends CreatedAndModifiedBase {
     
     // 배송 메시지
     private String message;
+
+    public static Delivery of(DeliveryCreateDto dto) {
+        Delivery entity = new Delivery();
+        entity.receiverName = dto.getReceiverName();
+        entity.phone = dto.getPhone();
+        entity.zipCode = dto.getZipCode();
+        entity.mainAddress = dto.getMainAddress();
+        entity.detailAddress = dto.getDetailAddress();
+        entity.message = dto.getMessage();
+        return entity;
+    }
 }
