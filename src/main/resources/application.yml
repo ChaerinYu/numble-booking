@@ -14,6 +14,9 @@ spring:
       - local
   main:
     allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 ---
 spring:
 #  profiles: test
@@ -21,14 +24,14 @@ spring:
     activate:
       on-profile: test
   datasource:
-    url: jdbc:mysql://localhost:3306/numble-booking?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
-    username: root
-    password: 
-    driver-class-name: com.mysql.cj.jdbc.Driver
-#      jdbc-url: jdbc:h2:mem:test;Mode=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=FALSE
-#      username: sa
-#      password:
-#      driver-class-name: org.h2.Driver
+#    url: jdbc:mysql://localhost:3306/numble-booking?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+#    username: root
+#    password: 
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:h2:mem:test;Mode=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
 #    pool-name: hikari-cp
 #    minimum-idle: 10
 #    maximum-pool-size: 10
@@ -36,7 +39,7 @@ spring:
 #    idle-timeout: 600000
 #    max-lifetime: 480000
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false
     hibernate:
       ddl-auto: create-drop
