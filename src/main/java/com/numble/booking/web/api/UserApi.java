@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.numble.booking.user.service.UserService;
 import com.numble.booking.user.value.UserSignUpDto;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -25,6 +27,7 @@ import lombok.RequiredArgsConstructor;
  * @author chaerin
  * @since 2023-06-21
  */
+@Api(value = "User APIs")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -34,6 +37,7 @@ public class UserApi {
     /**
      * 회원 가입
      */
+    @ApiOperation(value = "회원 가입")
     @PostMapping("sign-up")
     public Long signUp(@Valid @RequestBody UserSignUpDto dto) {
         dto.validate();

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.numble.booking.user.domian.User;
 import com.numble.booking.user.exception.NotFoundUserException;
 import com.numble.booking.user.repository.UserRepository;
+import com.numble.booking.user.service.UserLoginService;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -29,13 +30,13 @@ import lombok.RequiredArgsConstructor;
 public class CustomUserDetailService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final UserLoginService userLoginService;
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
         User user = userRepository.findByLoginId(username)
                 .orElseThrow(NotFoundUserException::new);
-        // TODO userLoginService, CustomUser 만들기
-        return null;
+        return userLoginService.getCustomUser(user);
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * <pre>
@@ -27,11 +29,15 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig{
+public class SecurityConfig {
 
+//    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final CustomUserDetailService customUserDetailsService;
 
-    public SecurityConfig(@Lazy CustomUserDetailService customUserDetailsService) {
+    public SecurityConfig(
+//            JwtAuthenticationFilter jwtAuthenticationFilter,
+                          @Lazy CustomUserDetailService customUserDetailsService) {
+//        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.customUserDetailsService = customUserDetailsService;
     }
 
@@ -85,4 +91,47 @@ public class SecurityConfig{
                 "/swagger*/**"
         );
     }
+
+    /**
+     * successHandler bean register
+     */
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        CustomSavedRequestAwareAuthenticationSuccessHandler handler = new CustomSavedRequestAwareAuthenticationSuccessHandler();
+        handler.setDefaultTargetUrl("/index");
+        return handler;
+    }
+
+    /**
+     * failureHandler bean register
+     */
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        CustomSimpleUrlAuthenticationFailureHandler handler = new CustomSimpleUrlAuthenticationFailureHandler();
+        handler.setDefaultFailureUrl("/?error=error");
+        return handler;
+    }
+
+    /**
+     * login시 걸리는 filter bean register
+     */
+//    @Bean
+//    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+//        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter();
+//        jwtAuthenticationFilter.setFilterProcessesUrl("/login");
+//        jwtAuthenticationFilter.setUsernameParameter("username");
+//        jwtAuthenticationFilter.setPasswordParameter("password");
+//
+//        jwtAuthenticationFilter.setAuthenticationSuccessHandler(
+//                authenticationSuccessHandler()
+//        );
+//
+//        jwtAuthenticationFilter.setAuthenticationFailureHandler(
+//                authenticationFailureHandler()
+//        );
+//        jwtAuthenticationFilter.afterPropertiesSet();
+//        return jwtAuthenticationFilter;
+//    }
+
+
 }
