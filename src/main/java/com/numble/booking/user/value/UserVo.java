@@ -9,6 +9,8 @@ import com.numble.booking.user.type.UserStatus;
 import com.numble.booking.util.MapperUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * <pre>
@@ -24,6 +26,8 @@ import io.swagger.annotations.ApiModelProperty;
  * @author chaerin
  * @since 2023-07-07
  */
+@Getter
+@Setter
 @ApiModel("유저 VO")
 public class UserVo {
 

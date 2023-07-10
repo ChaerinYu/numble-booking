@@ -49,4 +49,12 @@ public class UserLoginService {
 
         return new CustomUser(user.getLoginId(), user.getPassword(), authorities, userVo);
     }
+
+    /**
+     * TODO
+     * 로그인ID에 해당하는 유저의 로그인 실패 횟수를 조회한다.
+     */
+    public int findLoginFailCountByLoginId(String loginId) {
+        return 0;
+    }
 }
