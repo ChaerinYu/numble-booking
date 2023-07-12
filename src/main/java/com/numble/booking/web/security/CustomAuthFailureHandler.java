@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -65,15 +66,15 @@ public class CustomAuthFailureHandler implements AuthenticationFailureHandler {
         }
         // [STEP4] 응답 값을 구성하고 전달합니다.
         response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         PrintWriter printWriter = response.getWriter();
 
         log.debug(failMsg);
 
         HashMap<String, Object> resultMap = new HashMap<>();
-        resultMap.put("userInfo", null);
-        resultMap.put("resultCode", 9999);
-        resultMap.put("failMsg", failMsg);
+        resultMap.put("contents", null);
+        resultMap.put("httpStatus", 499);
+        resultMap.put("message", failMsg);
         jsonObject = new JSONObject(resultMap);
 
         printWriter.print(jsonObject);

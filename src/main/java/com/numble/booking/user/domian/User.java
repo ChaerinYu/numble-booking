@@ -93,4 +93,11 @@ public class User extends CreatedAndModifiedBase {
 
         return entity;
     }
+
+    /**
+     * 마지막 로그인 일시 업데이트
+     */
+    public void updateLastLoginDate() {
+        this.lastLoginDate = LocalDateTime.now();
+    }
 }

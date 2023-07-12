@@ -102,26 +102,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             }
 
             Set<GrantedAuthority> authorities = new HashSet<>();
-//            // admin 계정인 경우, SYSTEMADMIN 권한 확인 필요
-//            if (request.getHeader("referer").contains("admin")) {
-//                authorities.add(new SimpleGrantedAuthority(CustomUserDetailsService.ROLE_PREFIX + RoleType.SYSTEMADMIN));
-//            }
 
             return new UsernamePasswordAuthenticationToken(username, password, authorities);
-
-//            String username = obtainUsername(request);
-//            String password = obtainPassword(request);
-//
-//            if (StringUtils.isEmpty(username)) {
-//                username = "";
-//            }
-//            if (StringUtils.isEmpty(password)) {
-//                password = "";
-//            }
-//
-//            username = username.trim();
-//            // id와 패스워드를 기반으로 토큰 발급
-//            return new UsernamePasswordAuthenticationToken(username, password);
         } catch (UsernameNotFoundException e) {
             throw new UsernameNotFoundException(e.getMessage());
         }

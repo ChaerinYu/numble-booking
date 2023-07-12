@@ -1,6 +1,14 @@
 package com.numble.booking.web.security;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
 import javax.annotation.Resource;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -11,6 +19,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.numble.booking.util.Compress;
+import com.numble.booking.util.CryptoAES;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,6 +61,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         // Spring Security - UserDetailsService를 통해 DB에서 아이디로 사용자 조회
         UserDetails user = userDetailsService.loadUserByUsername(username);
 
+        /////////////////////
+//        try {
+//            String decryptPassword = Compress.decompressB64(new CryptoAES().decrypt(user.getPassword()));
+//            log.debug(decryptPassword);
+//        } catch (IOException | NoSuchPaddingException | InvalidKeyException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException e) {
+//            e.printStackTrace();
+//        }
+        /////////////////////
+        // TODO
 //        if (!user.getPassword().equals(password)) {
 //            throw new BadCredentialsException(user.getUsername() + "Invalid password");
 //        }

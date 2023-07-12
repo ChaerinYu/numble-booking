@@ -8,15 +8,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
+import com.numble.booking.user.service.UserLoginService;
 import com.numble.booking.user.type.UserStatus;
 import com.numble.booking.user.value.UserVo;
-import com.numble.booking.util.ObjectJsonUtil;
-import com.numble.booking.web.security.value.UserLoginDto;
 import org.json.JSONObject;
 
 /**
@@ -35,27 +35,36 @@ import org.json.JSONObject;
  */
 @Configuration
 public class CustomAuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+
+    @Autowired
+    private UserLoginService userLoginService;
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
 
         // 사용자 정보 조회
         CustomUser customUser = (CustomUser) authentication.getPrincipal();
 
-//        // 조회 데이터 JSONObject 형태로 파싱
-//        (UserVo) ObjectJsonUtil.getObjectByJsonString(json, UserVo.class);
-
         HashMap<String, Object> responseMap = new HashMap<>();
-        JSONObject jsonObject;
         UserVo userVo = customUser.getUserVo();
         if (UserStatus.ACTIVE.equals(userVo.getStatus())) {
-            // TODO
-//            responseMap.put()
+            responseMap.put("contents", userVo);
+            responseMap.put("httpStatus", 200);
+            responseMap.put("message", null);
+
+            // TODO RemoteAddressFinder로 로그인 ip 기록 남기기
+            userLoginService.handleLoginSuccess(userVo.getId());
+        } else {
+            responseMap.put("contents", null);
+            responseMap.put("httpStatus", 400);
+            responseMap.put("message", "로그인 실패");
         }
+        JSONObject jsonObject = new JSONObject(responseMap);
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         PrintWriter printWriter = response.getWriter();
-//        printWriter.print(jsonObject);  // 최종 저장된 '사용자 정보', '사이트 정보' Front 전달
+        printWriter.print(jsonObject);  // 최종 저장된 '사용자 정보', '사이트 정보' Front 전달
         printWriter.flush();
         printWriter.close();
         super.onAuthenticationSuccess(request, response, authentication);
