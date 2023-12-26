@@ -156,7 +156,7 @@ public class BookingService {
                     .map(PricePolicy::getPrice)
                     .findAny()
                     .orElseThrow(() -> new BadRequestPaymentException("존재하지 않는 좌석 유형입니다."));
-            PaymentItem paymentItem = PaymentItem.create(payment, pendingSeat, null, PaymentItemInfo.create(orgPrice, null));
+            PaymentItem paymentItem = PaymentItem.create(payment, pendingSeat);
             items.add(paymentItem);
 
             // 티켓 생성 Ticket

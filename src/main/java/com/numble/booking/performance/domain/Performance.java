@@ -74,10 +74,6 @@ public class Performance extends CreatedAndModifiedBase {
     // 공연 가격
     @OneToMany(mappedBy = "performance", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PricePolicy> pricePolicies = new ArrayList<>();
-    
-    // 적용 가능한 쿠폰
-    @OneToMany(mappedBy = "performance", fetch = FetchType.LAZY)
-    private List<PerformanceCoupon> performanceCoupons = new ArrayList<>();
 
     /**
      * 생성

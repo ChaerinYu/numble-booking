@@ -1,7 +1,6 @@
 package com.numble.booking.payment.domain;
 
 import com.numble.booking.common.base.CreatedAndModifiedBase;
-import com.numble.booking.performance.domain.PerformanceCoupon;
 import com.numble.booking.performance.domain.PerformanceSeat;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -43,25 +42,13 @@ public class PaymentItem extends CreatedAndModifiedBase {
     @JoinColumn(name = "performanceSeatId", nullable = false, updatable = false)
     private PerformanceSeat performanceSeat;
 
-    // 사용한 쿠폰
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "performanceCouponId")
-    private PerformanceCoupon performanceCoupon;
-
-    // 결제 항목 정보
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "paymentItemInfoId")
-    private PaymentItemInfo paymentItemInfo;
-
     /**
      * 생성
      */
-    public static PaymentItem create(Payment payment, PerformanceSeat seat, PerformanceCoupon coupon, PaymentItemInfo info) {
+    public static PaymentItem create(Payment payment, PerformanceSeat seat) {
         PaymentItem entity = new PaymentItem();
         entity.payment = payment;
         entity.performanceSeat = seat;
-        entity.performanceCoupon = coupon;
-        entity.paymentItemInfo = info;
         return entity;
     }
 }
