@@ -71,10 +71,6 @@ public class User extends CreatedAndModifiedBase {
     @Column
     protected LocalDateTime lastLoginDate;
 
-    // 사용자가 갖고 있는 쿠폰
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<UserCoupon> userCoupons = new ArrayList<>();
-
     /**
      * 생성
      */
@@ -88,7 +84,6 @@ public class User extends CreatedAndModifiedBase {
         entity.email = dto.getEmail();
         entity.status = UserStatus.ACTIVE;
         entity.lastPasswordModifyDate = now;
-        // TODO 첫 가입 쿠폰
 
         return entity;
     }

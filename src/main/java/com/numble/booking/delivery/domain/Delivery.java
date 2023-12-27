@@ -1,6 +1,8 @@
-package com.numble.booking.payment.domain;
+package com.numble.booking.delivery.domain;
 
 import com.numble.booking.common.base.CreatedAndModifiedBase;
+import com.numble.booking.delivery.type.DeliveryStatus;
+import com.numble.booking.order.domain.Order;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,16 +13,16 @@ import javax.persistence.*;
 /**
  * <pre>
  * Class Name : Delivery
- * Description : 배송지
+ * Description :
  *
  * Modification Information
  * Modify Date      Modifier    Comment
  * -------------------------------------------------------------
- * 2023-06-15	    user	New
+ * 2023-12-27	    user	New
  * </pre>
  *
  * @author user
- * @since 2023-06-15
+ * @since 2023-12-27
  */
 @Entity
 @Getter
@@ -33,24 +35,23 @@ public class Delivery extends CreatedAndModifiedBase {
     @GenericGenerator(name = "deliverySeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
     private Long id;
 
+    @OneToOne(mappedBy = "delivery")
+    private Order order;
+
+    @Embedded
+    private Address address;
+
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus status;
+
     // 수령인
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String receiverName;
 
     // 휴대폰 번호
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String phone;
 
-    // 배송지 주소
-    @Column(nullable = false)
-    private Long zipCode;
-
-    @Column(nullable = false)
-    private String mainAddress;
-
-    @Column(nullable = false)
-    private String detailAddress;
-    
     // 배송 메시지
     private String message;
 }

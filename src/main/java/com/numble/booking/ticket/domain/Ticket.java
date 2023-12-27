@@ -1,7 +1,7 @@
 package com.numble.booking.ticket.domain;
 
 import com.numble.booking.common.base.CreatedAndModifiedBase;
-import com.numble.booking.payment.domain.PaymentItem;
+import com.numble.booking.order.domain.OrderItem;
 import com.numble.booking.ticket.type.ReceivingMethod;
 import com.numble.booking.ticket.type.TicketStatus;
 import com.numble.booking.user.domian.User;
@@ -43,8 +43,8 @@ public class Ticket extends CreatedAndModifiedBase {
     
     // 예매 항목
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "paymentItem")
-    private PaymentItem paymentItem;
+    @JoinColumn(name = "orderItem")
+    private OrderItem orderItem;
     
     // 티켓 주인
     @ManyToOne(fetch = FetchType.LAZY)
@@ -64,10 +64,10 @@ public class Ticket extends CreatedAndModifiedBase {
     /**
      * 생성
      */
-    public static Ticket create(String ticketKey, PaymentItem paymentItem, User user, ReceivingMethod receivingMethod) {
+    public static Ticket create(String ticketKey, OrderItem orderItem, User user, ReceivingMethod receivingMethod) {
         Ticket entity = new Ticket();
         entity.ticketKey = ticketKey;
-        entity.paymentItem = paymentItem;
+        entity.orderItem = orderItem;
         entity.user = user;
         entity.status = TicketStatus.CONFIRMED;
         entity.receivingMethod = receivingMethod;

@@ -44,7 +44,7 @@ public class QTicket extends EntityPathBase<Ticket> {
     //inherited
     public final TimePath<java.time.LocalTime> lastModifiedTime = _super.lastModifiedTime;
 
-    public final com.numble.booking.payment.domain.QPaymentItem paymentItem;
+    public final com.numble.booking.order.domain.QOrderItem orderItem;
 
     public final EnumPath<com.numble.booking.ticket.type.ReceivingMethod> receivingMethod = createEnum("receivingMethod", com.numble.booking.ticket.type.ReceivingMethod.class);
 
@@ -72,7 +72,7 @@ public class QTicket extends EntityPathBase<Ticket> {
 
     public QTicket(Class<? extends Ticket> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.paymentItem = inits.isInitialized("paymentItem") ? new com.numble.booking.payment.domain.QPaymentItem(forProperty("paymentItem"), inits.get("paymentItem")) : null;
+        this.orderItem = inits.isInitialized("orderItem") ? new com.numble.booking.order.domain.QOrderItem(forProperty("orderItem"), inits.get("orderItem")) : null;
         this.user = inits.isInitialized("user") ? new com.numble.booking.user.domian.QUser(forProperty("user")) : null;
     }
 

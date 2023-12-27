@@ -1,4 +1,4 @@
-package com.numble.booking.payment.value;
+package com.numble.booking.delivery.value;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

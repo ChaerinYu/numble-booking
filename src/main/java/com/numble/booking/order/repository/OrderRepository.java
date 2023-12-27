@@ -1,23 +1,23 @@
-package com.numble.booking.payment.repository;
+package com.numble.booking.order.repository;
 
-import com.numble.booking.payment.domain.PaymentInfo;
+import com.numble.booking.order.domain.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
  * <pre>
- * Class Name : PaymentInfoRepository
+ * Class Name : OrderRepository
  * Description :
  *
  * Modification Information
  * Modify Date      Modifier    Comment
  * -------------------------------------------------------------
- * 2023-06-19	    user	New
+ * 2023-12-27	    user	New
  * </pre>
  *
  * @author user
- * @since 2023-06-19
+ * @since 2023-12-27
  */
 @Repository
-public interface PaymentInfoRepository extends JpaRepository<PaymentInfo, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
 }

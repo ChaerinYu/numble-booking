@@ -67,9 +67,6 @@ public class QBusiness extends EntityPathBase<Business> {
 
     public final EnumPath<com.numble.booking.user.type.BusinessType> type = createEnum("type", com.numble.booking.user.type.BusinessType.class);
 
-    //inherited
-    public final ListPath<UserCoupon, QUserCoupon> userCoupons = _super.userCoupons;
-
     public QBusiness(String variable) {
         super(Business.class, forVariable(variable));
     }

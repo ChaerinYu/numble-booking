@@ -1,23 +1,23 @@
-package com.numble.booking.payment.type;
+package com.numble.booking.order.type;
 
 import lombok.Getter;
 
 /**
  * <pre>
- * Class Name : PaymentStatus
- * Description : 결제 상태
+ * Class Name : OrderStatus
+ * Description :
  *
  * Modification Information
  * Modify Date      Modifier    Comment
  * -------------------------------------------------------------
- * 2023-06-15	    user	New
+ * 2023-12-27	    user	New
  * </pre>
  *
  * @author user
- * @since 2023-06-15
+ * @since 2023-12-27
  */
 @Getter
-public enum PaymentStatus {
+public enum OrderStatus {
     APPROVED("승인", 1),
     FAILED("실패", 2),
     BLOCKED("막힘", 3),
@@ -29,9 +29,9 @@ public enum PaymentStatus {
     ;
 
     private final String name;
-    private final Integer order;
+    private final int order;
 
-    PaymentStatus(String name, Integer order) {
+    OrderStatus(String name, int order) {
         this.name = name;
         this.order = order;
     }

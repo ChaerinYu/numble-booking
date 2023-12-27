@@ -1,8 +1,8 @@
-package com.numble.booking.payment.exception;
+package com.numble.booking.order.exception;
 
 /**
  * <pre>
- * Class Name : BadRequestPaymentException
+ * Class Name : BadRequestOrderException
  * Description : 결제 오류
  *
  * Modification Information
@@ -14,12 +14,12 @@ package com.numble.booking.payment.exception;
  * @author user
  * @since 2023-06-19
  */
-public class BadRequestPaymentException extends RuntimeException {
-    public BadRequestPaymentException() {
+public class BadRequestOrderException extends RuntimeException {
+    public BadRequestOrderException() {
         super("[결제 오류] 잘못된 요청입니다.");
     }
 
-    public BadRequestPaymentException(String message) {
+    public BadRequestOrderException(String message) {
         super(message);
     }
 }

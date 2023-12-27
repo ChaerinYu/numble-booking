@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -55,8 +54,6 @@ public class QUser extends EntityPathBase<User> {
     public final StringPath password = createString("password");
 
     public final EnumPath<com.numble.booking.user.type.UserStatus> status = createEnum("status", com.numble.booking.user.type.UserStatus.class);
-
-    public final ListPath<UserCoupon, QUserCoupon> userCoupons = this.<UserCoupon, QUserCoupon>createList("userCoupons", UserCoupon.class, QUserCoupon.class, PathInits.DIRECT2);
 
     public QUser(String variable) {
         super(User.class, forVariable(variable));

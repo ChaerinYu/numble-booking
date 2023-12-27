@@ -1,6 +1,6 @@
-package com.numble.booking.payment.repository;
+package com.numble.booking.delivery.repository;
 
-import com.numble.booking.payment.domain.Delivery;
+import com.numble.booking.delivery.domain.Delivery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

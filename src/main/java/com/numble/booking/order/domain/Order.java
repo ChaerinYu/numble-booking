@@ -1,20 +1,20 @@
 package com.numble.booking.order.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.numble.booking.common.base.CreatedAndModifiedBase;
+import com.numble.booking.delivery.domain.Delivery;
+import com.numble.booking.order.exception.BadRequestOrderException;
+import com.numble.booking.order.type.OrderStatus;
 import com.numble.booking.user.domian.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -46,4 +46,42 @@ public class Order extends CreatedAndModifiedBase {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    @OneToOne
+    private Delivery delivery;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
+    private LocalDateTime orderDate;
+
+
+    /**
+     * 생성
+     */
+    public static Order create(Delivery delivery, User user) {
+        Order entity = new Order();
+        entity.delivery = delivery;
+        entity.user = user;
+        return entity;
+    }
+
+    /**
+     * 결제 항목 추가
+     */
+    public void addItems(List<OrderItem> items) {
+        items.forEach(this::addItem);
+    }
+
+    public void addItem(OrderItem item) {
+        boolean duplicated = this.orderItems.stream().anyMatch(i -> i.getId().equals(item.getId()));
+        if (duplicated) {
+            throw new BadRequestOrderException("중복된 항목이 존재합니다.");
+        }
+        this.orderItems.add(item);
+    }
+
 }
