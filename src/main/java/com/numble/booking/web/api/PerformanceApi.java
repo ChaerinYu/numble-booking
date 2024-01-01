@@ -3,6 +3,7 @@ package com.numble.booking.web.api;
 import com.numble.booking.performance.service.PerformanceSeatService;
 import com.numble.booking.performance.service.PerformanceService;
 import com.numble.booking.performance.value.*;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,7 @@ import javax.validation.Valid;
  * @author user
  * @since 2023-06-15
  */
+@Api(value = "Performance APIs")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/performances")

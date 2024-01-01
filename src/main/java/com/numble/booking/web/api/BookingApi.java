@@ -4,6 +4,7 @@ import com.numble.booking.book.service.BookingService;
 import com.numble.booking.book.value.BookingFirstDto;
 import com.numble.booking.book.value.BookingSecondDto;
 import com.numble.booking.common.base.MessageVo;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ import javax.validation.Valid;
  * @author user
  * @since 2023-06-18
  */
+@Api(value = "Booking APIs")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/bookings")

@@ -6,6 +6,7 @@ import com.numble.booking.venue.value.VenueCreateDto;
 import com.numble.booking.venue.value.VenueDetailVo;
 import com.numble.booking.venue.value.VenueFindDto;
 import com.numble.booking.venue.value.VenueListVo;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ import javax.validation.Valid;
  * @author user
  * @since 2023-06-18
  */
+@Api(value = "Venue APIs")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/venues")

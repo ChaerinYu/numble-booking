@@ -2,6 +2,7 @@ package com.numble.booking.web.api;
 
 import javax.validation.Valid;
 
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ import lombok.RequiredArgsConstructor;
  * @author chaerin
  * @since 2023-06-21
  */
+@Api(value = "User APIs")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
