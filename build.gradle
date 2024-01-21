@@ -15,6 +15,13 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
+	querydsl.extendsFrom compileClasspath
+
+	configureEach {
+		// log4j2 충돌로 인해 로깅 모듈 제외
+		exclude (group: 'org.springframework.boot', module : 'spring-boot-starter-logging')
+		exclude (group: 'org.apache.logging.log4j', module : 'log4j-to-slf4j')
+	}
 }
 
 repositories {
@@ -35,6 +42,10 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	testImplementation 'org.springframework.security:spring-security-test:5.2.2.RELEASE'
 
+	// Log4j2
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	implementation 'com.lmax:disruptor:3.4.4' // log4j2 Async Logger 사용하기 위해 이용
+
 	// Swagger
 	implementation 'io.springfox:springfox-swagger2:2.9.2'
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
@@ -48,6 +59,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 
 	// Repository
+	implementation 'mysql:mysql-connector-java:8.0.18'
 	runtimeOnly 'com.h2database:h2'
 
 	// QueryDSL

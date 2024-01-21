@@ -1,0 +1,27 @@
+spring:
+  booking-jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        format_sql: true
+        query:
+          plan_cache_max_size: 384
+          plan_parameter_metadata_max_size: 24
+          in_clause_parameter_padding: true
+        use_sql_comments: true
+  database:
+    booking-datasource:
+      jdbc-url: jdbc:mysql://localhost:3306/numble-reserve-local?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password:
+      pool-name: hikari-cp
+      minimum-idle: 10
+      maximum-pool-size: 10
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 480000
+
+logging:
+  config: classpath:log4j2-booking-local.xml

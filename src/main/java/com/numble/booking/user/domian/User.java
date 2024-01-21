@@ -10,9 +10,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <pre>
@@ -31,10 +30,11 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn
+@DiscriminatorValue("USER")
 @Table(name = "users")
-public class User extends CreatedAndModifiedBase {
+public class User extends CreatedAndModifiedBase implements Serializable {
     @Id
     @Column(name = "userId", nullable = false)
     @GeneratedValue(generator = "userSeqGenerator")

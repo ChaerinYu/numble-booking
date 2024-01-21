@@ -1,8 +1,8 @@
 package com.numble.booking.ticket.domain;
 
-import com.numble.booking.common.base.CreatedAndModifiedBase;
+import com.numble.booking.order.domain.Order;
 import com.numble.booking.order.domain.OrderItem;
-import com.numble.booking.ticket.type.ReceivingMethod;
+import com.numble.booking.performance.domain.PerformanceSeat;
 import com.numble.booking.ticket.type.TicketStatus;
 import com.numble.booking.user.domian.User;
 import lombok.AccessLevel;
@@ -27,9 +27,10 @@ import javax.persistence.*;
  * @since 2023-06-15
  */
 @Entity
+@DiscriminatorValue(value = "TICKET") // 구분 컬럼 값 지정
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Ticket extends CreatedAndModifiedBase {
+public class Ticket extends OrderItem {
 
     @Id
     @Column(name = "ticketId", nullable = false)
@@ -40,12 +41,11 @@ public class Ticket extends CreatedAndModifiedBase {
     // 티켓 번호
     @Column(nullable = false)
     private String ticketKey;
-    
-    // 예매 항목
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderItem")
-    private OrderItem orderItem;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "performanceSeatId")
+    private PerformanceSeat performanceSeat;
+
     // 티켓 주인
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", nullable = false, updatable = false)
@@ -55,22 +55,19 @@ public class Ticket extends CreatedAndModifiedBase {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TicketStatus status;
-    
-    // 티켓 수령 방법
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ReceivingMethod receivingMethod;
 
     /**
      * 생성
      */
-    public static Ticket create(String ticketKey, OrderItem orderItem, User user, ReceivingMethod receivingMethod) {
+    public static Ticket create(Order order, int orderPrice, int count, String ticketKey, PerformanceSeat seat, User user) {
         Ticket entity = new Ticket();
+        entity.order = order;
+        entity.orderPrice = orderPrice;
+        entity.count = count;
         entity.ticketKey = ticketKey;
-        entity.orderItem = orderItem;
+        entity.performanceSeat = seat;
         entity.user = user;
         entity.status = TicketStatus.CONFIRMED;
-        entity.receivingMethod = receivingMethod;
         return entity;
     }
 }

@@ -1,7 +1,6 @@
 package com.numble.booking.order.domain;
 
 import com.numble.booking.common.base.CreatedAndModifiedBase;
-import com.numble.booking.performance.domain.PerformanceSeat;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +23,8 @@ import javax.persistence.*;
  * @since 2023-12-27
  */
 @Entity
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)  // 싱글 테이블 전략 설정
+//@DiscriminatorColumn(name = "dtype")  // 구분컬럼명 지정
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends CreatedAndModifiedBase {
@@ -31,27 +32,24 @@ public class OrderItem extends CreatedAndModifiedBase {
     @Column(name = "orderItemId", nullable = false)
     @GeneratedValue(generator = "orderItemSeqGenerator")
     @GenericGenerator(name = "orderItemSeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "performanceSeatId")
-    private PerformanceSeat performanceSeat;
+    protected Long id;
 
     @ManyToOne
     @JoinColumn(name = "orderId")
-    private Order order;
+    protected Order order;
 
-    private int orderPrice;  // 주문 가격
+    protected int orderPrice;  // 주문 가격
 
-    private int count;  // 주문 수량
+    protected int count;  // 주문 수량
 
     /**
      * 생성
      */
-    public static OrderItem create(Order order, PerformanceSeat seat) {
+    public static OrderItem create(Order order, int price, int count) {
         OrderItem entity = new OrderItem();
         entity.order = order;
-        entity.performanceSeat = seat;
+        entity.orderPrice = price;
+        entity.count = count;
         return entity;
     }
 }

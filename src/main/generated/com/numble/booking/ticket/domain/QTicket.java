@@ -22,31 +22,38 @@ public class QTicket extends EntityPathBase<Ticket> {
 
     public static final QTicket ticket = new QTicket("ticket");
 
-    public final com.numble.booking.common.base.QCreatedAndModifiedBase _super = new com.numble.booking.common.base.QCreatedAndModifiedBase(this);
+    public final com.numble.booking.order.domain.QOrderItem _super;
 
     //inherited
-    public final NumberPath<Long> createdBy = _super.createdBy;
+    public final NumberPath<Integer> count;
 
     //inherited
-    public final DatePath<java.time.LocalDate> createdDate = _super.createdDate;
+    public final NumberPath<Long> createdBy;
 
     //inherited
-    public final TimePath<java.time.LocalTime> createdTime = _super.createdTime;
+    public final DatePath<java.time.LocalDate> createdDate;
+
+    //inherited
+    public final TimePath<java.time.LocalTime> createdTime;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
-    public final NumberPath<Long> lastModifiedBy = _super.lastModifiedBy;
+    public final NumberPath<Long> lastModifiedBy;
 
     //inherited
-    public final DatePath<java.time.LocalDate> lastModifiedDate = _super.lastModifiedDate;
+    public final DatePath<java.time.LocalDate> lastModifiedDate;
 
     //inherited
-    public final TimePath<java.time.LocalTime> lastModifiedTime = _super.lastModifiedTime;
+    public final TimePath<java.time.LocalTime> lastModifiedTime;
 
-    public final com.numble.booking.order.domain.QOrderItem orderItem;
+    // inherited
+    public final com.numble.booking.order.domain.QOrder order;
 
-    public final EnumPath<com.numble.booking.ticket.type.ReceivingMethod> receivingMethod = createEnum("receivingMethod", com.numble.booking.ticket.type.ReceivingMethod.class);
+    //inherited
+    public final NumberPath<Integer> orderPrice;
+
+    public final com.numble.booking.performance.domain.QPerformanceSeat performanceSeat;
 
     public final EnumPath<com.numble.booking.ticket.type.TicketStatus> status = createEnum("status", com.numble.booking.ticket.type.TicketStatus.class);
 
@@ -72,7 +79,17 @@ public class QTicket extends EntityPathBase<Ticket> {
 
     public QTicket(Class<? extends Ticket> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.orderItem = inits.isInitialized("orderItem") ? new com.numble.booking.order.domain.QOrderItem(forProperty("orderItem"), inits.get("orderItem")) : null;
+        this._super = new com.numble.booking.order.domain.QOrderItem(type, metadata, inits);
+        this.count = _super.count;
+        this.createdBy = _super.createdBy;
+        this.createdDate = _super.createdDate;
+        this.createdTime = _super.createdTime;
+        this.lastModifiedBy = _super.lastModifiedBy;
+        this.lastModifiedDate = _super.lastModifiedDate;
+        this.lastModifiedTime = _super.lastModifiedTime;
+        this.order = _super.order;
+        this.orderPrice = _super.orderPrice;
+        this.performanceSeat = inits.isInitialized("performanceSeat") ? new com.numble.booking.performance.domain.QPerformanceSeat(forProperty("performanceSeat"), inits.get("performanceSeat")) : null;
         this.user = inits.isInitialized("user") ? new com.numble.booking.user.domian.QUser(forProperty("user")) : null;
     }
 

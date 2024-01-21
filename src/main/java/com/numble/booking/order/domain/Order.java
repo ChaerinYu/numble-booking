@@ -6,6 +6,7 @@ import com.numble.booking.common.base.CreatedAndModifiedBase;
 import com.numble.booking.delivery.domain.Delivery;
 import com.numble.booking.order.exception.BadRequestOrderException;
 import com.numble.booking.order.type.OrderStatus;
+import com.numble.booking.ticket.type.ReceivingMethod;
 import com.numble.booking.user.domian.User;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -43,7 +44,7 @@ public class Order extends CreatedAndModifiedBase {
     private Long id;
 
     // 결제자 / 주문자
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "userId")
     private User user;
 
@@ -58,14 +59,22 @@ public class Order extends CreatedAndModifiedBase {
 
     private LocalDateTime orderDate;
 
+    // 티켓 수령 방법
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ReceivingMethod receivingMethod;
+
 
     /**
      * 생성
      */
-    public static Order create(Delivery delivery, User user) {
+    public static Order create(Delivery delivery, User user, ReceivingMethod receivingMethod) {
         Order entity = new Order();
         entity.delivery = delivery;
         entity.user = user;
+        entity.orderStatus = OrderStatus.PENDING;
+        entity.orderDate = LocalDateTime.now();
+        entity.receivingMethod = receivingMethod;
         return entity;
     }
 

@@ -4,10 +4,8 @@ import com.numble.booking.book.value.BookingFirstDto;
 import com.numble.booking.book.value.BookingSecondDto;
 import com.numble.booking.delivery.domain.Delivery;
 import com.numble.booking.order.domain.Order;
-import com.numble.booking.order.domain.OrderItem;
 import com.numble.booking.order.exception.BadRequestOrderException;
 import com.numble.booking.delivery.repository.DeliveryRepository;
-import com.numble.booking.order.repository.OrderItemRepository;
 import com.numble.booking.order.repository.OrderRepository;
 import com.numble.booking.performance.domain.Performance;
 import com.numble.booking.performance.domain.PerformanceSeat;
@@ -60,7 +58,6 @@ public class BookingService {
     private final PerformanceSeatQuerydslRepository performanceSeatQuerydslRepository;
     private final DeliveryRepository deliveryRepository;
     private final OrderRepository orderRepository;
-    private final OrderItemRepository orderItemRepository;
     private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
 
@@ -109,9 +106,9 @@ public class BookingService {
         deliveryRepository.save(delivery);
 
         // 결제 저장
-        Order order = Order.create(delivery, user);
+        Order order = Order.create(delivery, user, ReceivingMethod.MOBILE_TICKET);
         orderRepository.save(order);
-        
+
         // 공연과 사용자 정보로 PENDING 인 좌석 조회하기
         List<PerformanceSeat> pendingSeats = performanceSeatRepository.findByPerformanceAndUser(performance.getId(), user.getId())
                 .stream()
@@ -122,10 +119,9 @@ public class BookingService {
             pendingSeat.modifyStatus(SeatStatus.OCCUPIED, user);
         }
         performanceSeatRepository.saveAll(pendingSeats);
-        
+
         // OrderItem 저장, Ticket 생성
         final int ticketKeySize = 10;
-        List<OrderItem> items = new ArrayList<>();
         List<Ticket> tickets = new ArrayList<>();
         for (PerformanceSeat pendingSeat : pendingSeats) {
             Integer orgPrice = performance.getPricePolicies().stream()
@@ -133,14 +129,11 @@ public class BookingService {
                     .map(PricePolicy::getPrice)
                     .findAny()
                     .orElseThrow(() -> new BadRequestOrderException("존재하지 않는 좌석 유형입니다."));
-            OrderItem orderItem = OrderItem.create(order, pendingSeat);
-            items.add(orderItem);
 
             // 티켓 생성 Ticket
             String ticketKey = TicketService.getRandomStr(ticketKeySize);
-            Ticket.create(ticketKey, orderItem, user, ReceivingMethod.POSTAL_MAIL);
+            Ticket.create(order, orgPrice, 1, ticketKey, pendingSeat, user);
         }
-        orderItemRepository.saveAll(items);
         ticketRepository.saveAll(tickets);
     }
 }
