@@ -33,7 +33,7 @@ public class PerformanceListVo {
     private Long venueId;
 
     // 공연장 ID
-    private Long venueName;
+    private String venueName;
 
     // 공연 이름
     private String name;

@@ -1,0 +1,28 @@
+booking:
+  file-path: "src/test/resources/file"
+
+spring:
+  booking-jpa:
+    properties:
+      hibernate:
+        format_sql: false
+        use_sql_comments: false
+        hbm2ddl:
+          auto: create-drop
+          import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+          import_files: init-test-import.sql
+          charset_name: UTF-8
+        jdbc:
+          time_zone: Asia/Seoul
+  database:
+    booking-datasource:
+      jdbc-url: jdbc:h2:mem:test;Mode=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=FALSE
+      driver-class-name: org.h2.Driver
+      username: sa
+      password:
+      pool-name: hikari-cp
+      minimum-idle: 10
+      maximum-pool-size: 10
+
+logging:
+  config: classpath:log4j2-booking-local.xml

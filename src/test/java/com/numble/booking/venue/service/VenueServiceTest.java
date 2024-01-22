@@ -1,5 +1,6 @@
 package com.numble.booking.venue.service;
 
+import com.numble.booking.annotation.BookingTest;
 import com.numble.booking.seat.domain.Seat;
 import com.numble.booking.seat.repository.SeatRepository;
 import com.numble.booking.seat.type.SeatType;
@@ -9,9 +10,10 @@ import com.numble.booking.venue.exception.NotFoundVenueException;
 import com.numble.booking.venue.repository.VenueRepository;
 import com.numble.booking.venue.type.VenuesType;
 import com.numble.booking.venue.value.VenueCreateDto;
+import com.numble.booking.venue.value.VenueDetailVo;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author user
  * @since 2023-06-25
  */
-@SpringBootTest
+@BookingTest
 class VenueServiceTest {
 
     @Autowired
@@ -79,5 +81,16 @@ class VenueServiceTest {
         List<Seat> venueSeats = seatRepository.findByVenue(venueId);
         assertEquals(1000, venueSeats.size());
         assertFalse(venueSeats.stream().filter(vs -> vs.getNumber().equals("B10")).findAny().isEmpty());
+    }
+    
+    @Test
+    @DisplayName("공연장 조회")
+    void find() {
+        // given
+        Long venueId = 1000L;
+        // when
+        VenueDetailVo vo = venueService.find(venueId);
+        // then
+        assertEquals(vo.getCapacity(), 10L);
     }
 }

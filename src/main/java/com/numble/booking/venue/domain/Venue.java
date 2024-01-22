@@ -50,6 +50,7 @@ public class Venue extends CreatedAndModifiedBase {
     private String possibleTimes;
 
     // 공연장 유형
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private VenuesType type;
 

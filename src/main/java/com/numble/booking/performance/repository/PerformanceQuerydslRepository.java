@@ -96,6 +96,7 @@ public class PerformanceQuerydslRepository {
                                 performance.endTime
                         )
                 )
+                .from(performance)
                 .innerJoin(performance.venue, venue)
                 .where(
                         createPerformanceFindBuilder(dto)

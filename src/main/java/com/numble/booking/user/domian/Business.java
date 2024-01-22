@@ -31,11 +31,9 @@ import javax.persistence.*;
 @DiscriminatorValue("BUSINESS")
 public class Business extends User {
 
-    @Column(nullable = false)
     private String businessLicense;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private BusinessType type;
 
     /**

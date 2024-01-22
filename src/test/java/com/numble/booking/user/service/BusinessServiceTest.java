@@ -1,12 +1,12 @@
 package com.numble.booking.user.service;
 
+import com.numble.booking.annotation.BookingTest;
 import com.numble.booking.user.domian.Business;
 import com.numble.booking.user.repository.BusinessRepository;
 import com.numble.booking.user.type.BusinessType;
 import com.numble.booking.user.value.BusinessSignUpDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author user
  * @since 2023-06-23
  */
-@SpringBootTest
+@BookingTest
 class BusinessServiceTest {
 
     @Autowired

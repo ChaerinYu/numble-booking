@@ -6,6 +6,7 @@ import com.numble.booking.seat.repository.SeatRepository;
 import com.numble.booking.seat.value.VenueSeatDto;
 import com.numble.booking.seat.value.VenueSeatListVo;
 import com.numble.booking.venue.domain.Venue;
+import com.numble.booking.venue.exception.NotFoundVenueException;
 import com.numble.booking.venue.repository.VenueQuerydslRepository;
 import com.numble.booking.venue.repository.VenueRepository;
 import com.numble.booking.venue.value.VenueCreateDto;
@@ -53,6 +54,9 @@ public class VenueService {
     @Transactional(readOnly = true)
     public VenueDetailVo find(Long venueId) {
         VenueDetailVo vo = venueQuerydslRepository.find(venueId);
+        if (vo == null) {
+            throw new NotFoundVenueException();
+        }
         vo.setSeats(seatRepository.findByVenue(venueId)
                 .stream()
                 .map(VenueSeatListVo::of)
