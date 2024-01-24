@@ -8,9 +8,6 @@ group = 'com.numble'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-apply plugin: 'groovy' // groovy 지원
-apply plugin: 'jacoco'
-
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -29,6 +26,7 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -36,6 +34,7 @@ dependencies {
 
 	// Utility
 	implementation 'org.apache.commons:commons-lang3:3.12.0'
+	implementation 'org.modelmapper:modelmapper:1.1.2'
 
 	// Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -51,32 +50,28 @@ dependencies {
 	implementation 'io.springfox:springfox-swagger-ui:2.9.2'
 	implementation 'io.swagger:swagger-models:1.5.21'
 
-	// Data
-	implementation 'org.modelmapper:modelmapper:1.1.2'
-
 	// Lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+	compileOnly 'org.projectlombok:lombok:1.18.8'
+	testCompileOnly 'org.projectlombok:lombok:1.18.8'
+	annotationProcessor 'org.projectlombok:lombok:1.18.8'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.8'
 
-	// Repository
-	implementation 'mysql:mysql-connector-java:8.0.18'
-	runtimeOnly 'com.h2database:h2'
-
-	// QueryDSL
+	// Data/Repository
 	implementation 'com.querydsl:querydsl-core:5.0.0'
 	implementation 'com.querydsl:querydsl-jpa:5.0.0'
 	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jpa' // querydsl JPAAnnotationProcessor 사용 지정
 	annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
 	annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
 	testImplementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.8'
+	implementation 'mysql:mysql-connector-java:8.0.18'
 
 	// Test
+	implementation 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	// springboot 2.2.x부터 junit5 기본 탑재
-	// 하지만 spock 현재 버전은 (groovy 2.4) junit4 의존성을 지니고 있어 junit4 기반 설정 추가로 진행해줘야 함
-	testRuntimeOnly 'org.junit.vintage:junit-vintage-engine'
-	testImplementation 'org.spockframework:spock-core:1.1-groovy-2.4'
-	testImplementation 'org.spockframework:spock-spring:1.1-groovy-2.4'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+	testImplementation 'org.junit.platform:junit-platform-launcher:1.5.2'
+	implementation 'com.h2database:h2'
 }
 
 tasks.named('test') {
