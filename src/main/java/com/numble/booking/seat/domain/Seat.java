@@ -35,7 +35,7 @@ public class Seat extends CreatedAndModifiedBase {
     private Long id;
 
     @Column(nullable = false)
-    private String number;
+    private String seatNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -50,7 +50,7 @@ public class Seat extends CreatedAndModifiedBase {
      */
     public static Seat create(String number, SeatType type, Venue venue) {
         Seat entity = new Seat();
-        entity.number = number;
+        entity.seatNumber = number;
         entity.seatType = type;
         entity.venue = venue;
         return entity;

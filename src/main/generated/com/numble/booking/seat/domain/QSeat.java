@@ -44,7 +44,7 @@ public class QSeat extends EntityPathBase<Seat> {
     //inherited
     public final TimePath<java.time.LocalTime> lastModifiedTime = _super.lastModifiedTime;
 
-    public final StringPath number = createString("number");
+    public final StringPath seatNumber = createString("seatNumber");
 
     public final EnumPath<com.numble.booking.seat.type.SeatType> seatType = createEnum("seatType", com.numble.booking.seat.type.SeatType.class);
 

@@ -31,7 +31,7 @@ public class VenueSeatListVo {
 
     public static VenueSeatListVo of(Seat entity) {
         VenueSeatListVo vo = new VenueSeatListVo();
-        vo.setSeatNumber(entity.getNumber());
+        vo.setSeatNumber(entity.getSeatNumber());
         vo.setSeatType(entity.getSeatType());
         return vo;
     }

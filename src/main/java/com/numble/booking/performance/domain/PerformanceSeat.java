@@ -75,7 +75,7 @@ public class PerformanceSeat extends CreatedAndModifiedBase {
         PerformanceSeat entity = new PerformanceSeat();
         entity.performance = performance;
         entity.seat = seat;
-        entity.number = seat.getNumber();
+        entity.number = seat.getSeatNumber();
         entity.seatType = seat.getSeatType();
         entity.status = SeatStatus.AVAILABLE;
         return entity;
