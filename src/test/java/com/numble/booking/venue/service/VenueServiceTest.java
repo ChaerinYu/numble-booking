@@ -11,9 +11,13 @@ import com.numble.booking.venue.repository.VenueRepository;
 import com.numble.booking.venue.type.VenuesType;
 import com.numble.booking.venue.value.VenueCreateDto;
 import com.numble.booking.venue.value.VenueDetailVo;
+import com.numble.booking.venue.value.VenueFindDto;
+import com.numble.booking.venue.value.VenueListVo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -80,7 +84,26 @@ class VenueServiceTest {
 
         List<Seat> venueSeats = seatRepository.findByVenue(venueId);
         assertEquals(1000, venueSeats.size());
-        assertFalse(venueSeats.stream().filter(vs -> vs.getNumber().equals("B10")).findAny().isEmpty());
+        assertFalse(venueSeats.stream().filter(vs -> vs.getSeatNumber().equals("B10")).findAny().isEmpty());
+    }
+
+    @Test
+    @DisplayName("공연장 목록 조회")
+    void findAll() {
+        // given
+        PageRequest pageRequest = PageRequest.of(0, 3);
+        VenueFindDto dto = new VenueFindDto();
+        dto.setType(VenuesType.FIXED_SEAT);
+
+        // when
+        Page<VenueListVo> venues = venueService.findAll(pageRequest, dto);
+
+        // then
+        for (VenueListVo venue : venues) {
+            System.out.println("venue info: " + venue.getName() + ", times: " + venue.getPossibleTimes());
+        }
+
+        assertEquals(2, venues.getContent().size());
     }
     
     @Test
