@@ -12,10 +12,11 @@ spring:
         use_sql_comments: true
   database:
     booking-datasource:
-      jdbc-url: jdbc:mysql://localhost:3306/numble-reserve-local?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8
+      # &useSSL=false https://blog.naver.com/PostView.naver?blogId=kkson50&logNo=222942723322
+      jdbc-url: jdbc:mysql://localhost:3306/numble-reserve-local?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8&useSSL=false
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
-      password:
+      password: 
       pool-name: hikari-cp
       minimum-idle: 10
       maximum-pool-size: 10
