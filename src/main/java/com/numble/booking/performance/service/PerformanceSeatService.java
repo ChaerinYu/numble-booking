@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PerformanceSeatService {
 
-    private PerformanceSeatQuerydslRepository performanceSeatQuerydslRepository;
+    private final PerformanceSeatQuerydslRepository performanceSeatQuerydslRepository;
 
     @Transactional(readOnly = true)
     public PerformanceRemainingSeatsVo findRemainingSeats(Long performanceId) {
