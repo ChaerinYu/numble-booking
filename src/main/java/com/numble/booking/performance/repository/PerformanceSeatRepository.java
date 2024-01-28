@@ -28,11 +28,10 @@ import java.util.List;
 public interface PerformanceSeatRepository extends JpaRepository<PerformanceSeat, Long> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT ps FROM PerformanceSeat ps INNER JOIN ps.performance p INNER JOIN ps.seat s " +
-            "WHERE p.id = :performanceId AND s.id IN (:seatIds)")
-    List<PerformanceSeat> findByPerformanceAndBySeats(@Param("performanceId") Long performanceId, @Param("seatIds") List<Long> seatIds);
+    @Query("SELECT ps FROM PerformanceSeat ps WHERE ps.id IN (:performanceSeatIds)")
+    List<PerformanceSeat> findByPerformanceSeats(@Param("performanceSeatIds") List<Long> performanceSeatIds);
 
-    @Query("SELECT ps FROM PerformanceSeat ps INNER JOIN ps.performance p INNER JOIN ps.user u " + "" +
+    @Query("SELECT ps, p FROM PerformanceSeat ps INNER JOIN ps.performance p INNER JOIN ps.user u " + "" +
             "WHERE p.id = :performanceId AND u.id = :userId")
     List<PerformanceSeat> findByPerformanceAndUser(@Param("performanceId") Long performanceId, @Param("userId") Long userId);
 }

@@ -1,5 +1,6 @@
 package com.numble.booking.seat.value;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,9 +27,15 @@ import javax.validation.constraints.Size;
 public class SeatBookingDto {
 
     @NotNull(message = "좌석 ID가 없습니다.")
-    private Long seatId;
+    private Long performanceSeatId;
 
     @NotBlank(message = "좌석 번호가 없습니다.")
     @Size(max = 256, message = "좌석 번호는 256자를 넘길 수 없습니다.")
     private String seatNumber;
+
+    @Builder
+    public SeatBookingDto(Long performanceSeatId, String seatNumber) {
+        this.performanceSeatId = performanceSeatId;
+        this.seatNumber = seatNumber;
+    }
 }

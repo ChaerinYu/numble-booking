@@ -3,6 +3,7 @@ package com.numble.booking.book.value;
 import com.numble.booking.seat.value.SeatBookingDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import java.util.List;
  * @since 2023-06-18
  */
 @Getter
+@Setter
 @NoArgsConstructor
 public class BookingFirstDto {
 

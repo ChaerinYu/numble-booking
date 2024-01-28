@@ -68,24 +68,24 @@ public class BookingService {
 
         // 좌석 사용 가능한지 확인
         List<SeatListVo> availableSeats = performanceSeatQuerydslRepository.findAvailableSeats(performance.getId());
-        List<Long> seatIds = new ArrayList<>();
+        List<Long> performanceSeatId = new ArrayList<>();
         for (SeatBookingDto seat : dto.getSeats()) {
             SeatListVo vo = availableSeats.stream()
-                    .filter(as -> as.getSeatId().equals(seat.getSeatId()))
+                    .filter(as -> as.getSeatId().equals(seat.getPerformanceSeatId()))
                     .findAny()
                     .orElseThrow(() -> new NotFoundPerformanceSeatException("이미 선택된 좌석입니다."));
-            seatIds.add(vo.getSeatId());
+            performanceSeatId.add(vo.getSeatId());
         }
 
         // 좌석 대기 걸기
-        pendingSeats(dto, performance, seatIds);
+        pendingSeats(dto, performanceSeatId);
 
         return performance.getId();
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, noRollbackFor = Exception.class)
-    public void pendingSeats(BookingFirstDto dto, Performance performance, List<Long> seatIds) {
-        List<PerformanceSeat> performanceSeats = performanceSeatRepository.findByPerformanceAndBySeats(performance.getId(), seatIds);
+    public void pendingSeats(BookingFirstDto dto, List<Long> performanceSeatIds) {
+        List<PerformanceSeat> performanceSeats = performanceSeatRepository.findByPerformanceSeats(performanceSeatIds);
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(NotFoundUserException::new);
         for (PerformanceSeat performanceSeat : performanceSeats) {
