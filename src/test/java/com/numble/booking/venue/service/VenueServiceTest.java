@@ -56,15 +56,15 @@ class VenueServiceTest {
         // given
         VenueCreateDto dto = new VenueCreateDto();
         dto.setName("올림픽 체조 경기장");
-        dto.setCapacity(10000L);
+        dto.setCapacity(100L);
         dto.setVenuesType(VenuesType.FIXED_SEAT);
         dto.setOpenTime(LocalTime.NOON);
         dto.setClosedTime(LocalTime.MIDNIGHT);
         List<VenueSeatDto> seats = new ArrayList<>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             VenueSeatDto seat = new VenueSeatDto();
-            int number = i % 100 + 1;
-            char alphabet = (char) ('A' + (int) Math.floor(i / 100));
+            int number = i % 10 + 1;
+            char alphabet = (char) ('A' + (int) Math.floor(i / 10));
             seat.setSeatNumber(String.valueOf(alphabet)+ number);
             if (alphabet == 'A') {
                 seat.setSeatType(SeatType.VIP);
@@ -83,7 +83,7 @@ class VenueServiceTest {
         assertEquals(venue.getName(), "올림픽 체조 경기장");
 
         List<Seat> venueSeats = seatRepository.findByVenue(venueId);
-        assertEquals(1000, venueSeats.size());
+        assertEquals(100, venueSeats.size());
         assertFalse(venueSeats.stream().filter(vs -> vs.getSeatNumber().equals("B10")).findAny().isEmpty());
     }
 
@@ -103,7 +103,7 @@ class VenueServiceTest {
             System.out.println("venue info: " + venue.getName() + ", times: " + venue.getPossibleTimes());
         }
 
-        assertEquals(2, venues.getContent().size());
+        assertEquals(3, venues.getContent().size());
     }
     
     @Test

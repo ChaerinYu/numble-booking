@@ -1,6 +1,7 @@
 package com.numble.booking.price.value;
 
 import com.numble.booking.seat.type.SeatType;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,8 +26,14 @@ import javax.validation.constraints.NotNull;
 public class PricePolicyDto {
 
     @NotNull(message = "좌석 유형을 입력 해 주세요.")
-    private SeatType type;
+    private SeatType seatType;
 
     @NotNull(message = "좌석 금액을 입력 해 주세요.")
     private Integer price;
+
+    @Builder
+    public PricePolicyDto(SeatType seatType, Integer price) {
+        this.seatType = seatType;
+        this.price = price;
+    }
 }

@@ -61,7 +61,7 @@ public class Performance extends CreatedAndModifiedBase {
 
     // 공연 날짜
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    private LocalDate performanceDate;
 
     // 공연 시작 시간
     @DateTimeFormat(pattern = "HH:mm")
@@ -85,9 +85,18 @@ public class Performance extends CreatedAndModifiedBase {
         entity.description = dto.getDescription();
         entity.genre = dto.getGenre();
         entity.capacity = dto.getCapacity() != null ? dto.getCapacity() : venue.getCapacity();
-        entity.date = dto.getDate();
+        entity.performanceDate = dto.getPerformanceDate();
         entity.startTime = dto.getStartTime();
         entity.endTime = dto.getEndTime();
         return entity;
+    }
+
+    public void modifyPricePolicies(List<PricePolicy> policies) {
+        this.pricePolicies.removeIf(pp -> !pricePolicies.contains(pp));
+        for (PricePolicy newPolicy : policies) {
+            if (this.pricePolicies.stream().noneMatch(pp -> pp.getId().equals(newPolicy.getId()))) {
+                this.pricePolicies.add(newPolicy);
+            }
+        }
     }
 }

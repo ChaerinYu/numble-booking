@@ -35,8 +35,6 @@ public class QPerformance extends EntityPathBase<Performance> {
     //inherited
     public final TimePath<java.time.LocalTime> createdTime = _super.createdTime;
 
-    public final DatePath<java.time.LocalDate> date = createDate("date", java.time.LocalDate.class);
-
     public final StringPath description = createString("description");
 
     public final TimePath<java.time.LocalTime> endTime = createTime("endTime", java.time.LocalTime.class);
@@ -55,6 +53,8 @@ public class QPerformance extends EntityPathBase<Performance> {
     public final TimePath<java.time.LocalTime> lastModifiedTime = _super.lastModifiedTime;
 
     public final StringPath name = createString("name");
+
+    public final DatePath<java.time.LocalDate> performanceDate = createDate("performanceDate", java.time.LocalDate.class);
 
     public final ListPath<com.numble.booking.price.domain.PricePolicy, com.numble.booking.price.domain.QPricePolicy> pricePolicies = this.<com.numble.booking.price.domain.PricePolicy, com.numble.booking.price.domain.QPricePolicy>createList("pricePolicies", com.numble.booking.price.domain.PricePolicy.class, com.numble.booking.price.domain.QPricePolicy.class, PathInits.DIRECT2);
 

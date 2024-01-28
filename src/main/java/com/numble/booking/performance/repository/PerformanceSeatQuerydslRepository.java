@@ -37,7 +37,7 @@ public class PerformanceSeatQuerydslRepository {
                         Projections.fields(
                                 SeatListVo.class,
                                 performanceSeat.id.as("seatId"),
-                                performanceSeat.number.as("seatNumber"),
+                                performanceSeat.seatNumber,
                                 performanceSeat.status
                         )
                 )

@@ -45,13 +45,13 @@ public class PerformanceSeat extends CreatedAndModifiedBase {
 
     // 공연 좌석
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seat")
+    @JoinColumn(name = "seatId")
     private Seat seat;
 
     // 공연별로 좌석 번호가 다를 수도 있음 (현재는 동일)
     // default로 Seat의 number와 동일
     @Column(nullable = false)
-    private String number;
+    private String seatNumber;
 
     // 공연별로 좌석 type이 다를 수도 있음 (현재는 동일)
     // default로 Seat의 type과 동일
@@ -75,7 +75,7 @@ public class PerformanceSeat extends CreatedAndModifiedBase {
         PerformanceSeat entity = new PerformanceSeat();
         entity.performance = performance;
         entity.seat = seat;
-        entity.number = seat.getSeatNumber();
+        entity.seatNumber = seat.getSeatNumber();
         entity.seatType = seat.getSeatType();
         entity.status = SeatStatus.AVAILABLE;
         return entity;

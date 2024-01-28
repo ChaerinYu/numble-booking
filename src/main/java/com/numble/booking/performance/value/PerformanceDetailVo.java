@@ -36,8 +36,8 @@ public class PerformanceDetailVo {
     // 공연장 ID
     private Long venueId;
 
-    // 공연장 ID
-    private Long venueName;
+    // 공연장 이름
+    private String venueName;
 
     // 공연 이름
     private String name;
@@ -50,7 +50,7 @@ public class PerformanceDetailVo {
 
     // 공연 일자
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    private LocalDate performanceDate;
 
     // 공연 시작 시간
     @JsonFormat(pattern = "HH:mm:ss")

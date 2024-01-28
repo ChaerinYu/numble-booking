@@ -80,10 +80,11 @@ public class PerformanceService {
 
         // 공연 좌석 가격 생성
         List<PricePolicy> prices = new ArrayList<>();
-        for (PricePolicyDto ticketPrice : dto.getTicketPrices()) {
-            prices.add(PricePolicy.create(performance, ticketPrice.getType(), ticketPrice.getPrice()));
+        for (PricePolicyDto pricePolicy : dto.getPricePolicies()) {
+            prices.add(PricePolicy.create(performance, pricePolicy.getSeatType(), pricePolicy.getPrice()));
         }
         pricePolicyRepository.saveAll(prices);
+        performance.modifyPricePolicies(prices);
 
         // 공연 좌석 이용가능 update
         List<Seat> seats = seatRepository.findByVenue(venue.getId());

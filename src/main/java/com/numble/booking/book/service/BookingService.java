@@ -125,7 +125,7 @@ public class BookingService {
         List<Ticket> tickets = new ArrayList<>();
         for (PerformanceSeat pendingSeat : pendingSeats) {
             Integer orgPrice = performance.getPricePolicies().stream()
-                    .filter(p -> pendingSeat.getSeatType().equals(p.getType()))
+                    .filter(p -> pendingSeat.getSeatType().equals(p.getSeatType()))
                     .map(PricePolicy::getPrice)
                     .findAny()
                     .orElseThrow(() -> new BadRequestOrderException("존재하지 않는 좌석 유형입니다."));

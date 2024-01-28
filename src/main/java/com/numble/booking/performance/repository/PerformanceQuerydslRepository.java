@@ -69,7 +69,7 @@ public class PerformanceQuerydslRepository {
                                 performance.name,
                                 performance.description,
                                 performance.genre,
-                                performance.date,
+                                performance.performanceDate,
                                 performance.startTime,
                                 performance.endTime
                         )
@@ -91,7 +91,7 @@ public class PerformanceQuerydslRepository {
                                 venue.name.as("venueName"),
                                 performance.name,
                                 performance.genre,
-                                performance.date,
+                                performance.performanceDate,
                                 performance.startTime,
                                 performance.endTime
                         )
@@ -142,10 +142,10 @@ public class PerformanceQuerydslRepository {
     }
 
     private BooleanExpression goeDate(LocalDate fromDate) {
-        return Objects.nonNull(fromDate) ? performance.date.goe(fromDate) : null;
+        return Objects.nonNull(fromDate) ? performance.performanceDate.goe(fromDate) : null;
     }
 
     private BooleanExpression loeDate(LocalDate toDate) {
-        return Objects.nonNull(toDate) ? performance.date.loe(toDate) : null;
+        return Objects.nonNull(toDate) ? performance.performanceDate.loe(toDate) : null;
     }
 }

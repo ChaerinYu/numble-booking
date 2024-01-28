@@ -44,11 +44,11 @@ public class QPerformanceSeat extends EntityPathBase<PerformanceSeat> {
     //inherited
     public final TimePath<java.time.LocalTime> lastModifiedTime = _super.lastModifiedTime;
 
-    public final StringPath number = createString("number");
-
     public final QPerformance performance;
 
     public final com.numble.booking.seat.domain.QSeat seat;
+
+    public final StringPath seatNumber = createString("seatNumber");
 
     public final EnumPath<com.numble.booking.seat.type.SeatType> seatType = createEnum("seatType", com.numble.booking.seat.type.SeatType.class);
 

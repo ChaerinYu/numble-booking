@@ -5,6 +5,7 @@ import com.numble.booking.performance.type.Genre;
 import com.numble.booking.price.value.PricePolicyDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -29,6 +30,7 @@ import java.util.List;
  * @since 2023-06-18
  */
 @Getter
+@Setter
 @NoArgsConstructor
 public class PerformanceCreateDto {
 
@@ -48,7 +50,7 @@ public class PerformanceCreateDto {
 
     @NotNull(message = "공연 일자를 입력해 주세요.")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    private LocalDate performanceDate;
 
     @NotNull(message = "공연 시작시간을 입력해 주세요.")
     @JsonFormat(pattern = "HH:mm")
@@ -62,5 +64,5 @@ public class PerformanceCreateDto {
     private Long venueId;
 
     @NotNull(message = "공연 가격을 입력해 주세요.")
-    private List<PricePolicyDto> ticketPrices = new ArrayList<>();
+    private List<PricePolicyDto> pricePolicies = new ArrayList<>();
 }

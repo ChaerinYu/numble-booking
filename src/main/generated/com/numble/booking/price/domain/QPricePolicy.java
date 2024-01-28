@@ -48,7 +48,7 @@ public class QPricePolicy extends EntityPathBase<PricePolicy> {
 
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
-    public final EnumPath<com.numble.booking.seat.type.SeatType> type = createEnum("type", com.numble.booking.seat.type.SeatType.class);
+    public final EnumPath<com.numble.booking.seat.type.SeatType> seatType = createEnum("seatType", com.numble.booking.seat.type.SeatType.class);
 
     public QPricePolicy(String variable) {
         this(PricePolicy.class, forVariable(variable), INITS);

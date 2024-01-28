@@ -42,7 +42,7 @@ public class PricePolicy extends CreatedAndModifiedBase {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private SeatType type;
+    private SeatType seatType;
     
     // 가격
     @Column(nullable = false)
@@ -54,7 +54,7 @@ public class PricePolicy extends CreatedAndModifiedBase {
     public static PricePolicy create(Performance performance, SeatType type, Integer price) {
         PricePolicy entity = new PricePolicy();
         entity.performance = performance;
-        entity.type = type;
+        entity.seatType = type;
         entity.price = price;
         return entity;
     }
