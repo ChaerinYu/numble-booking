@@ -1,6 +1,7 @@
 package com.numble.booking.order.domain;
 
 import com.numble.booking.common.base.CreatedAndModifiedBase;
+import com.numble.booking.user.domian.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +24,6 @@ import javax.persistence.*;
  * @since 2023-12-27
  */
 @Entity
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)  // 싱글 테이블 전략 설정
-//@DiscriminatorColumn(name = "dtype")  // 구분컬럼명 지정
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem extends CreatedAndModifiedBase {
@@ -38,6 +37,11 @@ public class OrderItem extends CreatedAndModifiedBase {
     @JoinColumn(name = "orderId")
     protected Order order;
 
+    // 주문 상품 주인
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false, updatable = false)
+    protected User user;
+
     protected int orderPrice;  // 주문 가격
 
     protected int count;  // 주문 수량
@@ -45,9 +49,10 @@ public class OrderItem extends CreatedAndModifiedBase {
     /**
      * 생성
      */
-    public static OrderItem create(Order order, int price, int count) {
+    public static OrderItem create(Order order, User user, int price, int count) {
         OrderItem entity = new OrderItem();
         entity.order = order;
+        entity.user = user;
         entity.orderPrice = price;
         entity.count = count;
         return entity;

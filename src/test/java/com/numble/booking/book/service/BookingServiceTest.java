@@ -142,6 +142,6 @@ class BookingServiceTest {
                 .getResultList();
         assertThat(tickets).isNotEmpty();
         Ticket ticket = tickets.get(0);
-        assertThat(ticket.getStatus()).isEqualTo(TicketStatus.CONFIRMED);
+        assertThat(ticket.getTicketStatus()).isEqualTo(TicketStatus.CONFIRMED);
     }
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -33,6 +34,7 @@ public class DeliveryCreateDto {
 
     @NotBlank(message = "휴대전화 번호를 입력해 주세요.")
     @Size(max = 20)
+    @Pattern(regexp = "\\d{3}-\\d{4}-\\d{4}", message = "휴대폰 번호 형식이 올바르지 않습니다. (예: 010-1234-1234)")
     private String phone;
 
     @NotNull(message = "우편 번호를 입력해 주세요.")

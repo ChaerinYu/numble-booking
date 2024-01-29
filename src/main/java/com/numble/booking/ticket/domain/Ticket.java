@@ -39,22 +39,15 @@ public class Ticket extends OrderItem {
     private Long id;
 
     // 티켓 번호
-    @Column(nullable = false)
     private String ticketKey;
 
     @ManyToOne
     @JoinColumn(name = "performanceSeatId")
     private PerformanceSeat performanceSeat;
-
-    // 티켓 주인
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", nullable = false, updatable = false)
-    private User user;
     
     // 티켓 상태
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TicketStatus status;
+    private TicketStatus ticketStatus;
 
     /**
      * 생성
@@ -67,7 +60,7 @@ public class Ticket extends OrderItem {
         entity.ticketKey = ticketKey;
         entity.performanceSeat = seat;
         entity.user = user;
-        entity.status = TicketStatus.CONFIRMED;
+        entity.ticketStatus = TicketStatus.CONFIRMED;
         return entity;
     }
 }

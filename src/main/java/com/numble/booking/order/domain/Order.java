@@ -52,6 +52,7 @@ public class Order extends CreatedAndModifiedBase {
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne
+    @JoinColumn(name = "deliveryId")
     private Delivery delivery;
 
     @Enumerated(EnumType.STRING)
