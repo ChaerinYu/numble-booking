@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.numble.booking.order.type.OrderStatus;
+import com.numble.booking.order.value.OrderDetailVo;
 import com.numble.booking.order.value.OrderFindDto;
 import com.numble.booking.order.value.OrderListVo;
 import com.querydsl.core.BooleanBuilder;
@@ -62,18 +63,11 @@ public class OrderQuerydslRepository {
                                 order.orderStatus,
                                 order.orderDate,
                                 order.receivingMethod,
-                                Expressions.stringTemplate("CONCAT('(', {0}, ')', ' ', {1}, ' ', {2})",
-                                        delivery.address.zipCode, delivery.address.mainAddress, delivery.address.detailAddress)
-                                        .as("fullAddress"),
-                                delivery.receiverName,
-                                delivery.phone,
-                                delivery.message,
                                 user.id.as("orderUserId"),
                                 user.name.as("orderUsername")
                         )
                 )
                 .from(order)
-                .innerJoin(order.delivery, delivery)
                 .innerJoin(order.user, user)
                 .where(
                         createOrderFindBuilder(dto)
@@ -117,5 +111,32 @@ public class OrderQuerydslRepository {
 
     private BooleanExpression loeOrderDate(LocalDate toDate) {
         return Objects.nonNull(toDate) ? order.orderDate.lt(LocalDateTime.from(toDate.atStartOfDay().plusDays(1))) : null;
+    }
+
+    public OrderDetailVo find(Long orderId) {
+        return queryFactory.select(
+                        Projections.fields(
+                                OrderDetailVo.class,
+                                order.id.as("orderId"),
+                                order.orderStatus,
+                                order.orderDate,
+                                order.receivingMethod,
+                                Expressions.stringTemplate("CONCAT('(', {0}, ')', ' ', {1}, ' ', {2})",
+                                                delivery.address.zipCode, delivery.address.mainAddress, delivery.address.detailAddress)
+                                        .as("fullAddress"),
+                                delivery.receiverName,
+                                delivery.phone,
+                                delivery.message,
+                                user.id.as("orderUserId"),
+                                user.name.as("orderUsername")
+                        )
+                )
+                .from(order)
+                .innerJoin(order.delivery, delivery)
+                .innerJoin(order.user, user)
+                .where(
+                        orderId != null ? order.id.eq(orderId) : null
+                )
+                .fetchOne();
     }
 }

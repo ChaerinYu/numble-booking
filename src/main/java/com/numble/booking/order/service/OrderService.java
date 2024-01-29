@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 import com.numble.booking.order.exception.NotFoundOrderException;
 import com.numble.booking.order.repository.OrderItemQuerydslRepository;
 import com.numble.booking.order.repository.OrderQuerydslRepository;
+import com.numble.booking.order.value.OrderDetailVo;
 import com.numble.booking.order.value.OrderFindDto;
 import com.numble.booking.order.value.OrderItemListVo;
 import com.numble.booking.order.value.OrderListVo;
@@ -54,4 +55,15 @@ public class OrderService {
         return page;
     }
 
+    @Transactional(readOnly = true)
+    public OrderDetailVo find(Long orderId) {
+        OrderDetailVo vo = orderQuerydslRepository.find(orderId);
+        if (vo == null) {
+            throw new NotFoundOrderException(orderId);
+        }
+        vo.addItems(orderItemQuerydslRepository.findListByOrderIds(List.of(vo.getOrderId())));
+        vo.calculateTotalPrice();
+
+        return vo;
+    }
 }

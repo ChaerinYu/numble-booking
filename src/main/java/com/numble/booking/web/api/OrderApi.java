@@ -4,12 +4,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.numble.booking.common.base.AdminUser;
 import com.numble.booking.common.base.MemberUser;
 import com.numble.booking.order.service.OrderService;
+import com.numble.booking.order.value.OrderDetailVo;
 import com.numble.booking.order.value.OrderFindDto;
 import com.numble.booking.order.value.OrderListVo;
 import io.swagger.annotations.Api;
@@ -50,5 +52,13 @@ public class OrderApi {
     @GetMapping("/admin")
     public Page<OrderListVo> findAllByAdmin(Pageable pageable, @Validated(AdminUser.class) OrderFindDto dto) {
         return orderService.findAll(pageable, dto);
+    }
+
+    /**
+     * 주문 상세 조회
+     */
+    @GetMapping("/{orderId}")
+    public OrderDetailVo find(@PathVariable Long orderId) {
+        return orderService.find(orderId);
     }
 }

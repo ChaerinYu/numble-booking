@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import com.numble.booking.annotation.BookingTest;
+import com.numble.booking.order.type.OrderStatus;
+import com.numble.booking.order.value.OrderDetailVo;
 import com.numble.booking.order.value.OrderFindDto;
 import com.numble.booking.order.value.OrderListVo;
 import org.junit.jupiter.api.DisplayName;
@@ -49,6 +51,21 @@ class OrderServiceTest {
         List<OrderListVo> content = all.getContent();
         assertThat(content).isNotEmpty();
         assertThat(content.get(0).getOrderItems()).isNotEmpty();
-        assertThat(content.get(0).getFullAddress()).isEqualTo("(12345) 서울특별시 마포구 합정동");
+        assertThat(content.get(0).getOrderStatus()).isEqualTo(OrderStatus.APPROVED);
+    }
+
+    @Test
+    @DisplayName("주문 상세 조회")
+    void find() {
+        // given
+        Long orderId = 1002L;
+        // when
+        OrderDetailVo vo = orderService.find(orderId);
+        // then
+        assertThat(vo).isNotNull();
+        assertThat(vo.getFullAddress()).isEqualTo("(13355) 경기도 수원시");
+        assertThat(vo.getOrderItems()).isNotNull();
+        assertThat(vo.getOrderStatus()).isEqualTo(OrderStatus.CANCELED);
+        assertThat(vo.getTotalPrice()).isEqualTo(30000);
     }
 }

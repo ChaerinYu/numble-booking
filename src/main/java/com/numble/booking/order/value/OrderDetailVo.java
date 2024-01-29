@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * <pre>
- * Class Name : OrderListVo
- * Description : 주문 목록 조회
+ * Class Name : OrderDetailVo
+ * Description :
  *
  * Modification Information
  * Modify Date      Modifier    Comment
@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
  */
 @Getter
 @NoArgsConstructor
-public class OrderListVo {
+public class OrderDetailVo {
     @ApiModelProperty(value = "주문 id")
     private Long orderId;
 
@@ -39,6 +39,18 @@ public class OrderListVo {
     @ApiModelProperty(value = "주문 내역 목록")
     private List<OrderItemListVo> orderItems = new ArrayList<>();
 
+    @ApiModelProperty(value = "주소", hidden = true, example = "(12345) 서울시 마포구 합정동")
+    private String fullAddress;
+
+    @ApiModelProperty(value = "수령인", hidden = true)
+    private String receiverName;
+
+    @ApiModelProperty(value = "휴대번호", hidden = true)
+    private String phone;
+
+    @ApiModelProperty(value = "메세지", hidden = true)
+    private String message;
+
     @ApiModelProperty(value = "주문 상태")
     private OrderStatus orderStatus;
 
@@ -47,9 +59,25 @@ public class OrderListVo {
 
     @ApiModelProperty(value = "티켓 수령 방법")
     private ReceivingMethod receivingMethod;
+    
+    @ApiModelProperty(value = "총 금액")
+    private int totalPrice;
+
+    public void addItems(List<OrderItemListVo> items) {
+        for (OrderItemListVo item : items) {
+            addItem(item);
+        }
+    }
 
     public void addItem(OrderItemListVo item) {
         if (this.orderItems.contains(item)) return;
         this.orderItems.add(item);
+    }
+
+    public int calculateTotalPrice() {
+        this.totalPrice = orderItems.stream()
+                .mapToInt(OrderItemListVo::getOrderPrice)
+                .sum();
+        return this.totalPrice;
     }
 }
