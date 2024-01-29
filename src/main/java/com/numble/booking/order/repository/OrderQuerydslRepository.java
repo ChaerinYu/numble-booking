@@ -15,6 +15,7 @@ import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
+import com.numble.booking.delivery.type.DeliveryStatus;
 import com.numble.booking.order.type.OrderStatus;
 import com.numble.booking.order.value.OrderDetailVo;
 import com.numble.booking.order.value.OrderFindDto;
@@ -61,6 +62,7 @@ public class OrderQuerydslRepository {
                                 OrderListVo.class,
                                 order.id.as("orderId"),
                                 order.orderStatus,
+                                delivery.status.as("deliveryStatus"),
                                 order.orderDate,
                                 order.receivingMethod,
                                 user.id.as("orderUserId"),
@@ -68,6 +70,7 @@ public class OrderQuerydslRepository {
                         )
                 )
                 .from(order)
+                .innerJoin(order.delivery, delivery)
                 .innerJoin(order.user, user)
                 .where(
                         createOrderFindBuilder(dto)
@@ -88,6 +91,7 @@ public class OrderQuerydslRepository {
         builder.and(equalUserId(dto.getUserId()));
         builder.and(likeUsername(dto.getUsername()));
         builder.and(equalOrderStatus(dto.getOrderStatus()));
+        builder.and(equalDeliveryStatus(dto.getDeliveryStatus()));
         builder.and(goeOrderDate(dto.getFromDate()));
         builder.and(loeOrderDate(dto.getToDate()));
         return builder;
@@ -103,6 +107,10 @@ public class OrderQuerydslRepository {
 
     private BooleanExpression equalOrderStatus(OrderStatus status) {
         return Objects.nonNull(status) ? order.orderStatus.eq(status) : null;
+    }
+
+    private BooleanExpression equalDeliveryStatus(DeliveryStatus status) {
+        return Objects.nonNull(status) ? delivery.status.eq(status) : null;
     }
 
     private BooleanExpression goeOrderDate(LocalDate fromDate) {

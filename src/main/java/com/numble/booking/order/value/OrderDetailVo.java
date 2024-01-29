@@ -39,6 +39,7 @@ public class OrderDetailVo {
     @ApiModelProperty(value = "주문 내역 목록")
     private List<OrderItemListVo> orderItems = new ArrayList<>();
 
+    // TODO: 객체로 따로 빼기 (fullAddress ~ message)
     @ApiModelProperty(value = "주소", hidden = true, example = "(12345) 서울시 마포구 합정동")
     private String fullAddress;
 

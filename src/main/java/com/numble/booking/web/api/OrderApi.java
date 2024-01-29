@@ -61,4 +61,8 @@ public class OrderApi {
     public OrderDetailVo find(@PathVariable Long orderId) {
         return orderService.find(orderId);
     }
+
+    /**
+     * 환불 요청, 교환 요청, 구매 확정
+     */
 }

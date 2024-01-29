@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.numble.booking.delivery.type.DeliveryStatus;
 import com.numble.booking.order.type.OrderStatus;
 import com.numble.booking.ticket.type.ReceivingMethod;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,6 +42,9 @@ public class OrderListVo {
 
     @ApiModelProperty(value = "주문 상태")
     private OrderStatus orderStatus;
+
+    @ApiModelProperty(value = "배송 상태")
+    private DeliveryStatus deliveryStatus;
 
     @ApiModelProperty(value = "주문 날짜")
     private LocalDateTime orderDate;

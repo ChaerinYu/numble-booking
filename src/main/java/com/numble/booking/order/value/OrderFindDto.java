@@ -8,6 +8,7 @@ import javax.validation.groups.Default;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.numble.booking.common.base.MemberUser;
+import com.numble.booking.delivery.type.DeliveryStatus;
 import com.numble.booking.order.type.OrderStatus;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -44,6 +45,9 @@ public class OrderFindDto {
 
     @ApiModelProperty(value = "주문 상태")
     private OrderStatus orderStatus;
+
+    @ApiModelProperty(value = "배송 상태")
+    private DeliveryStatus deliveryStatus;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fromDate;

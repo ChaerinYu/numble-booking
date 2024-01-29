@@ -2,6 +2,9 @@ package com.numble.booking.order.repository;
 
 import static com.numble.booking.order.domain.QOrder.order;
 import static com.numble.booking.order.domain.QOrderItem.orderItem;
+import static com.numble.booking.performance.domain.QPerformance.performance;
+import static com.numble.booking.performance.domain.QPerformanceSeat.performanceSeat;
+import static com.numble.booking.ticket.domain.QTicket.ticket;
 import static com.numble.booking.user.domian.QUser.user;
 
 import java.util.List;
@@ -43,12 +46,20 @@ public class OrderItemQuerydslRepository {
                         orderItem.orderPrice,
                         orderItem.count,
                         user.id.as("orderUserId"),
-                        user.name.as("orderUsername")
+                        user.name.as("orderUsername"),
+                        ticket.ticketKey,
+                        ticket.ticketStatus,
+                        performanceSeat.seatNumber,
+                        performance.id.as("performanceId"),
+                        performance.name.as("performanceName")
                 )
         )
                 .from(orderItem)
                 .innerJoin(orderItem.order, order)
                 .innerJoin(orderItem.user, user)
+                .leftJoin(ticket).on(ticket.eq(orderItem))
+                .leftJoin(ticket.performanceSeat, performanceSeat)
+                .leftJoin(performanceSeat.performance, performance)
                 .where(
                         CollectionUtils.isEmpty(orderIds) ? null : orderItem.order.id.in(orderIds)
                 )
