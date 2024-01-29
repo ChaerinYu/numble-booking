@@ -3,7 +3,9 @@ package com.numble.booking.book.value;
 import com.numble.booking.delivery.value.DeliveryCreateDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -21,6 +23,7 @@ import javax.validation.constraints.NotNull;
  * @since 2023-06-18
  */
 @Getter
+@Setter
 @NoArgsConstructor
 public class BookingSecondDto {
 
@@ -28,6 +31,7 @@ public class BookingSecondDto {
     private Long performanceId;
 
     // 배송 정보
+    @Valid
     private DeliveryCreateDto deliveryDto;
 
     private Long userId;

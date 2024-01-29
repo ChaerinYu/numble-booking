@@ -2,6 +2,7 @@ package com.numble.booking.delivery.value;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ import javax.validation.constraints.Size;
  * @since 2023-06-18
  */
 @Getter
+@Setter
 @NoArgsConstructor
 public class DeliveryCreateDto {
 

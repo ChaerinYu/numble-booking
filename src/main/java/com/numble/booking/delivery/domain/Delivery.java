@@ -2,7 +2,6 @@ package com.numble.booking.delivery.domain;
 
 import com.numble.booking.common.base.CreatedAndModifiedBase;
 import com.numble.booking.delivery.type.DeliveryStatus;
-import com.numble.booking.order.domain.Order;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,9 +34,6 @@ public class Delivery extends CreatedAndModifiedBase {
     @GenericGenerator(name = "deliverySeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
     private Long id;
 
-    @OneToOne(mappedBy = "delivery")
-    private Order order;
-
     @Embedded
     private Address address;
 
@@ -54,4 +50,18 @@ public class Delivery extends CreatedAndModifiedBase {
 
     // 배송 메시지
     private String message;
+
+    /**
+     * 생성
+     */
+    public static Delivery create(Long zipCode, String mainAddress, String detailAddress,
+                                  String receiverName, String phone, String message) {
+        Delivery delivery = new Delivery();
+        delivery.address = Address.create(zipCode, mainAddress, detailAddress);
+        delivery.status = DeliveryStatus.PURCHASE;
+        delivery.receiverName = receiverName;
+        delivery.phone = phone;
+        delivery.message = message;
+        return delivery;
+    }
 }

@@ -3,6 +3,7 @@ package com.numble.booking.book.service;
 import com.numble.booking.book.value.BookingFirstDto;
 import com.numble.booking.book.value.BookingSecondDto;
 import com.numble.booking.delivery.domain.Delivery;
+import com.numble.booking.delivery.value.DeliveryCreateDto;
 import com.numble.booking.order.domain.Order;
 import com.numble.booking.order.exception.BadRequestOrderException;
 import com.numble.booking.delivery.repository.DeliveryRepository;
@@ -25,7 +26,6 @@ import com.numble.booking.ticket.type.ReceivingMethod;
 import com.numble.booking.user.domian.User;
 import com.numble.booking.user.exception.NotFoundUserException;
 import com.numble.booking.user.repository.UserRepository;
-import com.numble.booking.util.MapperUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -78,15 +78,15 @@ public class BookingService {
         }
 
         // 좌석 대기 걸기
-        pendingSeats(dto, performanceSeatId);
+        pendingSeats(dto.getUserId(), performanceSeatId);
 
         return performance.getId();
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, noRollbackFor = Exception.class)
-    public void pendingSeats(BookingFirstDto dto, List<Long> performanceSeatIds) {
+    public void pendingSeats(Long userId, List<Long> performanceSeatIds) {
         List<PerformanceSeat> performanceSeats = performanceSeatRepository.findByPerformanceSeats(performanceSeatIds);
-        User user = userRepository.findById(dto.getUserId())
+        User user = userRepository.findById(userId)
                 .orElseThrow(NotFoundUserException::new);
         for (PerformanceSeat performanceSeat : performanceSeats) {
             performanceSeat.modifyStatus(SeatStatus.PENDING, user);
@@ -102,7 +102,9 @@ public class BookingService {
                 .orElseThrow(NotFoundUserException::new);
 
         // 배송지 저장
-        Delivery delivery = MapperUtil.map(dto.getDeliveryDto(), Delivery.class);
+        DeliveryCreateDto deliveryDto = dto.getDeliveryDto();
+        Delivery delivery = Delivery.create(deliveryDto.getZipCode(), deliveryDto.getMainAddress(), deliveryDto.getDetailAddress(),
+                deliveryDto.getReceiverName(), deliveryDto.getPhone(), deliveryDto.getMessage());
         deliveryRepository.save(delivery);
 
         // 결제 저장
@@ -132,7 +134,7 @@ public class BookingService {
 
             // 티켓 생성 Ticket
             String ticketKey = TicketService.getRandomStr(ticketKeySize);
-            Ticket.create(order, orgPrice, 1, ticketKey, pendingSeat, user);
+            tickets.add(Ticket.create(order, orgPrice, 1, ticketKey, pendingSeat, user));
         }
         ticketRepository.saveAll(tickets);
     }

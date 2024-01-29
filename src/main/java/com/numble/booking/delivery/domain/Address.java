@@ -33,4 +33,12 @@ public class Address {
 
     @Column(nullable = false)
     private String detailAddress;
+
+    public static Address create(Long zipCode, String mainAddress, String detailAddress) {
+        Address address = new Address();
+        address.zipCode = zipCode;
+        address.mainAddress = mainAddress;
+        address.detailAddress = detailAddress;
+        return address;
+    }
 }
