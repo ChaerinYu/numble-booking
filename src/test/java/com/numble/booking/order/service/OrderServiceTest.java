@@ -63,8 +63,10 @@ class OrderServiceTest {
         OrderDetailVo vo = orderService.find(orderId);
         // then
         assertThat(vo).isNotNull();
-        assertThat(vo.getFullAddress()).isEqualTo("(13355) 경기도 수원시");
+        assertThat(vo.getDeliveryDetail().getFullAddress()).isEqualTo("(13355) 경기도 수원시");
         assertThat(vo.getOrderItems()).isNotNull();
+        assertThat(vo.getOrderItems().get(0).getTicketDetail()).isNotNull();
+        assertThat(vo.getOrderItems().get(0).getTicketDetail().getTicketKey()).isEqualTo("A111111111");
         assertThat(vo.getOrderStatus()).isEqualTo(OrderStatus.CANCELED);
         assertThat(vo.getTotalPrice()).isEqualTo(30000);
     }

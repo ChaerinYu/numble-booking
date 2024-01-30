@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.numble.booking.delivery.value.DeliveryDetailVo;
 import com.numble.booking.order.type.OrderStatus;
 import com.numble.booking.ticket.type.ReceivingMethod;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,19 +39,9 @@ public class OrderDetailVo {
 
     @ApiModelProperty(value = "주문 내역 목록")
     private List<OrderItemListVo> orderItems = new ArrayList<>();
-
-    // TODO: 객체로 따로 빼기 (fullAddress ~ message)
-    @ApiModelProperty(value = "주소", hidden = true, example = "(12345) 서울시 마포구 합정동")
-    private String fullAddress;
-
-    @ApiModelProperty(value = "수령인", hidden = true)
-    private String receiverName;
-
-    @ApiModelProperty(value = "휴대번호", hidden = true)
-    private String phone;
-
-    @ApiModelProperty(value = "메세지", hidden = true)
-    private String message;
+    
+    @ApiModelProperty(value = "배송 정보")
+    private DeliveryDetailVo deliveryDetail;
 
     @ApiModelProperty(value = "주문 상태")
     private OrderStatus orderStatus;

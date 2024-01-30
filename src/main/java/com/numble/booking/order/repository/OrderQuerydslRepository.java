@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.numble.booking.delivery.type.DeliveryStatus;
+import com.numble.booking.delivery.value.DeliveryDetailVo;
 import com.numble.booking.order.type.OrderStatus;
 import com.numble.booking.order.value.OrderDetailVo;
 import com.numble.booking.order.value.OrderFindDto;
@@ -129,12 +130,14 @@ public class OrderQuerydslRepository {
                                 order.orderStatus,
                                 order.orderDate,
                                 order.receivingMethod,
-                                Expressions.stringTemplate("CONCAT('(', {0}, ')', ' ', {1}, ' ', {2})",
-                                                delivery.address.zipCode, delivery.address.mainAddress, delivery.address.detailAddress)
-                                        .as("fullAddress"),
-                                delivery.receiverName,
-                                delivery.phone,
-                                delivery.message,
+                                Projections.fields(DeliveryDetailVo.class,
+                                        Expressions.stringTemplate("CONCAT('(', {0}, ')', ' ', {1}, ' ', {2})",
+                                                        delivery.address.zipCode, delivery.address.mainAddress, delivery.address.detailAddress)
+                                                .as("fullAddress"),
+                                        delivery.receiverName,
+                                        delivery.phone,
+                                        delivery.message
+                                ).as("deliveryDetail"),
                                 user.id.as("orderUserId"),
                                 user.name.as("orderUsername")
                         )

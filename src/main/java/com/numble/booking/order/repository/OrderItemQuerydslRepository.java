@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
 import com.numble.booking.order.value.OrderItemListVo;
+import com.numble.booking.ticket.value.TicketDetailVo;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -47,11 +48,13 @@ public class OrderItemQuerydslRepository {
                         orderItem.count,
                         user.id.as("orderUserId"),
                         user.name.as("orderUsername"),
-                        ticket.ticketKey,
-                        ticket.ticketStatus,
-                        performanceSeat.seatNumber,
-                        performance.id.as("performanceId"),
-                        performance.name.as("performanceName")
+                        Projections.fields(TicketDetailVo.class,
+                                ticket.ticketKey,
+                                ticket.ticketStatus,
+                                performanceSeat.seatNumber,
+                                performance.id.as("performanceId"),
+                                performance.name.as("performanceName")
+                        ).as("ticketDetail")
                 )
         )
                 .from(orderItem)
