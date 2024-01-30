@@ -29,7 +29,7 @@ import javax.validation.constraints.Size;
 public class VenueSeatDto {
 
     @NotBlank(message = "좌석 명칭을 반드시 입력 해 주세요.")
-    @Size(max = 256, message = "좌석 명칭은 256자를 넘길 수 없습니다.")
+    @Size(max = 255, message = "좌석 명칭은 255자를 넘길 수 없습니다.")
     private String seatNumber;
 
     @NotNull(message = "좌석 유형을 입력 해 주세요.")

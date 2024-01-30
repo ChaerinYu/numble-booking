@@ -35,7 +35,7 @@ import java.util.List;
 public class VenueCreateDto {
 
     @NotBlank(message = "공연장 명칭을 반드시 입력 해 주세요.")
-    @Size(max = 256, message = "공연장 명칭은 256자를 넘길 수 없습니다.")
+    @Size(max = 255, message = "공연장 명칭은 255자를 넘길 수 없습니다.")
     private String name;
 
     @NotNull(message = "수용인원 수를 반드시 입력 해 주세요.")

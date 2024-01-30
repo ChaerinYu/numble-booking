@@ -1,6 +1,9 @@
 package com.numble.booking.venue.value;
 
+import javax.validation.constraints.Size;
+
 import com.numble.booking.venue.type.VenuesType;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +27,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class VenueFindDto {
 
-    // 공연장 이름
+    @Size(max = 255, message = "공연장 이름은 255자를 넘길 수 없습니다.")
     private String name;
 
     // 수용인원

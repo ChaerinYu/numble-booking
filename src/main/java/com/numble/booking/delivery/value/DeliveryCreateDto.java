@@ -29,7 +29,7 @@ import javax.validation.constraints.Size;
 public class DeliveryCreateDto {
 
     @NotBlank(message = "수령인을 입력해 주세요.")
-    @Size(max = 256, message = "수령인 이름은 256자를 넘길 수 없습니다.")
+    @Size(max = 255, message = "수령인 이름은 255자를 넘길 수 없습니다.")
     private String receiverName;
 
     @NotBlank(message = "휴대전화 번호를 입력해 주세요.")
@@ -41,13 +41,13 @@ public class DeliveryCreateDto {
     private Long zipCode;
 
     @NotBlank(message = "주소를 입력해 주세요.")
-    @Size(max = 256, message = "주소는 최대 256자까지 작성 가능합니다.")
+    @Size(max = 255, message = "주소는 최대 255자까지 작성 가능합니다.")
     private String mainAddress;
 
     @NotBlank(message = "상세 주소를 입력해 주세요.")
-    @Size(max = 256, message = "상세 주소는 최대 256자까지 작성 가능합니다.")
+    @Size(max = 255, message = "상세 주소는 최대 255자까지 작성 가능합니다.")
     private String detailAddress;
 
-    @Size(max = 256, message = "배송 메시지는 최대 256자까지 작성 가능합니다.")
+    @Size(max = 255, message = "배송 메시지는 최대 255자까지 작성 가능합니다.")
     private String message;
 }
