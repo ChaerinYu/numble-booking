@@ -94,4 +94,11 @@ public class Order extends CreatedAndModifiedBase {
         this.orderItems.add(item);
     }
 
+    /**
+     * 상태값 수정
+     */
+    public void modifyStatus(OrderStatus status) {
+        this.orderStatus = status;
+    }
+
 }

@@ -15,6 +15,10 @@ package com.numble.booking.order.exception;
  * @since 2024-01-29
  */
 public class NotFoundOrderException extends RuntimeException {
+    public NotFoundOrderException() {
+        super("존재하지 않는 주문입니다.");
+    }
+
     public NotFoundOrderException(Long orderId) {
         super("존재하지 않는 주문입니다. :" + orderId);
     }

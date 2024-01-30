@@ -1,19 +1,25 @@
 package com.numble.booking.order.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import com.numble.booking.annotation.BookingTest;
+import com.numble.booking.order.domain.Order;
+import com.numble.booking.order.exception.BadRequestOrderException;
 import com.numble.booking.order.type.OrderStatus;
 import com.numble.booking.order.value.OrderDetailVo;
 import com.numble.booking.order.value.OrderFindDto;
 import com.numble.booking.order.value.OrderListVo;
+import com.numble.booking.order.value.OrderStatusModifyDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +42,9 @@ class OrderServiceTest {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private EntityManager em;
 
     @Test
     @DisplayName("주문 목록 조회")
@@ -69,5 +78,33 @@ class OrderServiceTest {
         assertThat(vo.getOrderItems().get(0).getTicketDetail().getTicketKey()).isEqualTo("A111111111");
         assertThat(vo.getOrderStatus()).isEqualTo(OrderStatus.CANCELED);
         assertThat(vo.getTotalPrice()).isEqualTo(30000);
+    }
+    
+    @Test
+    @DisplayName("구매 확정")
+    void modifyStatusConfirmPurchase() {
+        // given
+        Long orderId = 1000L;
+        OrderStatusModifyDto dto = new OrderStatusModifyDto();
+        dto.setOrderId(orderId);
+        dto.setOrderStatus(OrderStatus.CONFIRM_PURCHASE);
+        // when
+        Long modifyOrderId = orderService.modifyStatus(dto);
+        // then
+        Order order = em.find(Order.class, modifyOrderId);
+        assertThat(order.getId()).isEqualTo(orderId);
+        assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.CONFIRM_PURCHASE);
+    }
+    
+    @Test
+    @DisplayName("구매 확정 오류")
+    void modifyStatusConfirmPurchaseError() {
+        // given
+        Long orderId = 1001L;
+        OrderStatusModifyDto dto = new OrderStatusModifyDto();
+        dto.setOrderId(orderId);
+        dto.setOrderStatus(OrderStatus.CONFIRM_PURCHASE);
+        // when, then
+        assertThrows(BadRequestOrderException.class, () -> orderService.modifyStatus(dto));
     }
 }

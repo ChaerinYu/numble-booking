@@ -23,9 +23,13 @@ public enum OrderStatus {
     BLOCKED("막힘", 3),
     PENDING("대기", 4),
     CANCELED("취소", 5),
-    REFUNDED("환불", 6),
-    PARTIALLY_APPROVED("일부 승인", 7),
-    EXPIRED("만료", 8)
+    EXCHANGE_REQUEST("교환 요청", 6),
+    EXCHANGED("교환", 7),
+    REFUND_REQUEST("환불 요청", 8),
+    REFUNDED("환불", 9),
+    PARTIALLY_APPROVED("일부 승인", 10),
+    EXPIRED("만료", 11),
+    CONFIRM_PURCHASE("구매 확정", 12)
     ;
 
     private final String name;
