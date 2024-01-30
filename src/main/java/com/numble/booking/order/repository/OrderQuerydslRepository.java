@@ -103,7 +103,7 @@ public class OrderQuerydslRepository {
     }
 
     private BooleanExpression likeUsername(String username) {
-        return StringUtils.hasText(username) ? order.user.name.like(username) : null;
+        return StringUtils.hasText(username) ? order.user.name.contains(username) : null;
     }
 
     private BooleanExpression equalOrderStatus(OrderStatus status) {

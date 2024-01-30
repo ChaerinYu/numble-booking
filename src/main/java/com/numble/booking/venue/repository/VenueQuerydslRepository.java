@@ -1,12 +1,10 @@
 package com.numble.booking.venue.repository;
 
-import com.numble.booking.venue.domain.QVenue;
 import com.numble.booking.venue.type.VenuesType;
 import com.numble.booking.venue.value.VenueDetailVo;
 import com.numble.booking.venue.value.VenueFindDto;
 import com.numble.booking.venue.value.VenueListVo;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -95,7 +93,7 @@ public class VenueQuerydslRepository {
      * 공연장 이름 검색
      */
     private BooleanExpression likeVenueName(String name) {
-        return StringUtils.hasText(name) ? venue.name.like(name) : null;
+        return StringUtils.hasText(name) ? venue.name.contains(name) : null;
     }
 
     /**

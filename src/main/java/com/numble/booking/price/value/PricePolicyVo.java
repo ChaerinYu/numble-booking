@@ -1,8 +1,10 @@
 package com.numble.booking.price.value;
 
+import com.numble.booking.price.domain.PricePolicy;
 import com.numble.booking.seat.type.SeatType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * <pre>
@@ -19,10 +21,18 @@ import lombok.NoArgsConstructor;
  * @since 2023-06-15
  */
 @Getter
+@Setter
 @NoArgsConstructor
 public class PricePolicyVo {
 
-    private SeatType type;
+    private SeatType seatType;
 
     private Integer price;
+
+    public static PricePolicyVo of(PricePolicy entity) {
+        PricePolicyVo vo = new PricePolicyVo();
+        vo.setSeatType(entity.getSeatType());
+        vo.setPrice(entity.getPrice());
+        return vo;
+    }
 }

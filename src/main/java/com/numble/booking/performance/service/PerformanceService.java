@@ -15,7 +15,6 @@ import com.numble.booking.price.value.PricePolicyDto;
 import com.numble.booking.price.value.PricePolicyVo;
 import com.numble.booking.seat.domain.Seat;
 import com.numble.booking.seat.repository.SeatRepository;
-import com.numble.booking.util.MapperUtil;
 import com.numble.booking.venue.domain.Venue;
 import com.numble.booking.venue.exception.NotFoundVenueException;
 import com.numble.booking.venue.repository.VenueRepository;
@@ -65,7 +64,7 @@ public class PerformanceService {
         // 공연 좌석별 금액 조회
         List<PricePolicyVo> pricePolicies = pricePolicyRepository.findByPerformance(performanceId)
                 .stream()
-                .map(pp -> MapperUtil.map(pp, PricePolicyVo.class))
+                .map(PricePolicyVo::of)
                 .collect(Collectors.toList());
         detailVo.setPrices(pricePolicies);
         return detailVo;

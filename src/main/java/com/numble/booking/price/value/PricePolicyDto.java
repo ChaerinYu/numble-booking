@@ -4,6 +4,7 @@ import com.numble.booking.seat.type.SeatType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
@@ -22,6 +23,7 @@ import javax.validation.constraints.NotNull;
  * @since 2023-06-15
  */
 @Getter
+@Setter
 @NoArgsConstructor
 public class PricePolicyDto {
 

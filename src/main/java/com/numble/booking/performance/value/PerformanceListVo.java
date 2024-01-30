@@ -43,7 +43,7 @@ public class PerformanceListVo {
 
     // 공연 일자
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
+    private LocalDate performanceDate;
 
     // 공연 시작 시간
     @JsonFormat(pattern = "HH:mm:ss")

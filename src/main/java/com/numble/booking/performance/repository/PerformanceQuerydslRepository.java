@@ -134,7 +134,7 @@ public class PerformanceQuerydslRepository {
     }
 
     private BooleanExpression likePerformanceName(String name) {
-        return StringUtils.hasText(name) ? performance.name.like(name) : null;
+        return StringUtils.hasText(name) ? performance.name.contains(name) : null;
     }
 
     private BooleanExpression equalGenre(Genre genre) {

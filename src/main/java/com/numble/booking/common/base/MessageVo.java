@@ -1,6 +1,9 @@
 package com.numble.booking.common.base;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import org.springframework.http.HttpStatus;
 
 /**
@@ -17,6 +20,8 @@ import org.springframework.http.HttpStatus;
  * @author user
  * @since 2023-06-21
  */
+@Getter
+@Setter
 @NoArgsConstructor
 public class MessageVo {
     private Integer httpStatus;
