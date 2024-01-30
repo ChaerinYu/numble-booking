@@ -1,5 +1,6 @@
 package com.numble.booking.web.api;
 
+import com.numble.booking.common.base.MessageVo;
 import com.numble.booking.performance.service.PerformanceSeatService;
 import com.numble.booking.performance.service.PerformanceService;
 import com.numble.booking.performance.value.*;
@@ -7,6 +8,7 @@ import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -61,7 +63,8 @@ public class PerformanceApi {
      * 공연 등록
      */
     @PostMapping
-    public Long create(@Valid @RequestBody PerformanceCreateDto dto) {
-        return performanceService.create(dto);
+    public MessageVo create(@Valid @RequestBody PerformanceCreateDto dto) {
+        Long performanceId = performanceService.create(dto);
+        return new MessageVo(HttpStatus.OK, performanceId, "등록되었습니다.");
     }
 }

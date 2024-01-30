@@ -1,6 +1,7 @@
 package com.numble.booking.web.api;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -120,7 +121,9 @@ class PerformanceApiTest {
                 .content(mapper.writeValueAsString(dto)));
         // then
         result.andExpect(status().isOk())
-                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.httpStatus", equalTo(200)))
+                .andExpect(jsonPath("$.contents", notNullValue()))
+                .andExpect(jsonPath("$.message", equalTo("등록되었습니다.")))
                 .andDo(print());
     }
 }

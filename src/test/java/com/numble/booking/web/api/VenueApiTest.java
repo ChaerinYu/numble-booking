@@ -105,7 +105,9 @@ class VenueApiTest {
 
         // then
         result.andExpect(status().isOk())
-                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.httpStatus", equalTo(200)))
+                .andExpect(jsonPath("$.contents", notNullValue()))
+                .andExpect(jsonPath("$.message", equalTo("등록되었습니다.")))
                 .andDo(print());
     }
 }

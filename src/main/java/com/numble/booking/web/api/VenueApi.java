@@ -1,6 +1,6 @@
 package com.numble.booking.web.api;
 
-import com.numble.booking.venue.repository.VenueQuerydslRepository;
+import com.numble.booking.common.base.MessageVo;
 import com.numble.booking.venue.service.VenueService;
 import com.numble.booking.venue.value.VenueCreateDto;
 import com.numble.booking.venue.value.VenueDetailVo;
@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -56,7 +57,8 @@ public class VenueApi {
      * 공연장 등록
      */
     @PostMapping
-    public Long create(@Valid @RequestBody VenueCreateDto dto) {
-        return venueService.create(dto);
+    public MessageVo create(@Valid @RequestBody VenueCreateDto dto) {
+        Long venueId = venueService.create(dto);
+        return new MessageVo(HttpStatus.OK, venueId, "등록되었습니다.");
     }
 }

@@ -101,7 +101,9 @@ class OrderApiTest {
                 .content(mapper.writeValueAsString(dto)));
         // then
         result.andExpect(status().isOk())
-                .andExpect(jsonPath("$").exists())
+                .andExpect(jsonPath("$.httpStatus", equalTo(200)))
+                .andExpect(jsonPath("$.contents", notNullValue()))
+                .andExpect(jsonPath("$.message", equalTo("해당 주문 건에 대하여 구매 확정하였습니다.")))
                 .andDo(print());
     }
 }

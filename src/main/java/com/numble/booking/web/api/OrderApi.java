@@ -2,8 +2,10 @@ package com.numble.booking.web.api;
 
 import javax.validation.Valid;
 
+import com.numble.booking.common.base.MessageVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,7 +73,8 @@ public class OrderApi {
      * 환불 요청, 교환 요청, 구매 확정
      */
     @PutMapping("/status")
-    public Long modifyStatus(@Valid @RequestBody OrderStatusModifyDto dto) {
-        return orderService.modifyStatus(dto);
+    public MessageVo modifyStatus(@Valid @RequestBody OrderStatusModifyDto dto) {
+        Long orderId = orderService.modifyStatus(dto);
+        return new MessageVo(HttpStatus.OK, orderId, "해당 주문 건에 대하여 " + dto.getOrderStatus().getName() + "하였습니다.");
     }
 }
