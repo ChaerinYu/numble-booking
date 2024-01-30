@@ -35,7 +35,7 @@ import java.util.List;
 public class PerformanceCreateDto {
 
     @NotBlank(message = "공연 명칭을 반드시 입력해 주세요.")
-    @Size(max = 256, message = "공연 명칭은 256자를 넘길 수 없습니다.")
+    @Size(max = 255, message = "공연 명칭은 255자를 넘길 수 없습니다.")
     private String name;
 
     @Size(max = 1000)
