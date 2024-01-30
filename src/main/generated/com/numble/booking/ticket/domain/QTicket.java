@@ -55,10 +55,11 @@ public class QTicket extends EntityPathBase<Ticket> {
 
     public final com.numble.booking.performance.domain.QPerformanceSeat performanceSeat;
 
-    public final EnumPath<com.numble.booking.ticket.type.TicketStatus> status = createEnum("status", com.numble.booking.ticket.type.TicketStatus.class);
-
     public final StringPath ticketKey = createString("ticketKey");
 
+    public final EnumPath<com.numble.booking.ticket.type.TicketStatus> ticketStatus = createEnum("ticketStatus", com.numble.booking.ticket.type.TicketStatus.class);
+
+    // inherited
     public final com.numble.booking.user.domian.QUser user;
 
     public QTicket(String variable) {
@@ -90,7 +91,7 @@ public class QTicket extends EntityPathBase<Ticket> {
         this.order = _super.order;
         this.orderPrice = _super.orderPrice;
         this.performanceSeat = inits.isInitialized("performanceSeat") ? new com.numble.booking.performance.domain.QPerformanceSeat(forProperty("performanceSeat"), inits.get("performanceSeat")) : null;
-        this.user = inits.isInitialized("user") ? new com.numble.booking.user.domian.QUser(forProperty("user")) : null;
+        this.user = _super.user;
     }
 
 }

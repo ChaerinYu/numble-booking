@@ -23,6 +23,8 @@ public class QBusiness extends EntityPathBase<Business> {
 
     public final StringPath businessLicense = createString("businessLicense");
 
+    public final EnumPath<com.numble.booking.user.type.BusinessType> businessType = createEnum("businessType", com.numble.booking.user.type.BusinessType.class);
+
     //inherited
     public final NumberPath<Long> createdBy = _super.createdBy;
 
@@ -64,8 +66,6 @@ public class QBusiness extends EntityPathBase<Business> {
 
     //inherited
     public final EnumPath<com.numble.booking.user.type.UserStatus> status = _super.status;
-
-    public final EnumPath<com.numble.booking.user.type.BusinessType> type = createEnum("type", com.numble.booking.user.type.BusinessType.class);
 
     public QBusiness(String variable) {
         super(Business.class, forVariable(variable));

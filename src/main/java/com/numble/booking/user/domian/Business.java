@@ -34,7 +34,7 @@ public class Business extends User {
     private String businessLicense;
 
     @Enumerated(EnumType.STRING)
-    private BusinessType type;
+    private BusinessType businessType;
 
     /**
      * 생성
@@ -50,7 +50,7 @@ public class Business extends User {
         entity.status = UserStatus.ACTIVE;
         entity.lastPasswordModifyDate = now;
         entity.businessLicense = dto.getBusinessLicense();
-        entity.type = dto.getType();
+        entity.businessType = dto.getBusinessType();
 
         return entity;
     }

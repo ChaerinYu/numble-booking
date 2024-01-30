@@ -41,6 +41,6 @@ public class UserCreateDto {
     private String businessLicense;
 
     // 사업자 유형
-    private BusinessType type;
+    private BusinessType businessType;
 
 }
