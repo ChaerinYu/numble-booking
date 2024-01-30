@@ -55,8 +55,8 @@ class BookingApiTest {
         BookingFirstDto dto = new BookingFirstDto();
         dto.setPerformanceId(1100L);
         List<SeatBookingDto> seats = new ArrayList<>();
-        seats.add(SeatBookingDto.builder().performanceSeatId(110000L).seatNumber("1").build());
-        seats.add(SeatBookingDto.builder().performanceSeatId(110001L).seatNumber("2").build());
+        seats.add(SeatBookingDto.builder().performanceSeatId(110005L).seatNumber("6").build());
+        seats.add(SeatBookingDto.builder().performanceSeatId(110006L).seatNumber("7").build());
         dto.setSeats(seats);
         dto.setUserId(1001L); // TODO 방식 변경하기
         // when
