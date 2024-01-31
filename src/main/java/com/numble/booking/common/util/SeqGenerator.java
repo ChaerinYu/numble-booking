@@ -1,4 +1,4 @@
-package com.numble.booking.util;
+package com.numble.booking.common.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

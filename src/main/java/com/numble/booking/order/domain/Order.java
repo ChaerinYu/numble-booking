@@ -40,7 +40,7 @@ public class Order extends CreatedAndModifiedBase {
     @Id
     @Column(name = "orderId", nullable = false)
     @GeneratedValue(generator = "orderSeqGenerator")
-    @GenericGenerator(name = "orderSeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
+    @GenericGenerator(name = "orderSeqGenerator", strategy = "com.numble.booking.common.util.SeqGenerator")
     private Long id;
 
     // 결제자 / 주문자

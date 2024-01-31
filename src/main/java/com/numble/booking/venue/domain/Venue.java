@@ -34,7 +34,7 @@ public class Venue extends CreatedAndModifiedBase {
     @Id
     @Column(name = "venueId", nullable = false)
     @GeneratedValue(generator = "venueSeqGenerator")
-    @GenericGenerator(name = "venueSeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
+    @GenericGenerator(name = "venueSeqGenerator", strategy = "com.numble.booking.common.util.SeqGenerator")
     private Long id;
 
     // 공연장 이름

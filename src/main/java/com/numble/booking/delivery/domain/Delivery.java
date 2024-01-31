@@ -31,7 +31,7 @@ public class Delivery extends CreatedAndModifiedBase {
     @Id
     @Column(name = "deliveryId", nullable = false)
     @GeneratedValue(generator = "deliverySeqGenerator")
-    @GenericGenerator(name = "deliverySeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
+    @GenericGenerator(name = "deliverySeqGenerator", strategy = "com.numble.booking.common.util.SeqGenerator")
     private Long id;
 
     @Embedded

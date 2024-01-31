@@ -31,7 +31,7 @@ public class Seat extends CreatedAndModifiedBase {
     @Id
     @Column(name = "seatId", nullable = false)
     @GeneratedValue(generator = "seatSeqGenerator")
-    @GenericGenerator(name = "seatSeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
+    @GenericGenerator(name = "seatSeqGenerator", strategy = "com.numble.booking.common.util.SeqGenerator")
     private Long id;
 
     @Column(nullable = false)

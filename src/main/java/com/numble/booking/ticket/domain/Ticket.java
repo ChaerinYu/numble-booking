@@ -35,7 +35,7 @@ public class Ticket extends OrderItem {
     @Id
     @Column(name = "ticketId", nullable = false)
     @GeneratedValue(generator = "ticketSeqGenerator")
-    @GenericGenerator(name = "ticketSeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
+    @GenericGenerator(name = "ticketSeqGenerator", strategy = "com.numble.booking.common.util.SeqGenerator")
     private Long id;
 
     // 티켓 번호

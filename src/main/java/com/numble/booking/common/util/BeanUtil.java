@@ -1,4 +1,4 @@
-package com.numble.booking.util;
+package com.numble.booking.common.util;
 
 import org.springframework.context.ApplicationContext;
 

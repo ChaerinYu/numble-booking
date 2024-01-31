@@ -38,7 +38,7 @@ public class User extends CreatedAndModifiedBase implements Serializable {
     @Id
     @Column(name = "userId", nullable = false)
     @GeneratedValue(generator = "userSeqGenerator")
-    @GenericGenerator(name = "userSeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
+    @GenericGenerator(name = "userSeqGenerator", strategy = "com.numble.booking.common.util.SeqGenerator")
     protected Long id;
 
     @Column(name = "loginId", length = 12, nullable = false, unique = true)

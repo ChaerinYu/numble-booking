@@ -38,7 +38,7 @@ public class Performance extends CreatedAndModifiedBase {
     @Id
     @Column(name = "performanceId", nullable = false)
     @GeneratedValue(generator = "performanceSeqGenerator")
-    @GenericGenerator(name = "performanceSeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
+    @GenericGenerator(name = "performanceSeqGenerator", strategy = "com.numble.booking.common.util.SeqGenerator")
     private Long id;
 
     // 공연장

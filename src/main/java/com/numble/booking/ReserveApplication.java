@@ -1,6 +1,6 @@
 package com.numble.booking;
 
-import com.numble.booking.util.BeanUtil;
+import com.numble.booking.common.util.BeanUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.numble.booking.user.exception.UserSignUpBadRequestException;
-import com.numble.booking.util.MapperUtil;
+import com.numble.booking.common.util.MapperUtil;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;

@@ -32,7 +32,7 @@ public class PricePolicy extends CreatedAndModifiedBase {
     @Id
     @Column(name = "pricePolicyId", nullable = false)
     @GeneratedValue(generator = "pricePolicySeqGenerator")
-    @GenericGenerator(name = "pricePolicySeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
+    @GenericGenerator(name = "pricePolicySeqGenerator", strategy = "com.numble.booking.common.util.SeqGenerator")
     private Long id;
 
     // 공연

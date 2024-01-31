@@ -30,7 +30,7 @@ public class OrderItem extends CreatedAndModifiedBase {
     @Id
     @Column(name = "orderItemId", nullable = false)
     @GeneratedValue(generator = "orderItemSeqGenerator")
-    @GenericGenerator(name = "orderItemSeqGenerator", strategy = "com.numble.booking.util.SeqGenerator")
+    @GenericGenerator(name = "orderItemSeqGenerator", strategy = "com.numble.booking.common.util.SeqGenerator")
     protected Long id;
 
     @ManyToOne
