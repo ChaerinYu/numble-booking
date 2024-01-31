@@ -22,7 +22,7 @@ public enum UserStatus {
     INACTIVE("휴면", 2),
     CHANGE_PASSWORD_THREE_MONTH("3개월 비밀 번호 미변경", 3),
     CLOSED("탈퇴", 4),
-    LOCKED("비밀 번호 5회 틀림", 5)
+    LOCKED("비밀 번호 잠김", 5)
     ;
 
     private final String name;
