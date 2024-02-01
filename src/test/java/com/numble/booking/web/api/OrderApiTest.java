@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -45,6 +46,7 @@ class OrderApiTest {
 
 
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("회원 주문 목록 조회하기 paging")
     void findAllByMember() throws Exception {
         // given
@@ -61,6 +63,7 @@ class OrderApiTest {
     }
 
     @Test
+    @WithUserDetails("ADMIN")
     @DisplayName("시스템관리자 주문 목록 조회하기 paging")
     void findAllByAdmin() throws Exception {
         // given
@@ -76,6 +79,7 @@ class OrderApiTest {
     }
 
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("주문 상세 조회")
     void find() throws Exception {
         // given
@@ -89,6 +93,7 @@ class OrderApiTest {
     }
 
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("주문 구매확정")
     void modifyStatus() throws Exception {
         // given

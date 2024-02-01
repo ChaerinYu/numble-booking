@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -49,6 +50,7 @@ class BookingApiTest {
     private final String API = "/bookings";
 
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("공연과 좌석을 선택")
     void bookingFirstStep() throws Exception {
         // given
@@ -71,6 +73,7 @@ class BookingApiTest {
     }
 
     @Test
+    @WithUserDetails("USER3")
     @DisplayName("선택된 공연 좌석 결제를 진행")
     void bookingSecondStep() throws Exception {
         // given
@@ -81,7 +84,7 @@ class BookingApiTest {
         deliveryDto.setPhone("010-1231-1231");
         deliveryDto.setZipCode(12341L);
         deliveryDto.setMainAddress("경기도 경기시");
-        deliveryDto.setDetailAddress("경기동 1234");
+        deliveryDto.setDetailAddress("경기도 1234");
         dto.setDeliveryDto(deliveryDto);
         dto.setUserId(1003L);
         // when

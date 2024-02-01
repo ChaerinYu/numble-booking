@@ -13,6 +13,7 @@ import com.numble.booking.user.type.UserStatus;
 import com.numble.booking.user.value.UserVo;
 import com.numble.booking.web.security.domain.CustomUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <pre>
@@ -53,5 +54,17 @@ public class UserLoginService {
 
         UserVo userVo = new UserVo(user);
         return new CustomUser(user.getLoginId(), user.getPassword(), new HashSet<>(), userVo);
+    }
+
+    @Transactional
+    public void handleLoginSuccessUser(String loginId) {
+        User user = userRepository.findByLoginIdIgnoreCase(loginId).orElseThrow(NotFoundUserException::new);
+        user.updateLastLoginDate();
+    }
+
+    @Transactional(readOnly = true)
+    public UserVo findByLoginId(String loginId) {
+        User user = userRepository.findByLoginId(loginId).orElseThrow(NotFoundUserException::new);
+        return new UserVo(user);
     }
 }

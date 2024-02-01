@@ -1,12 +1,16 @@
 package com.numble.booking.web.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 /**
  * <pre>
@@ -44,6 +48,21 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         registry
                 .addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    /**
+     * Pageable resolver setting
+     * Swagger config 클래스에 Pageable 을 파라미터로 받을 수 있게 설정
+     */
+    @Override
+    public void addArgumentResolvers(final List<HandlerMethodArgumentResolver> argumentResolvers) {
+        // page 객체 설정
+        final PageableHandlerMethodArgumentResolver page = new PageableHandlerMethodArgumentResolver();
+        page.setMaxPageSize(1000);				// 최대 1000개 이상은 조회가 안되도록 제한 한다.
+        page.setOneIndexedParameters(true);		// 1페이지가 첫번째 페이지가 되도록 처리 한다. page+1 을 자동으로 처리 함
+
+        argumentResolvers.add(page);
+        super.addArgumentResolvers(argumentResolvers);
     }
 
 }

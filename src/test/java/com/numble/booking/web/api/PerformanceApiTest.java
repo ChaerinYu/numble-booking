@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -51,6 +52,7 @@ class PerformanceApiTest {
     private final String API = "/performances";
 
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("공연 목록 조회 paging")
     void findAll() throws Exception {
         // given
@@ -71,6 +73,7 @@ class PerformanceApiTest {
     }
 
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("공연 상세 조회")
     void find() throws Exception {
         // given
@@ -86,6 +89,7 @@ class PerformanceApiTest {
     }
 
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("남아있는 공연 좌석 조회")
     void findRemainingSeats() throws Exception {
         // given
@@ -100,6 +104,7 @@ class PerformanceApiTest {
     }
 
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("공연 생성")
     void create() throws Exception {
         // given

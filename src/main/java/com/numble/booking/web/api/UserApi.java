@@ -36,7 +36,7 @@ public class UserApi {
     /**
      * 회원 가입
      */
-    @PostMapping("sign-up")
+    @PostMapping("/sign-up")
     public Long signUp(@Valid @RequestBody UserSignUpDto dto) {
         dto.validate();
         return userService.create(dto);

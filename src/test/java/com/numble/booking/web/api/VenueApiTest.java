@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -49,6 +50,7 @@ class VenueApiTest {
     private final String API = "/venues";
 
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("공연장 목록 조회 paging")
     void findAll() throws Exception {
         // given
@@ -66,6 +68,7 @@ class VenueApiTest {
     }
 
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("공연장 상세 조회")
     void find() throws Exception {
         // given
@@ -81,6 +84,7 @@ class VenueApiTest {
     }
 
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("공연장 생성")
     void create() throws Exception {
         // given

@@ -87,4 +87,11 @@ public class User extends CreatedAndModifiedBase implements Serializable {
 
         return entity;
     }
+
+    /**
+     * 마지막 로그인일시 업데이트
+     */
+    public void updateLastLoginDate() {
+        this.lastLoginDate = LocalDateTime.now();
+    }
 }
