@@ -26,6 +26,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn
 public class OrderItem extends CreatedAndModifiedBase {
     @Id
     @Column(name = "orderItemId", nullable = false)
