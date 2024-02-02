@@ -19,10 +19,10 @@ import org.springframework.security.core.userdetails.UserDetails;
  * Modification Information
  * Modify Date      Modifier    Comment
  * -------------------------------------------------------------
- * 2024-02-02	    user	New
+ * 2024-02-02	    chaerin 	New
  * </pre>
  *
- * @author user
+ * @author chaerin
  * @since 2024-02-02
  */
 @RequiredArgsConstructor

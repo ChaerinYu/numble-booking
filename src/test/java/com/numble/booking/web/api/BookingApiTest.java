@@ -21,6 +21,7 @@ import com.numble.booking.book.value.BookingFirstDto;
 import com.numble.booking.book.value.BookingSecondDto;
 import com.numble.booking.delivery.value.DeliveryCreateDto;
 import com.numble.booking.seat.value.SeatBookingDto;
+import com.numble.booking.web.security.SecurityUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -60,7 +61,7 @@ class BookingApiTest {
         seats.add(SeatBookingDto.builder().performanceSeatId(110005L).seatNumber("6").build());
         seats.add(SeatBookingDto.builder().performanceSeatId(110006L).seatNumber("7").build());
         dto.setSeats(seats);
-        dto.setUserId(1001L); // TODO 방식 변경하기
+        dto.setUserId(SecurityUtil.getUserId());
         // when
         ResultActions result = mockMvc.perform(post(API + "/1")
                 .contentType(MediaType.APPLICATION_JSON)

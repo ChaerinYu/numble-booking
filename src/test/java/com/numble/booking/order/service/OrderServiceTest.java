@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.test.context.support.WithUserDetails;
 
 import com.numble.booking.annotation.BookingTest;
 import com.numble.booking.order.domain.Order;
@@ -81,6 +82,7 @@ class OrderServiceTest {
     }
     
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("구매 확정")
     void modifyStatusConfirmPurchase() {
         // given
@@ -97,6 +99,7 @@ class OrderServiceTest {
     }
     
     @Test
+    @WithUserDetails("USER1")
     @DisplayName("구매 확정 오류")
     void modifyStatusConfirmPurchaseError() {
         // given
@@ -105,6 +108,21 @@ class OrderServiceTest {
         dto.setOrderId(orderId);
         dto.setOrderStatus(OrderStatus.CONFIRM_PURCHASE);
         // when, then
-        assertThrows(BadRequestOrderException.class, () -> orderService.modifyStatus(dto));
+        BadRequestOrderException exception = assertThrows(BadRequestOrderException.class, () -> orderService.modifyStatus(dto));
+        assertThat(exception.getMessage()).isEqualTo("배송이 완료되지 않은 주문입니다.");
+    }
+    
+    @Test
+    @WithUserDetails("USER2")
+    @DisplayName("구매 확정 오류 - 다른 사용자")
+    void modifyStatusOtherUserError() {
+        // given
+        Long orderId = 1000L;
+        OrderStatusModifyDto dto = new OrderStatusModifyDto();
+        dto.setOrderId(orderId);
+        dto.setOrderStatus(OrderStatus.CONFIRM_PURCHASE);
+        // when, then
+        BadRequestOrderException exception = assertThrows(BadRequestOrderException.class, () -> orderService.modifyStatus(dto));
+        assertThat(exception.getMessage()).isEqualTo("잘못된 요청입니다.");
     }
 }

@@ -1,8 +1,10 @@
 package com.numble.booking.web.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.numble.booking.common.base.MessageVo;
 import com.numble.booking.user.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +13,6 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * <pre>
@@ -22,10 +23,10 @@ import java.util.Map;
  * Modification Information
  * Modify Date      Modifier    Comment
  * -------------------------------------------------------------
- * 2024-02-01	    user	New
+ * 2024-02-01	    chaerin 	New
  * </pre>
  *
- * @author user
+ * @author chaerin
  * @since 2024-02-01
  */
 public class CustomSavedRequestAwareAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
@@ -34,8 +35,6 @@ public class CustomSavedRequestAwareAuthenticationSuccessHandler extends SavedRe
     private UserLoginService userLoginService;
     @Autowired
     private ObjectMapper objectMapper;
-
-    private static final String USERNAMES = "username";
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -47,7 +46,7 @@ public class CustomSavedRequestAwareAuthenticationSuccessHandler extends SavedRe
 
         userLoginService.handleLoginSuccessUser(authentication.getName());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write(objectMapper.writeValueAsString(Map.of("token", request.getAttribute("token"))));
+        response.getWriter().write(objectMapper.writeValueAsString(new MessageVo(HttpStatus.OK, request.getAttribute("token"))));
         response.getWriter().flush();
     }
 }

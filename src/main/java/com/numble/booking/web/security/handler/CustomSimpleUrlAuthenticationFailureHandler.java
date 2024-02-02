@@ -21,10 +21,10 @@ import java.io.IOException;
  * Modification Information
  * Modify Date      Modifier    Comment
  * -------------------------------------------------------------
- * 2024-02-01	    user	New
+ * 2024-02-01	    chaerin 	New
  * </pre>
  *
- * @author user
+ * @author chaerin
  * @since 2024-02-01
  */
 public class CustomSimpleUrlAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {

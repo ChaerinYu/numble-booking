@@ -12,7 +12,7 @@ import lombok.Getter;
 /**
  * <pre>
  * Class Name : CustomUser
- * Description :
+ * Description : Security User 커스텀 클래스
  *
  * Modification Information
  * Modify Date      Modifier    Comment

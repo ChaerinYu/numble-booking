@@ -19,7 +19,7 @@ import java.io.PrintWriter;
  * Modification Information
  * Modify Date      Modifier    Comment
  * -------------------------------------------------------------
- * 2024-02-02	    user	New
+ * 2024-02-02	    chaerin 	New
  * </pre>
  *
  * @author user
@@ -39,7 +39,7 @@ public class CustomAuthenticationEntryPoint extends LoginUrlAuthenticationEntryP
 
     /**
      * 인가 실패일 때 JSON요청이면 JSON으로 인가실패 응답값을,
-     * 아닐 경우엔 로그인 페이지(commence default)로 리다이렉트 한다.
+     * 아닐 경우엔 로그인 페이지로 리다이렉트 한다.
      */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,

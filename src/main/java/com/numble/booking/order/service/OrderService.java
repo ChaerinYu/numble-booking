@@ -1,6 +1,7 @@
 package com.numble.booking.order.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -22,6 +23,7 @@ import com.numble.booking.order.value.OrderFindDto;
 import com.numble.booking.order.value.OrderItemListVo;
 import com.numble.booking.order.value.OrderListVo;
 import com.numble.booking.order.value.OrderStatusModifyDto;
+import com.numble.booking.web.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -80,10 +82,19 @@ public class OrderService {
                 .orElseThrow(NotFoundOrderException::new);
 
         validateStatus(dto.getOrderStatus(), order.getDelivery().getStatus());
-
+        validateUser(order);
+        
         order.modifyStatus(dto.getOrderStatus());
-        // TODO: 자기 자신의 order 만 수정할 수 있도록 수정
         return order.getId();
+    }
+
+    /**
+     * 본인 주문 건만 수정 가능하도록 확인
+     */
+    private void validateUser(Order order) {
+        if (!Objects.equals(SecurityUtil.getUserId(), order.getUser().getId())) {
+            throw new BadRequestOrderException();
+        }
     }
 
     /**
