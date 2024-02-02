@@ -3,6 +3,8 @@ package com.numble.booking.performance.value;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.numble.booking.performance.type.Genre;
 import com.numble.booking.price.value.PricePolicyVo;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,41 +27,42 @@ import java.util.List;
  * @author user
  * @since 2023-06-15
  */
+@ApiModel("공연 상세")
 @Getter
 @Setter
 @NoArgsConstructor
 public class PerformanceDetailVo {
 
-    // 공연 ID
+    @ApiModelProperty("공연 ID")
     private Long performanceId;
 
-    // 공연장 ID
+    @ApiModelProperty("공연장 ID")
     private Long venueId;
 
-    // 공연장 이름
+    @ApiModelProperty("공연장 이름")
     private String venueName;
 
-    // 공연 이름
+    @ApiModelProperty("공연 이름")
     private String name;
 
-    // 공연 설명
+    @ApiModelProperty("공연 설명")
     private String description;
 
-    // 공연 장르
+    @ApiModelProperty(value = "공연 장르", example = "MUSICAL")
     private Genre genre;
 
-    // 공연 일자
+    @ApiModelProperty(value = "공연 일자", example = "2024-01-01")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate performanceDate;
 
-    // 공연 시작 시간
+    @ApiModelProperty(value = "공연 시작 시간", example = "13:00")
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime startTime;
 
-    // 공연 종료 시간
+    @ApiModelProperty(value = "공연 종료 시간", example = "15:00")
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime endTime;
 
-    // 공연 좌석별 금액
+    @ApiModelProperty("공연 좌석별 금액")
     private List<PricePolicyVo> prices;
 }

@@ -2,6 +2,7 @@ package com.numble.booking.order.value;
 
 import com.numble.booking.ticket.type.TicketStatus;
 import com.numble.booking.ticket.value.TicketDetailVo;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
  * @author chaerin
  * @since 2024-01-29
  */
+@ApiModel("주문 내역")
 @Getter
 @NoArgsConstructor
 public class OrderItemListVo {

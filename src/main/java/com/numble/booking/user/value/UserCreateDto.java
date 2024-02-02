@@ -1,6 +1,8 @@
 package com.numble.booking.user.value;
 
 import com.numble.booking.user.type.BusinessType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,28 +21,28 @@ import lombok.Setter;
  * @author chaerin
  * @since 2023-06-21
  */
+@ApiModel("유저 생성용 DTO")
 @Getter
 @Setter
 @NoArgsConstructor
 public class UserCreateDto {
 
-    // 비밀번호
+    @ApiModelProperty(value = "비밀번호", notes = "영문, 숫자, 특수문자를 포함하여 8자리 이상 16자 이하")
     private String password;
 
-    // 로그인 ID(사번)
+    @ApiModelProperty(value = "로그인 ID", notes = "12자 이하")
     private String loginId;
 
-    // 이름
+    @ApiModelProperty("사용자 이름")
     private String name;
 
-    // 이메일
+    @ApiModelProperty("사용자 이메일")
     private String email;
 
-    // 사업자용
-    // 사업자 번호
+    @ApiModelProperty(value = "사업자 번호", notes = "사업자용, 10글자 이하")
     private String businessLicense;
 
-    // 사업자 유형
+    @ApiModelProperty(value = "사업자 유형", notes = "사업자용", example = "VENUE_MANAGER/PERFORMANCE_MANAGER")
     private BusinessType businessType;
 
 }

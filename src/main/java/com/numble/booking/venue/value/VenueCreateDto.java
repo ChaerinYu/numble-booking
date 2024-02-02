@@ -3,6 +3,8 @@ package com.numble.booking.venue.value;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.numble.booking.seat.value.VenueSeatDto;
 import com.numble.booking.venue.type.VenuesType;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,29 +31,36 @@ import java.util.List;
  * @author user
  * @since 2023-06-18
  */
+@ApiModel("공연장 등록 DTO")
 @Getter
 @Setter
 @NoArgsConstructor
 public class VenueCreateDto {
 
+    @ApiModelProperty("공연장 이름")
     @NotBlank(message = "공연장 명칭을 반드시 입력 해 주세요.")
     @Size(max = 255, message = "공연장 명칭은 255자를 넘길 수 없습니다.")
     private String name;
 
+    @ApiModelProperty("공연장 수용 인원")
     @NotNull(message = "수용인원 수를 반드시 입력 해 주세요.")
     @Max(value = 5000000, message = "수용인원은 500만명이 최대입니다.")
     private Long capacity;
 
+    @ApiModelProperty("공연장 유형")
     @NotNull(message = "공연장 유형을 선택해 주세요.")
     private VenuesType venuesType;
 
-    @NotNull(message = "이용가능한 시작 시간을 입력 해 주세요.")
+    @ApiModelProperty("사용 가능 시작 시간")
+    @NotNull(message = "사용 가능 시작 시간을 입력 해 주세요.")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime openTime;
 
-    @NotNull(message = "이용 종료 시간을 입력 해 주세요.")
+    @ApiModelProperty("사용 종료 시간")
+    @NotNull(message = "사용 종료 시간을 입력 해 주세요.")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime closedTime;
 
+    @ApiModelProperty("공연장 좌석")
     private List<VenueSeatDto> seats = new ArrayList<>();
 }

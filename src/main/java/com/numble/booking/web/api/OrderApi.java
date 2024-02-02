@@ -3,6 +3,7 @@ package com.numble.booking.web.api;
 import javax.validation.Valid;
 
 import com.numble.booking.common.base.MessageVo;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -45,33 +46,25 @@ import lombok.RequiredArgsConstructor;
 public class OrderApi {
     private final OrderService orderService;
 
-    /**
-     * 주문 목록 조회 (사용자)
-     */
+    @ApiOperation(value = "주문 목록 조회 (사용자)", notes = "일반 사용자 전용")
     @GetMapping
     public Page<OrderListVo> findAllByMember(Pageable pageable, @Validated(MemberUser.class) OrderFindDto dto) {
         return orderService.findAll(pageable, dto);
     }
 
-    /**
-     * 주문 목록 조회 (시스템 운영자)
-     */
+    @ApiOperation(value = "주문 목록 조회 (시스템 운영자)", notes = "시스템 운영자 전용")
     @GetMapping("/admin")
     public Page<OrderListVo> findAllByAdmin(Pageable pageable, @Validated(AdminUser.class) OrderFindDto dto) {
         return orderService.findAll(pageable, dto);
     }
 
-    /**
-     * 주문 상세 조회
-     */
+    @ApiOperation("주문 상세 조회")
     @GetMapping("/{orderId}")
     public OrderDetailVo find(@PathVariable Long orderId) {
         return orderService.find(orderId);
     }
 
-    /**
-     * 환불 요청, 교환 요청, 구매 확정
-     */
+    @ApiOperation(value = "주문 상태 변경", notes = "환불 요청, 교환 요청, 구매 확정")
     @PutMapping("/status")
     public MessageVo modifyStatus(@Valid @RequestBody OrderStatusModifyDto dto) {
         Long orderId = orderService.modifyStatus(dto);

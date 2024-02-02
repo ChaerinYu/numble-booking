@@ -1,5 +1,6 @@
 package com.numble.booking.delivery.value;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
  * @author chaerin
  * @since 2024-01-29
  */
+@ApiModel("배송 상세")
 @Getter
 @NoArgsConstructor
 public class DeliveryDetailVo {

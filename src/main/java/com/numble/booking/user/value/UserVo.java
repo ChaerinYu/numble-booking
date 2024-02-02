@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.numble.booking.user.domian.User;
 import com.numble.booking.user.type.UserStatus;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,11 +24,12 @@ import lombok.NoArgsConstructor;
  * @author chaerin
  * @since 2024-01-31
  */
+@ApiModel("유저 VO")
 @Getter
 @NoArgsConstructor
 public class UserVo {
 
-    @ApiModelProperty("ID")
+    @ApiModelProperty("유저 ID")
     private Long id;
 
     @ApiModelProperty("로그인 ID")
@@ -41,11 +43,13 @@ public class UserVo {
     
     @ApiModelProperty(value = "상태", example = "ACTIVE")
     private UserStatus status;
-    
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy/MM/dd HH:mm")
+
+    @ApiModelProperty(value = "마지막 비밀번호 변경일시", example = "2024-01-01 00:00")
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime lastPasswordModifyDate;
-    
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy/MM/dd HH:mm")
+
+    @ApiModelProperty(value = "마지막 로그인 일시", example = "2024-01-01 00:00")
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime lastLoginDate;
 
     public UserVo(Long id, String loginId, String name, String email, UserStatus status,

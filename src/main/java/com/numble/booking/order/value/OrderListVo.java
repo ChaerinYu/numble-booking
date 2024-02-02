@@ -7,6 +7,7 @@ import java.util.List;
 import com.numble.booking.delivery.type.DeliveryStatus;
 import com.numble.booking.order.type.OrderStatus;
 import com.numble.booking.ticket.type.ReceivingMethod;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ import lombok.NoArgsConstructor;
  * @author chaerin
  * @since 2024-01-29
  */
+@ApiModel("주문 목록")
 @Getter
 @NoArgsConstructor
 public class OrderListVo {

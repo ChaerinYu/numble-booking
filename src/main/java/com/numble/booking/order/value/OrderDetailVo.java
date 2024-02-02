@@ -7,6 +7,7 @@ import java.util.List;
 import com.numble.booking.delivery.value.DeliveryDetailVo;
 import com.numble.booking.order.type.OrderStatus;
 import com.numble.booking.ticket.type.ReceivingMethod;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ import lombok.NoArgsConstructor;
  * @author chaerin
  * @since 2024-01-29
  */
+@ApiModel("주문 상세")
 @Getter
 @NoArgsConstructor
 public class OrderDetailVo {
@@ -49,7 +51,7 @@ public class OrderDetailVo {
     @ApiModelProperty(value = "주문 날짜")
     private LocalDateTime orderDate;
 
-    @ApiModelProperty(value = "티켓 수령 방법")
+    @ApiModelProperty(value = "티켓 수령 방법", example = "MOBILE_TICKET")
     private ReceivingMethod receivingMethod;
     
     @ApiModelProperty(value = "총 금액")

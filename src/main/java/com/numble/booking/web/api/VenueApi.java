@@ -7,6 +7,7 @@ import com.numble.booking.venue.value.VenueDetailVo;
 import com.numble.booking.venue.value.VenueFindDto;
 import com.numble.booking.venue.value.VenueListVo;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,25 +38,19 @@ public class VenueApi {
 
     private final VenueService venueService;
 
-    /**
-     * 공연장 목록 조회
-     */
+    @ApiOperation("공연장 목록 조회")
     @GetMapping
     public Page<VenueListVo> findAll(Pageable pageable, VenueFindDto dto) {
         return venueService.findAll(pageable, dto);
     }
 
-    /**
-     * 공연장 조회
-     */
+    @ApiOperation("공연장 상세 조회")
     @GetMapping("/{venueId}")
     public VenueDetailVo find(@PathVariable Long venueId) {
         return venueService.find(venueId);
     }
 
-    /**
-     * 공연장 등록
-     */
+    @ApiOperation("공연장 등록")
     @PostMapping
     public MessageVo create(@Valid @RequestBody VenueCreateDto dto) {
         Long venueId = venueService.create(dto);

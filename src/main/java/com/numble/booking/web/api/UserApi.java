@@ -3,6 +3,7 @@ package com.numble.booking.web.api;
 import javax.validation.Valid;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,9 +34,7 @@ import lombok.RequiredArgsConstructor;
 public class UserApi {
     private final UserService userService;
 
-    /**
-     * 회원 가입
-     */
+    @ApiOperation("회원 가입")
     @PostMapping("/sign-up")
     public Long signUp(@Valid @RequestBody UserSignUpDto dto) {
         dto.validate();
