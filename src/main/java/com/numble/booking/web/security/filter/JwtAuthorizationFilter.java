@@ -81,7 +81,7 @@ public class JwtAuthorizationFilter extends GenericFilterBean {
 
     private void createToken(HttpServletRequest request, HttpServletResponse response, CustomUser principal) {
         try {
-            String token = jwtTokenProvider.createToken(principal, request);
+            String token = jwtTokenProvider.createToken(principal);
             // header, cookie add
             response.setHeader(jwtTokenProvider.getTokenName(), token);
 

@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.numble.booking.user.domian.User;
 import com.numble.booking.web.security.domain.CustomUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -17,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.numble.booking.web.security.JwtTokenProvider;
+import com.numble.booking.web.security.dto.UserLoginDto;
 
 /**
  * <pre>
@@ -35,12 +38,13 @@ import com.numble.booking.web.security.JwtTokenProvider;
  */
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final JwtTokenProvider jwtTokenProvider;
+    private final ObjectMapper objectMapper;
 
-    public final static long TOKEN_VALID_MILISECOND = 1000L * 60L * 60L * 2L; // 2시간만 토큰 유효
-
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider,
+                                   ObjectMapper objectMapper) {
         super.setAuthenticationManager(authenticationManager);
         this.jwtTokenProvider = jwtTokenProvider;
+        this.objectMapper = objectMapper;
     }
 
     /**
@@ -53,9 +57,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         if (!request.getMethod().equals("POST")) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         }
+
+        UserLoginDto user;
+        try {
+            user = objectMapper.readValue(request.getInputStream(), UserLoginDto.class);
+        } catch (IOException e) {
+            throw new RuntimeException("로그인하는 도중 오류가 발생했습니다.");
+        }
         // HTTP 요청에서 사용자 이름과 비밀번호를 추출
-        String username = obtainUsername(request);
-        String password = obtainPassword(request);
+        String username = user.getUsername();
+        String password = user.getPassword();
 
         if (username == null) {
             username = "";
@@ -68,7 +79,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         username = username.trim();
 
         // 사용자 이름과 비밀번호를 이용하여 token 생성
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
+        UsernamePasswordAuthenticationToken authRequest = user.createAuthRequest();
         // 부가적인 "details" 속성 설정을 허용
         setDetails(request, authRequest);
 
@@ -88,7 +99,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         if (principal instanceof UserDetails) {
             CustomUser cu = (CustomUser) principal;
             try {
-                String token = jwtTokenProvider.createToken(cu, request);
+                String token = jwtTokenProvider.createToken(cu);
                 request.setAttribute("token", token);
             } catch (Exception e) {
                 throw new IllegalArgumentException("인증 Token 생성 실패. 관리자에게 문의 하시기 바랍니다.");

@@ -46,7 +46,8 @@ public class CustomSavedRequestAwareAuthenticationSuccessHandler extends SavedRe
 
         userLoginService.handleLoginSuccessUser(authentication.getName());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write(objectMapper.writeValueAsString(new MessageVo(HttpStatus.OK, request.getAttribute("token"))));
+        response.getWriter().write(objectMapper.writeValueAsString(new MessageVo(HttpStatus.OK,
+                request.getAttribute("token"), "LOGIN SUCCESS")));
         response.getWriter().flush();
     }
 }

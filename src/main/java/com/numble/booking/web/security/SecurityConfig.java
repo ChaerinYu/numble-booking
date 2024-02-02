@@ -99,8 +99,11 @@ public class SecurityConfig {
     }
 
     public JwtAuthenticationFilter jwtAuthenticationFilter(AuthenticationManager authenticationManager) {
-        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenProvider());
+        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenProvider(),
+                objectMapper);
         jwtAuthenticationFilter.setFilterProcessesUrl("/login");
+        jwtAuthenticationFilter.setUsernameParameter("username");
+        jwtAuthenticationFilter.setPasswordParameter("password");
 
         jwtAuthenticationFilter.setAuthenticationSuccessHandler(
                 customSavedRequestAwareAuthenticationSuccessHandler()
@@ -141,6 +144,6 @@ public class SecurityConfig {
 
     @Bean
     public JwtTokenProvider jwtTokenProvider() {
-        return new JwtTokenProvider(objectMapper);
+        return new JwtTokenProvider(userLoginService);
     }
 }
