@@ -1,7 +1,9 @@
 package com.numble.booking.web.api;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -20,6 +22,7 @@ import com.numble.booking.order.type.OrderStatus;
 import com.numble.booking.order.value.OrderStatusModifyDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.util.NestedServletException;
 
 /**
  * <pre>
@@ -76,6 +79,17 @@ class OrderApiTest {
                 .andExpect(jsonPath("$.content[0].orderItems.size()", equalTo(1)))
                 .andExpect(jsonPath("$.content[0].orderItems[0].ticketDetail", notNullValue()))
                 .andDo(print());
+    }
+
+    @Test
+    @WithUserDetails("USER1")
+    @DisplayName("권한 없는 사람이 시스템관리자 주문 목록 조회하기 paging 오류")
+    void findAllByAdminFail() {
+        NestedServletException exception = assertThrows(NestedServletException.class, () -> {
+            mockMvc.perform(get(API + "/admin")
+                    .param("orderStatus", OrderStatus.CANCELED.name()));
+        });
+        assertThat(exception.getCause()).hasMessageContaining("권한이 없습니다.");
     }
 
     @Test

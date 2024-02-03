@@ -67,8 +67,8 @@ class PerformanceApiTest {
                 .andExpect(jsonPath("$.content[0].venueId", equalTo(1200)))
                 .andExpect(jsonPath("$.content[0].venueName", equalTo("LG SIGNATURE 홀")))
                 .andExpect(jsonPath("$.content[0].performanceDate", equalTo("2024-02-01")))
-                .andExpect(jsonPath("$.content[0].startTime", equalTo("19:00:00")))
-                .andExpect(jsonPath("$.content[0].endTime", equalTo("21:00:00")))
+                .andExpect(jsonPath("$.content[0].startTime", equalTo("19:00")))
+                .andExpect(jsonPath("$.content[0].endTime", equalTo("21:00")))
                 .andDo(print());
     }
 

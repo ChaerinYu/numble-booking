@@ -1,6 +1,7 @@
 package com.numble.booking.user.domian;
 
 import com.numble.booking.common.base.CreatedAndModifiedBase;
+import com.numble.booking.user.type.RoleType;
 import com.numble.booking.user.type.UserStatus;
 import com.numble.booking.user.value.UserCreateDto;
 import lombok.AccessLevel;
@@ -61,6 +62,10 @@ public class User extends CreatedAndModifiedBase implements Serializable {
     @Column(nullable = false)
     protected UserStatus status;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    protected RoleType roleType;
+
     // 마지막 비밀번호 수정일시
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(nullable = false)
@@ -83,6 +88,7 @@ public class User extends CreatedAndModifiedBase implements Serializable {
         entity.name = dto.getName();
         entity.email = dto.getEmail();
         entity.status = UserStatus.ACTIVE;
+        entity.roleType = RoleType.MEMBER;
         entity.lastPasswordModifyDate = now;
 
         return entity;

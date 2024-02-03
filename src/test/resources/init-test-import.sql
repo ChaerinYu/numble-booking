@@ -1,32 +1,32 @@
 -- USER
 INSERT INTO `users`
     (`dtype`, `user_id`, `created_by`, `created_date`, `created_time`, `last_modified_by`, `last_modified_date`, `last_modified_time`,
-    `email`, `last_login_date`, `last_password_modify_date`, `login_id`, `name`, `password`, `status`)
+    `email`, `last_login_date`, `last_password_modify_date`, `login_id`, `name`, `password`, `status`, `role_type`)
 VALUES
        ('USER', 9999, 9999, '2024-01-01', '00:00:00', 9999, '2024-01-01', '00:00:00',
-       'chaerin.du.ub@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'SYSTEM', 'SYSTEM', 'SYSTEM', 'ACTIVE')
+       'chaerin.du.ub@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'SYSTEM', 'SYSTEM', 'SYSTEM', 'ACTIVE', 'ADMIN')
      , ('USER', 1000, 9999, '2024-01-01', '00:00:00', 9999, '2024-01-01', '00:00:00',
-       'chaerin.admin@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'ADMIN', '관리자', 'PASSWORD', 'ACTIVE')
+       'chaerin.admin@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'ADMIN', '관리자', 'PASSWORD', 'ACTIVE', 'ADMIN')
      , ('USER', 1001, 9999, '2024-01-01', '00:00:00', 9999, '2024-01-01', '00:00:00',
-       'chaerin.user1@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER1', '사용자1', 'PASSWORD', 'ACTIVE')
+       'chaerin.user1@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER1', '사용자1', 'PASSWORD', 'ACTIVE', 'MEMBER')
      , ('USER', 1002, 9999, '2024-01-01', '00:00:00', 9999, '2024-01-01', '00:00:00',
-       'chaerin.user3@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER2', '사용자2', 'PASSWORD', 'ACTIVE')
+       'chaerin.user3@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER2', '사용자2', 'PASSWORD', 'ACTIVE', 'MEMBER')
      , ('USER', 1003, 9999, '2024-01-01', '00:00:00', 9999, '2024-01-01', '00:00:00',
-       'chaerin.user3@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER3', '사용자3', 'PASSWORD', 'ACTIVE')
+       'chaerin.user3@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER3', '사용자3', 'PASSWORD', 'ACTIVE', 'MEMBER')
      , ('USER', 1004, 9999, '2024-01-01', '00:00:00', 9999, '2024-01-01', '00:00:00',
-       'chaerin.user4@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER4', '사용자4', 'PASSWORD', 'ACTIVE')
+       'chaerin.user4@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER4', '사용자4', 'PASSWORD', 'ACTIVE', 'MEMBER')
      , ('USER', 1005, 9999, '2024-01-01', '00:00:00', 9999, '2024-01-01', '00:00:00',
-       'chaerin.user5@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER5', '사용자5', 'PASSWORD', 'ACTIVE')
+       'chaerin.user5@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER5', '사용자5', 'PASSWORD', 'ACTIVE', 'MEMBER')
      , ('USER', 1006, 9999, '2024-01-01', '00:00:00', 9999, '2024-01-01', '00:00:00',
-       'chaerin.user6@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER6', '사용자6', 'PASSWORD', 'ACTIVE')
+       'chaerin.user6@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER6', '사용자6', 'PASSWORD', 'ACTIVE', 'MEMBER')
      , ('USER', 1007, 9999, '2024-01-01', '00:00:00', 9999, '2024-01-01', '00:00:00',
-       'chaerin.user7@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER7', '사용자7', 'PASSWORD', 'ACTIVE')
+       'chaerin.user7@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER7', '사용자7', 'PASSWORD', 'ACTIVE', 'MEMBER')
      , ('USER', 1008, 9999, '2024-01-01', '00:00:00', 9999, '2024-01-01', '00:00:00',
-       'chaerin.user8@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER8', '사용자8', 'PASSWORD', 'ACTIVE')
+       'chaerin.user8@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER8', '사용자8', 'PASSWORD', 'ACTIVE', 'MEMBER')
      , ('USER', 1009, 9999, '2024-01-01', '00:00:00', 9999, '2024-01-01', '00:00:00',
-       'chaerin.user9@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER9', '사용자9', 'PASSWORD', 'ACTIVE')
+       'chaerin.user9@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER9', '사용자9', 'PASSWORD', 'ACTIVE', 'MEMBER')
      , ('USER', 1010, 9999, '2024-01-01', '00:00:00', 9999, '2024-01-01', '00:00:00',
-       'chaerin.user10@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER10', '사용자10', 'PASSWORD', 'ACTIVE')
+       'chaerin.user10@gmail.com', '2024-01-01 00:00:00', '2024-01-01 00:00:00', 'USER10', '사용자10', 'PASSWORD', 'ACTIVE', 'MEMBER')
 ;
 
 -- Venue

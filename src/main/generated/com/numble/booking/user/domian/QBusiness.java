@@ -65,6 +65,9 @@ public class QBusiness extends EntityPathBase<Business> {
     public final StringPath password = _super.password;
 
     //inherited
+    public final EnumPath<com.numble.booking.user.type.RoleType> roleType = _super.roleType;
+
+    //inherited
     public final EnumPath<com.numble.booking.user.type.UserStatus> status = _super.status;
 
     public QBusiness(String variable) {

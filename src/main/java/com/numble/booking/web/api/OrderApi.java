@@ -3,6 +3,8 @@ package com.numble.booking.web.api;
 import javax.validation.Valid;
 
 import com.numble.booking.common.base.MessageVo;
+import com.numble.booking.user.type.RoleType;
+import com.numble.booking.user.annotation.RoleCheck;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,6 +54,7 @@ public class OrderApi {
         return orderService.findAll(pageable, dto);
     }
 
+    @RoleCheck(RoleType.ADMIN)
     @ApiOperation(value = "주문 목록 조회 (시스템 운영자)", notes = "시스템 운영자 전용")
     @GetMapping("/admin")
     public Page<OrderListVo> findAllByAdmin(Pageable pageable, @Validated(AdminUser.class) OrderFindDto dto) {

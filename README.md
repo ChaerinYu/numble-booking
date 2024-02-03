@@ -19,6 +19,7 @@
   - [☁ 도메인 별 패키지 규칙](#-도메인-별-패키지-규칙)
 - [🚓 모듈 설명](#-모듈-설명)
   - [☁ Security](#-Security)
+  - [☁ RoleCheck](#-RoleCheck)
   - [☁ Querydsl](#-Querydsl)
   - [☁ Swagger](#-Swagger)
   - [☁ Test](#-Test)
@@ -95,11 +96,14 @@
 - 💧 util: Util Class
 
 ### ☁ web: 웹 관련 패키지
+- 💧 aop: AOP
 - 💧 api: API
 - 💧 config: Web Configuration Class
+- 💧 exception: Exception
 - 💧 security: Spring Security
 
 ### ☁ 도메인 별 패키지 규칙
+- 💧 annotation: Annotation
 - 💧 domain: Entity
 - 💧 exception: Exception
 - 💧 repository: Repository
@@ -127,6 +131,22 @@
 - **로그인 실패 Handler** : CustomSimpleUrlAuthenticationFailureHandler
 - **Request 유저 정보 Util** : SecurityUtil
 
+
+<br/>
+
+### ☁ RoleCheck
+> 권한 체크하려는 메소드에 @RoleCheck 선언
+> 
+> * value: 권한 (ADMIN, BUSINESS, MEMBER)
+>   * default: MEMBER
+>
+
+``` JAVA
+    @RoleCheck(RoleType.ADMIN)
+    public Page<OrderListVo> findAllByAdmin(Pageable pageable, @Validated(AdminUser.class) OrderFindDto dto) {
+        return orderService.findAll(pageable, dto);
+    }
+```
 
 <br/>
 

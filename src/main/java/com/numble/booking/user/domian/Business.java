@@ -3,6 +3,7 @@ package com.numble.booking.user.domian;
 import java.time.LocalDateTime;
 
 import com.numble.booking.user.type.BusinessType;
+import com.numble.booking.user.type.RoleType;
 import com.numble.booking.user.type.UserStatus;
 import com.numble.booking.user.value.UserCreateDto;
 import lombok.AccessLevel;
@@ -48,6 +49,7 @@ public class Business extends User {
         entity.name = dto.getName();
         entity.email = dto.getEmail();
         entity.status = UserStatus.ACTIVE;
+        entity.roleType = RoleType.BUSINESS;
         entity.lastPasswordModifyDate = now;
         entity.businessLicense = dto.getBusinessLicense();
         entity.businessType = dto.getBusinessType();

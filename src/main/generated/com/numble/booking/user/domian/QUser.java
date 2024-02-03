@@ -53,6 +53,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath password = createString("password");
 
+    public final EnumPath<com.numble.booking.user.type.RoleType> roleType = createEnum("roleType", com.numble.booking.user.type.RoleType.class);
+
     public final EnumPath<com.numble.booking.user.type.UserStatus> status = createEnum("status", com.numble.booking.user.type.UserStatus.class);
 
     public QUser(String variable) {

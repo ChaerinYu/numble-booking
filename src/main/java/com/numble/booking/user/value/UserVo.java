@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.numble.booking.user.domian.User;
+import com.numble.booking.user.type.RoleType;
 import com.numble.booking.user.type.UserStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -44,6 +45,9 @@ public class UserVo {
     @ApiModelProperty(value = "상태", example = "ACTIVE")
     private UserStatus status;
 
+    @ApiModelProperty(value = "권한", example = "MEMBER")
+    private RoleType roleType;
+
     @ApiModelProperty(value = "마지막 비밀번호 변경일시", example = "2024-01-01 00:00")
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime lastPasswordModifyDate;
@@ -52,19 +56,20 @@ public class UserVo {
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime lastLoginDate;
 
-    public UserVo(Long id, String loginId, String name, String email, UserStatus status,
+    public UserVo(Long id, String loginId, String name, String email, UserStatus status, RoleType roleType,
                   LocalDateTime lastPasswordModifyDate, LocalDateTime lastLoginDate) {
         this.id = id;
         this.loginId = loginId;
         this.name = name;
         this.email = email;
         this.status = status;
+        this.roleType = roleType;
         this.lastPasswordModifyDate = lastPasswordModifyDate;
         this.lastLoginDate = lastLoginDate;
     }
 
     public UserVo(User user) {
-        this(user.getId(), user.getLoginId(), user.getName(), user.getEmail(), user.getStatus(),
+        this(user.getId(), user.getLoginId(), user.getName(), user.getEmail(), user.getStatus(), user.getRoleType(),
                 user.getLastPasswordModifyDate(), user.getLastLoginDate());
     }
 }
