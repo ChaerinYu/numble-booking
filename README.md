@@ -1,5 +1,6 @@
 # 공연 예약/결제 시스템 
 
+- [🛵 How to Run](#-how-to-run)
 - [🚙 도메인 다이어그램](#-도메인-다이어그램)
 - [🚌 도메인](#-도메인)
   - [☁ User](#-User)
@@ -13,6 +14,7 @@
   - [☁ OrderItem](#-OrderItem)
   - [☁ Ticket](#-Ticket)
   - [☁ Delivery](#-Delivery)
+- [🚚 유스케이스](#-유스케이스)
 - [🚗 패키지 구조](#-패키지-구조)
   - [☁ common: 공통 패키지](#-common--공통-패키지)
   - [☁ web: 웹 관련 패키지](#-web--웹-관련-패키지)
@@ -30,6 +32,25 @@
 
 ---
 ---
+
+<br/>
+
+## 🛵 How to Run
+
+1. Git clone 진행 후, `application-local.yml` 파일에서 DB 정보를 수정해 주세요.
+   - 해당 DB에 `numble-reserve-local` schema를 꼭 생성해 주세요.
+   - DB는 MySQL을 사용해 주세요.
+2. gradle build 진행해 주세요.
+``` bash
+./gradlew clean build
+```
+3. `/build/libs`에 SNAPSHOT 생성된 걸 확인하신 후에 실행해 주세요.
+``` bash
+java -jar reserve-0.0.1-SNAPSHOT.jar
+```
+4. `http://localhost:8080/swagger-ui.html#/` 에 접속해 주세요.
+   - data가 필요한 경우, `init-test-import.sql` script를 이용하여 DB에 data를 넣어주세요.
+
 
 <br/>
 
@@ -82,6 +103,14 @@
 ### ☁ Delivery
 - 배송 도메인
 
+
+---
+
+<br/>
+
+## 🚚 유스케이스
+
+- [USECASE](./docs/USECASE.md) 
 
 ---
 
