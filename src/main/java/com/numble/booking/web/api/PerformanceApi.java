@@ -4,6 +4,8 @@ import com.numble.booking.common.base.MessageVo;
 import com.numble.booking.performance.service.PerformanceSeatService;
 import com.numble.booking.performance.service.PerformanceService;
 import com.numble.booking.performance.value.*;
+import com.numble.booking.user.annotation.RoleCheck;
+import com.numble.booking.user.type.RoleType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +56,7 @@ public class PerformanceApi {
         return performanceSeatService.findRemainingSeats(performanceId);
     }
 
+    @RoleCheck({RoleType.ADMIN, RoleType.BUSINESS})
     @ApiOperation("공연 등록")
     @PostMapping
     public MessageVo create(@Valid @RequestBody PerformanceCreateDto dto) {

@@ -104,7 +104,7 @@ class PerformanceApiTest {
     }
 
     @Test
-    @WithUserDetails("USER1")
+    @WithUserDetails("ADMIN")
     @DisplayName("공연 생성")
     void create() throws Exception {
         // given

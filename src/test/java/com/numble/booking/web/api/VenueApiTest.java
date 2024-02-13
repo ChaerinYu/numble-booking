@@ -84,7 +84,7 @@ class VenueApiTest {
     }
 
     @Test
-    @WithUserDetails("USER1")
+    @WithUserDetails("ADMIN")
     @DisplayName("공연장 생성")
     void create() throws Exception {
         // given

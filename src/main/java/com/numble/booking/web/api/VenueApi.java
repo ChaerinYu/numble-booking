@@ -1,6 +1,8 @@
 package com.numble.booking.web.api;
 
 import com.numble.booking.common.base.MessageVo;
+import com.numble.booking.user.annotation.RoleCheck;
+import com.numble.booking.user.type.RoleType;
 import com.numble.booking.venue.service.VenueService;
 import com.numble.booking.venue.value.VenueCreateDto;
 import com.numble.booking.venue.value.VenueDetailVo;
@@ -50,6 +52,7 @@ public class VenueApi {
         return venueService.find(venueId);
     }
 
+    @RoleCheck({RoleType.ADMIN, RoleType.BUSINESS})
     @ApiOperation("공연장 등록")
     @PostMapping
     public MessageVo create(@Valid @RequestBody VenueCreateDto dto) {
